@@ -38,6 +38,8 @@ class Route {
      */
     private $params = [];
 
+    private $actualRoute = false;
+
     /**
      * Stockage des données dans les attributs
      * @param string $path
@@ -92,6 +94,28 @@ class Route {
     }
 
     /**
+     * @return bool
+     */
+    public function getActualRoute() {
+        return $this->actualRoute;
+    }
+
+    /**
+     * @param bool$value
+     * @return bool
+     */
+    public function setActualRoute($value) {
+        return $this->actualRoute = $value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActualRoute() {
+        return $this->getActualRoute();
+    }
+
+    /**
      * Instancie la classe du Controller et fait appel à la méthode de la page.
      * @return mixed
      */
@@ -100,6 +124,7 @@ class Route {
             $params = explode('#', $this->callable);
             $controller = '\Controllers\\' . $params[0] . 'Controller';
             $controller = new $controller();
+            $this->setActualRoute(true);
             return call_user_func_array([$controller, $params[1]], $this->matches);
         } else {
             return call_user_func_array($this->callable, $this->matches);

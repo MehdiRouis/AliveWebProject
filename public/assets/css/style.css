@@ -36,7 +36,7 @@ body {
 }
 
 
-ul.sidenav > li.logout {
+ul.sidenav > li, ul.sidenav > li > a > i, ul.sidenav > li > a {
     transition : 0.3s;
 }
 
@@ -45,15 +45,15 @@ ul.sidenav > li.logout:hover {
 }
 
 ul.sidenav > li.logout:hover a {
-    color : white;
+    color : #fff;
+}
+
+ul.sidenav > li:hover a > i {
+    color : #fff;
 }
 
 #profile-page-header .card-image {
     height: 250px;
-}
-
-ul.sidenav > li {
-    transition : 0.3s;
 }
 
 ul.sidenav > li:hover {
@@ -66,6 +66,14 @@ ul.sidenav > li:hover a {
 
 ul.sidenav > li:hover {
     background-color : #3a3a3a;
+}
+
+ul.sidenav > li.active {
+    background-color : #777777;
+}
+
+ul.sidenav > li.active > a, ul.sidenav > li.active > a > i {
+    color : #fff;
 }
 
 .dark-blue {

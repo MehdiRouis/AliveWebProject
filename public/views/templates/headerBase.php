@@ -29,9 +29,17 @@
     </nav>
 </header>
 <ul id="slide-out" class="sidenav">
-    <li><a href="#home"><i class="fas fa-home"></i> ACCUEIL</a></li>
-    <li><a href="#infos"><i class="fas fa-info"></i> PRÉSENTATION</a></li>
-    <li><a href="#news"><i class="fas fa-newspaper"></i> ARTICLES</a></li>
-    <li><a href="#sources"><i class="fas fa-search-plus"></i> RESSOURCES</a></li>
-    <li><a href="#team"><i class="fas fa-users"></i> NOTRE EQUIPE</a></li>
+    <?php if($router->getActualRoute() !== 'home') {
+        echo $navbar->add('home', 'ACCUEIL', 'fas fa-home');
+
+    } else {
+        echo $navbar->addWithLink('#home', 'ACCUEIL', 'fas fa-home');
+        echo $navbar->addWithLink('#infos', 'PRÉSENTATION', 'fas fa-info');
+        if(count($news) > 0) {
+            echo $navbar->addWithLink('#news', 'ARTICLES', 'fas fa-newspaper');
+        }
+        echo $navbar->addWithLink('#sources', 'RESSOURCES', 'fas fa-search-plus');
+        echo $navbar->addWithLink('#team', 'NOTRE ÉQUIPE', 'fas fa-users');
+    } ?>
+
 </ul>

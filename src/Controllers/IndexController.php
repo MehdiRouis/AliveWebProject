@@ -8,6 +8,8 @@
 
 namespace Controllers;
 
+use Models\Articles\Article;
+
 /**
  * Class IndexController
  * @package Controllers
@@ -17,14 +19,15 @@ class IndexController extends Controller {
      * @throws \Exception \App\Views\ViewsExceptions
      */
     public function getHomepage() {
-        $this->render('index', ['scripts' => ['js/index.js']]);
+        $news = new Article();
+        $this->render('index', ['scripts' => ['js/index.js'], 'news' => $news->getAllNews(5)]);
     }
 
     /**
      * @throws \Exception \App\Views\ViewsExceptions
      */
     public function getNotFound() {
-        $this->render('errors/404');
+        $this->render('errors/404', []);
     }
 
 }

@@ -134,6 +134,16 @@ class Router {
         return $this->namedRoutes[$name]->getUrl($params);
     }
 
+    public function getActualRoute() {
+        $actualRoute = false;
+        foreach($this->namedRoutes as $name => $route) {
+            if($route->isActualRoute()) {
+                $actualRoute = $name;
+            }
+        }
+        return $actualRoute;
+    }
+
     /**
      * Obtenir le lien complet d'une route à partir de son nom
      * @param string $name

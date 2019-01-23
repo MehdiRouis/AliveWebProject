@@ -1,123 +1,4 @@
 <main>
-    <!-- MODALS CONTENU DU DL ( BOUCLE À FAIRE ) -->
-    <div id="download-content-1" class="modal">
-        <div class="modal-content">
-            <img class="responsive-img" src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg" alt="poing-bureau.jpg" />
-            <p class="rem20 center-align">Titre du téléchargement 1</p>
-            <div class="divider"></div>
-            <p>Description du téléchargement 1</p>
-            <p class="right-align">Crée par {Pseudo}, il y a x temps.</p>
-        </div>
-        <div class="modal-footer">
-            <a target='_blank' href="./" class="modal-close waves-effect waves-green btn-flat green white-text">Télécharger</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat red white-text">Fermer</a>
-        </div>
-    </div>
-    <div id="download-content-2" class="modal">
-        <div class="modal-content">
-            <img class="responsive-img" src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg" alt="poing-bureau.jpg" />
-            <p class="rem20 center-align">Titre du téléchargement 2</p>
-            <div class="divider"></div>
-            <p>Description du téléchargement 2</p>
-            <p class="right-align">Crée par {Pseudo}, il y a x temps.</p>
-        </div>
-        <div class="modal-footer">
-            <a target='_blank' href="./" class="modal-close waves-effect waves-green btn-flat green white-text">Télécharger</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat red white-text">Fermer</a>
-        </div>
-    </div>
-    <div id="download-content-3" class="modal">
-        <div class="modal-content">
-            <img class="responsive-img" src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg" alt="poing-bureau.jpg" />
-            <p class="rem20 center-align">Titre du téléchargement 3</p>
-            <div class="divider"></div>
-            <p>Description du téléchargement 3</p>
-            <p class="right-align">Crée par {Pseudo}, il y a x temps.</p>
-        </div>
-        <div class="modal-footer">
-            <a target='_blank' href="./" class="modal-close waves-effect waves-green btn-flat green white-text">Télécharger</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat red white-text">Fermer</a>
-        </div>
-    </div>
-    <div id="download-content-4" class="modal">
-        <div class="modal-content">
-            <img class="responsive-img" src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg" alt="poing-bureau.jpg" />
-            <p class="rem20 center-align">Titre du téléchargement 4</p>
-            <div class="divider"></div>
-            <p>Description du téléchargement 4</p>
-            <p class="right-align">Crée par {Pseudo}, il y a x temps.</p>
-        </div>
-        <div class="modal-footer">
-            <a target='_blank' href="./" class="modal-close waves-effect waves-green btn-flat green white-text">Télécharger</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat red white-text">Fermer</a>
-        </div>
-    </div>
-    <div id="download-content-5" class="modal">
-        <div class="modal-content">
-            <img class="responsive-img" src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg" alt="poing-bureau.jpg" />
-            <p class="rem20 center-align">Titre du téléchargement 5</p>
-            <div class="divider"></div>
-            <p>Description du téléchargement 5</p>
-            <p class="right-align">Crée par {Pseudo}, il y a x temps.</p>
-        </div>
-        <div class="modal-footer">
-            <a target='_blank' href="./" class="modal-close waves-effect waves-green btn-flat green white-text">Télécharger</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat red white-text">Fermer</a>
-        </div>
-    </div>
-    <div id="download-content-6" class="modal">
-        <div class="modal-content">
-            <img class="responsive-img" src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg" alt="poing-bureau.jpg" />
-            <p class="rem20 center-align">Titre du téléchargement 6</p>
-            <div class="divider"></div>
-            <p>Description du téléchargement 6</p>
-            <p class="right-align">Crée par {Pseudo}, il y a x temps.</p>
-        </div>
-        <div class="modal-footer">
-            <a target='_blank' href="./" class="modal-close waves-effect waves-green btn-flat green white-text">Télécharger</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat red white-text">Fermer</a>
-        </div>
-    </div>
-    <div id="download-content-7" class="modal">
-        <div class="modal-content">
-            <img class="responsive-img" src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg" alt="poing-bureau.jpg" />
-            <p class="rem20 center-align">Titre du téléchargement 7</p>
-            <div class="divider"></div>
-            <p>Description du téléchargement 7</p>
-            <p class="right-align">Crée par {Pseudo}, il y a x temps.</p>
-        </div>
-        <div class="modal-footer">
-            <a target='_blank' href="./" class="modal-close waves-effect waves-green btn-flat green white-text">Télécharger</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat red white-text">Fermer</a>
-        </div>
-    </div>
-    <div id="download-content-8" class="modal">
-        <div class="modal-content">
-            <img class="responsive-img" src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg" alt="poing-bureau.jpg" />
-            <p class="rem20 center-align">Titre du téléchargement 8</p>
-            <div class="divider"></div>
-            <p>Description du téléchargement 8</p>
-            <p class="right-align">Crée par {Pseudo}, il y a x temps.</p>
-        </div>
-        <div class="modal-footer">
-            <a target='_blank' href="./" class="modal-close waves-effect waves-green btn-flat green white-text">Télécharger</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat red white-text">Fermer</a>
-        </div>
-    </div>
-    <div id="download-content-9" class="modal">
-        <div class="modal-content">
-            <img class="responsive-img" src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg" alt="poing-bureau.jpg" />
-            <p class="rem20 center-align">Titre du téléchargement 9</p>
-            <div class="divider"></div>
-            <p>Description du téléchargement 9</p>
-            <p class="right-align">Crée par {Pseudo}, il y a x temps.</p>
-        </div>
-        <div class="modal-footer">
-            <a target='_blank' href="./" class="modal-close waves-effect waves-green btn-flat green white-text">Télécharger</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat red white-text">Fermer</a>
-        </div>
-    </div>
-    <main>
         <div class="container">
             <div id="infos" class="row">
                 <div class="col s12">
@@ -147,6 +28,7 @@
                 </div>
             </div>
         </div>
+        <?php if(count($news) > 0) { ?>
         <div class="parallax-container hoverable">
             <div class="parallax"><img src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/ordi-travail.jpg" alt="Background parallax 1" /></div>
         </div>
@@ -158,85 +40,27 @@
                             <p class="card-title">ARTICLES</p>
                             <div class="divider"></div>
                             <ul class="tab">
-                                <li class="open-new" data-open="article1"><a>TITRE ARTICLE 1</a></li>
-                                <li class="open-new" data-open="article2"><a>TITRE ARTICLE 2</a></li>
-                                <li class="open-new" data-open="article3"><a>TITRE ARTICLE 3</a></li>
-                                <li class="open-new" data-open="article4"><a>TITRE ARTICLE 4</a></li>
+                                <?php foreach($news as $new) { ?>
+                                <li class="open-new" data-open="<?= $new->getId(); ?>"><a><?= $new->getTitle(); ?></a></li>
+                                <?php } ?>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col s12 m8">
+                    <?php foreach($news as $new) { ?>
                     <div id="article1" class="card card-news">
                         <div class="card-content center-align">
-                            <p class="card-title">TITRE 1</p>
+                            <p class="card-title"><?= $new->getTitle(); ?></p>
                             <div class="divider"></div>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
-                            <p>CONTENU 1</p>
+                            <?= $new->getContent(); ?>
                         </div>
                     </div>
-                    <div id="article2" class="card card-news dnone">
-                        <div class="card-content center-align">
-                            <p class="card-title">TITRE 2</p>
-                            <div class="divider"></div>
-                            <p>CONTENU 2</p>
-                        </div>
-                    </div>
-                    <div id="article3" class="card card-news dnone">
-                        <div class="card-content center-align">
-                            <p class="card-title">TITRE 3</p>
-                            <div class="divider"></div>
-                            <p>CONTENU 3</p>
-                        </div>
-                    </div>
-                    <div id="article4" class="card card-news dnone">
-                        <div class="card-content center-align">
-                            <p class="card-title">TITRE 4</p>
-                            <div class="divider"></div>
-                            <p>CONTENU 4</p>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
+        <?php } ?>
         <div class="parallax-container hoverable">
             <div class="parallax"><img src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/ordi.jpg" alt="Background parallax 2" /></div>
         </div>
@@ -257,7 +81,7 @@
                                         <div class="divider"></div>
                                         <p>Description légère pour une source.</p>
                                         <div class="divider"></div>
-                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn modal-trigger pulse tooltipped" data-position="top" data-tooltip="Télécharger" href="#download-content-1" ><i class="material-icons">add</i></a>
+                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn pulse"><i class="material-icons">add</i></a>
                                     </div>
                                 </div>
                                 <div class="col s12 m4">
@@ -269,7 +93,7 @@
                                         <div class="divider"></div>
                                         <p>Description légère pour une source.</p>
                                         <div class="divider"></div>
-                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn modal-trigger pulse tooltipped" data-position="top" data-tooltip="Télécharger" href="#download-content-2" ><i class="material-icons">add</i></a>
+                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn pulse"><i class="material-icons">add</i></a>
                                     </div>
                                 </div>
                                 <div class="col s12 m4">
@@ -281,7 +105,7 @@
                                         <div class="divider"></div>
                                         <p>Description légère pour une source.</p>
                                         <div class="divider"></div>
-                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn modal-trigger pulse tooltipped" data-position="top" data-tooltip="Télécharger" href="#download-content-3" ><i class="material-icons">add</i></a>
+                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn pulse"><i class="material-icons">add</i></a>
                                     </div>
                                 </div>
                                 <div class="col s12">
@@ -299,7 +123,7 @@
                                         <div class="divider"></div>
                                         <p>Description légère pour une source.</p>
                                         <div class="divider"></div>
-                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn modal-trigger pulse tooltipped" data-position="top" data-tooltip="Télécharger" href="#download-content-1" ><i class="material-icons">add</i></a>
+                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn pulse"><i class="material-icons">add</i></a>
                                     </div>
                                 </div>
                                 <div class="col s12 m4">
@@ -311,7 +135,7 @@
                                         <div class="divider"></div>
                                         <p>Description légère pour une source.</p>
                                         <div class="divider"></div>
-                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn modal-trigger pulse tooltipped" data-position="top" data-tooltip="Télécharger" href="#download-content-2" ><i class="material-icons">add</i></a>
+                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn pulse"><i class="material-icons">add</i></a>
                                     </div>
                                 </div>
                                 <div class="col s12 m4">
@@ -323,7 +147,7 @@
                                         <div class="divider"></div>
                                         <p>Description légère pour une source.</p>
                                         <div class="divider"></div>
-                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn modal-trigger pulse tooltipped" data-position="top" data-tooltip="Télécharger" href="#download-content-3" ><i class="material-icons">add</i></a>
+                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn pulse"><i class="material-icons">add</i></a>
                                     </div>
                                 </div>
                                 <div class="col s12 m4">
@@ -335,7 +159,7 @@
                                         <div class="divider"></div>
                                         <p>Description légère pour une source.</p>
                                         <div class="divider"></div>
-                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn modal-trigger pulse tooltipped" data-position="top" data-tooltip="Télécharger" href="#download-content-4" ><i class="material-icons">add</i></a>
+                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn pulse"><i class="material-icons">add</i></a>
                                     </div>
                                 </div>
                                 <div class="col s12 m4">
@@ -347,7 +171,7 @@
                                         <div class="divider"></div>
                                         <p>Description légère pour une source.</p>
                                         <div class="divider"></div>
-                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn modal-trigger pulse tooltipped" data-position="top" data-tooltip="Télécharger" href="#download-content-5" ><i class="material-icons">add</i></a>
+                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn pulse"><i class="material-icons">add</i></a>
                                     </div>
                                 </div>
                                 <div class="col s12 m4">
@@ -359,7 +183,7 @@
                                         <div class="divider"></div>
                                         <p>Description légère pour une source.</p>
                                         <div class="divider"></div>
-                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn modal-trigger pulse tooltipped" data-position="top" data-tooltip="Télécharger" href="#download-content-6" ><i class="material-icons">add</i></a>
+                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn pulse"><i class="material-icons">add</i></a>
                                     </div>
                                 </div>
                                 <div class="col s12 m4">
@@ -371,7 +195,7 @@
                                         <div class="divider"></div>
                                         <p>Description légère pour une source.</p>
                                         <div class="divider"></div>
-                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn modal-trigger pulse tooltipped" data-position="top" data-tooltip="Télécharger" href="#download-content-7" ><i class="material-icons">add</i></a>
+                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn pulse"><i class="material-icons">add</i></a>
                                     </div>
                                 </div>
                                 <div class="col s12 m4">
@@ -383,7 +207,7 @@
                                         <div class="divider"></div>
                                         <p>Description légère pour une source.</p>
                                         <div class="divider"></div>
-                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn modal-trigger pulse tooltipped" data-position="top" data-tooltip="Télécharger" href="#download-content-8" ><i class="material-icons">add</i></a>
+                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn pulse"><i class="material-icons">add</i></a>
                                     </div>
                                 </div>
                                 <div class="col s12 m4">
@@ -395,7 +219,7 @@
                                         <div class="divider"></div>
                                         <p>Description légère pour une source.</p>
                                         <div class="divider"></div>
-                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn modal-trigger pulse tooltipped" data-position="top" data-tooltip="Télécharger" href="#download-content-9" ><i class="material-icons">add</i></a>
+                                        <a class="right mr-10 mt-10 mb-10 waves-effect waves-light btn pulse"><i class="material-icons">add</i></a>
                                     </div>
                                 </div>
                             </div>

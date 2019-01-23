@@ -69,7 +69,7 @@ class User {
     /**
      * @var int
      */
-    private $bPoints;
+    private $shopPoints;
 
     /**
      * User constructor.
@@ -82,6 +82,14 @@ class User {
         if($user) {
             $this->id = $user->id;
             $this->userName = $user->userName;
+            $this->lastName = $user->lastName;
+            $this->firstName = $user->firstName;
+            $this->phoneNumber = $user->phoneNumber;
+            $this->birthDay = $user->birthDay;
+            $this->password = $user->password;
+            $this->rank = $user->rank;
+            $this->email = $user->email;
+            $this->shopPoints = $user->shopPoints;
         }
     }
 
@@ -118,6 +126,13 @@ class User {
     }
 
     /**
+     * @return string
+     */
+    public function getFullName() {
+        return strtoupper($this->getLastName()) . ' ' . $this->getFirstName();
+    }
+
+    /**
      * @return int
      */
     public function getPhoneNumber()
@@ -150,19 +165,30 @@ class User {
     }
 
     /**
-     * @return int
+     * @return Rank
      */
     public function getRank()
     {
-        return $this->rank;
+        return new Rank($this->rank);
     }
 
     /**
      * @return int
      */
-    public function getBPoints()
+    public function getShopPoints()
     {
-        return $this->bPoints;
+        return $this->shopPoints;
+    }
+
+    /**
+     * @param string $permission
+     * @param string $searchType
+     * @return bool
+     */
+    public function hasRight($permission, $searchType = 'name')
+    {
+        $permission = new Permission($permission, $searchType);
+        return $permission->hasRight($this->getRank()->getId());
     }
 
 }
