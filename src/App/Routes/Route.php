@@ -1,9 +1,16 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: esska
+ * Date: 23/01/19
+ * Time: 07:59
+ */
 
 namespace App\Routes;
 
 /**
- * @author esska
+ * Class Route
+ * @package App\Routes
  */
 class Route {
 

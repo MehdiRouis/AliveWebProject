@@ -8,9 +8,6 @@ $(function() {
         $('.carousel').carousel('next');
     }, 5000);
     /** FIN CAROUSEL **/
-    /** PARALLAXS **/
-    $('.parallax').parallax();
-    /** FIN PARALLAXS **/
     /** TOOLTIPS **/
     $('.tooltipped').tooltip();
     /** FIN TOOLTIPS **/

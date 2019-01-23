@@ -1,9 +1,16 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: esska
+ * Date: 23/01/19
+ * Time: 07:59
+ */
 
 namespace App\Protections;
 
 /**
- * @author esska
+ * Class Security
+ * @package App\Protections
  */
 class Security {
 

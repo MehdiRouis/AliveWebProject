@@ -1,18 +1,31 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: esska
+ * Date: 23/01/19
+ * Time: 07:59
+ */
 
 namespace Controllers;
 
 /**
- * @author esska
+ * Class IndexController
+ * @package Controllers
  */
 class IndexController extends Controller {
 
+    /**
+     * @throws \Exception \App\Views\ViewsExceptions
+     */
     public function getHomepage() {
-        $this->render('index');
+        $this->render('index', ['scripts' => ['js/index.js']]);
     }
 
+    /**
+     * @throws \Exception \App\Views\ViewsExceptions
+     */
     public function getNotFound() {
-        echo 'Erreur, page introuvable.';
+        $this->render('errors/404');
     }
 
 }

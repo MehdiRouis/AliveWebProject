@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: esska
+ * Date: 23/01/19
+ * Time: 07:59
+ */
 
 namespace App\Validators;
 
@@ -26,13 +32,13 @@ class Verifications {
     private $errorList = [];
 
     /**
-     * @var bool
+     * @var bool|string
      */
     private $verification_table;
 
     /**
      * Verifications constructor.
-     * @param bool $table
+     * @param bool|string $table
      */
     public function __construct($table = false) {
         $this->db = new PDOConnect();
@@ -50,7 +56,7 @@ class Verifications {
 
     /**
      * Récupérer la table où auront lieu les vérifications si elle existe.
-     * @return bool
+     * @return bool|string
      */
     public function getVerificationTable() {
         return $this->verification_table;
@@ -58,8 +64,8 @@ class Verifications {
 
     /**
      * Envoyer les vérifications des valeurs dans les fonctions prédéfinies.
-     * @param $valueType
-     * @param $content
+     * @param string $valueType
+     * @param array $content
      */
     public function verify($valueType, $content) {
         $found = false;
@@ -79,8 +85,8 @@ class Verifications {
 
     /**
      * Savoir si un prénom / nom est valide.
-     * @param $inputName
-     * @param $inputValue
+     * @param string$inputName
+     * @param string $inputValue
      * @return bool
      */
     public function isValidName($inputName, $inputValue) {
@@ -102,8 +108,8 @@ class Verifications {
 
     /**
      * Savoir si une date est valide.
-     * @param $inputName
-     * @param $inputValue
+     * @param string $inputName
+     * @param string $inputValue
      * @return bool
      */
     public function isValidDate($inputName, $inputValue) {
@@ -129,8 +135,8 @@ class Verifications {
 
     /**
      * Savoir si une date de naissance est valide.
-     * @param $inputName
-     * @param $inputValue
+     * @param string $inputName
+     * @param string $inputValue
      * @return bool
      */
     public function isValidBirthDay($inputName, $inputValue) {
@@ -144,6 +150,12 @@ class Verifications {
         return false;
     }
 
+    /**
+     * Savoir si une adresse mail est valide.
+     * @param string $inputName
+     * @param string $inputValue
+     * @return bool
+     */
     private function isBaseEmailValid($inputName, $inputValue) {
         if(!empty($inputValue)) {
             if(filter_var($inputValue, FILTER_VALIDATE_EMAIL)) {
@@ -158,9 +170,9 @@ class Verifications {
     }
 
     /**
-     * Savoir si une adresse mail est valide.
-     * @param $inputName
-     * @param $inputValue
+     * Savoir si une adresse mail est valide avec des vérifications si il y a une table présente.
+     * @param string $inputName
+     * @param string $inputValue
      * @return bool
      */
     public function isValidEmail($inputName, $inputValue) {
@@ -180,8 +192,8 @@ class Verifications {
 
     /**
      * Savoir si un numéro de téléphone est valide.
-     * @param $inputName
-     * @param $inputValue
+     * @param string $inputName
+     * @param string $inputValue
      * @return bool
      */
     public function isValidPhoneNumber($inputName, $inputValue) {
@@ -199,8 +211,8 @@ class Verifications {
 
     /**
      * Savoir si un mot de passe est valide.
-     * @param $inputName
-     * @param $inputValue
+     * @param string $inputName
+     * @param string $inputValue
      * @return bool
      */
     public function isValidPassword($inputName, $inputValue) {
@@ -214,8 +226,8 @@ class Verifications {
 
     /**
      * Ajouter une erreur.
-     * @param $inputName
-     * @param $message
+     * @param string $inputName
+     * @param string$message
      */
     public function addError($inputName, $message) {
         $this->errorList[$inputName] = $message;
@@ -229,9 +241,6 @@ class Verifications {
         return $this->errorList;
     }
 
-    /**
-     * Verifications destructor.
-     */
     public function __destruct() {
 
     }

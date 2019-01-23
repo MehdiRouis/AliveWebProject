@@ -1,5 +1,6 @@
 $(function() {
     /** INITIALISATIONS OBJETS MATERIALIZE **/
+    $('.parallax').parallax();
     $('.sidenav').sidenav({edge: 'right'});
     $('#slide-out > li').on('click', function() {
         setTimeout(function() { window.scrollBy(0, -64); }, 500);
@@ -8,10 +9,13 @@ $(function() {
     
     
     /** FONCTIONS PERSONNALISÉES **/
+    /**
+     * @type {{create: Window.form.create}}
+     */
     window.form = {
         /**
-         * @param string $formId ID du formulaire ( id="id" )
-         * @param function $function La fonction qui va être executée après l'execution du PHP
+         * @param $formId ID du formulaire ( id="id" )
+         * @param $function La fonction qui va être executée après l'execution du PHP
          * @returns swal ( sweet-alert ) Retourne une alerte visuelle
          */
         create: function ($formId, $function) {

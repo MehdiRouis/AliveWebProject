@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: esska
+ * Date: 23/01/19
+ * Time: 07:59
+ */
 
 namespace App\Validators;
 
@@ -28,7 +34,7 @@ class Validator extends Security {
     /**
      * Validator constructor.
      * @param array $postValues
-     * @param bool $table
+     * @param bool|string $table
      */
     public function __construct($postValues = [], $table = false) {
         parent::__construct();
@@ -66,6 +72,11 @@ class Validator extends Security {
         return $this->verifiedInputs;
     }
 
+    /**
+     * Ajouter une erreur à la liste
+     * @param string$inputName
+     * @param string $errorValue
+     */
     public function addError($inputName, $errorValue) {
         $this->verifiedInputs[$inputName] = $errorValue;
     }
