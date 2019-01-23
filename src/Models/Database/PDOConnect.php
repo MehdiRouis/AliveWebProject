@@ -53,7 +53,7 @@ class PDOConnect {
      * @param string $db_user
      * @param string $db_pass
      */
-    public function __construct($db_name = 'hospitalE2N', $db_host = 'localdev', $db_user = 'admin', $db_pass = 'root') {
+    public function __construct($db_name = 'alivewebproject', $db_host = 'localdev', $db_user = 'admin', $db_pass = 'root') {
         $this->db_host = $db_host;
         $this->db_user = $db_user;
         $this->db_pass = $db_pass;
@@ -94,7 +94,19 @@ class PDOConnect {
         return $req;
     }
 
+    /**
+     * @param string $table
+     * @param string $column
+     * @param mixed $value
+     * @return bool|mixed
+     */
+    public function fetch($table, $column, $value) {
+        $req = $this->query("SELECT * FROM {$table} WHERE {$column} = ?", [$value]);
+        return ($req->rowCount() > 0) ?  : false;
+    }
+
     public function __destruct() {
 
     }
+
 }

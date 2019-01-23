@@ -13,7 +13,6 @@ namespace Controllers;
  * @package Controllers
  */
 class IndexController extends Controller {
-
     /**
      * @throws \Exception \App\Views\ViewsExceptions
      */
