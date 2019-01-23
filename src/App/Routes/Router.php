@@ -139,7 +139,7 @@ class Router {
      * @param string $name
      * @param array $params
      * @return string
-     * @throws RouterExceptions
+     * @throws \Exception RouterExceptions
      */
     public function getFullUrl($name, $params = []) {
         return PROJECT_LINK . '/' . $this->getUrl($name, $params);

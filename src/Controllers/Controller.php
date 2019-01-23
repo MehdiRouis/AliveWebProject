@@ -11,7 +11,6 @@ namespace Controllers;
 use App\Routes\Router;
 use App\Views\View;
 use App\Protections\Security;
-use App\Views\ViewsExceptions;
 
 /**
  * Class Controller
@@ -42,7 +41,7 @@ class Controller {
      * Permet de rendre une vue ( Chemin : [/public/views/]...[.php]
      * @param string $path
      * @param array $args
-     * @throws \Exception ViewsExceptions
+     * @throws \Exception \App\Views\ViewsExceptions
      */
     protected function render($path, $args = []) {
         $args['scripts'] = isset($args['scripts']) ? $args['scripts'] : [];

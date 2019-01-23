@@ -941,226 +941,324 @@
     <table id="239" parent="3" name="alive_projects"/>
     <table id="240" parent="3" name="alive_projects_members"/>
     <table id="241" parent="3" name="alive_projects_ranks"/>
-    <table id="242" parent="3" name="alive_ranks"/>
-    <table id="243" parent="3" name="alive_settings"/>
-    <table id="244" parent="3" name="alive_skills"/>
-    <table id="245" parent="3" name="alive_support_tickets"/>
-    <table id="246" parent="3" name="alive_users"/>
-    <table id="247" parent="3" name="alive_users_actions"/>
-    <table id="248" parent="3" name="alive_visites"/>
-    <column id="249" parent="237" name="id">
+    <table id="242" parent="3" name="alive_projects_status"/>
+    <table id="243" parent="3" name="alive_ranks"/>
+    <table id="244" parent="3" name="alive_settings"/>
+    <table id="245" parent="3" name="alive_skills"/>
+    <table id="246" parent="3" name="alive_skills_levels"/>
+    <table id="247" parent="3" name="alive_skills_types"/>
+    <table id="248" parent="3" name="alive_support_tickets"/>
+    <table id="249" parent="3" name="alive_users"/>
+    <table id="250" parent="3" name="alive_users_actions"/>
+    <table id="251" parent="3" name="alive_visites"/>
+    <column id="252" parent="237" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="250" parent="237" name="title">
+    <column id="253" parent="237" name="title">
       <Position>2</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="251" parent="237" name="description">
+    <column id="254" parent="237" name="description">
       <Position>3</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="252" parent="237" name="content">
+    <column id="255" parent="237" name="content">
       <Position>4</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="253" parent="237" name="createdAt">
+    <column id="256" parent="237" name="createdAt">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="254" parent="237" name="createdBy">
+    <column id="257" parent="237" name="createdBy">
       <Position>6</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="255" parent="237" name="PRIMARY">
+    <index id="258" parent="237" name="createdBy">
+      <ColNames>createdBy</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="259" parent="237" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="256" parent="238" name="id">
+    <foreign-key id="260" parent="237" name="alive_news_ibfk_1">
+      <ColNames>createdBy</ColNames>
+      <RefSchemaName>alivewebproject</RefSchemaName>
+      <RefTableName>alive_users</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="261" parent="238" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="257" parent="238" name="name">
+    <column id="262" parent="238" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="258" parent="238" name="parseName">
+    <column id="263" parent="238" name="parseName">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="238" name="parseDescription">
+    <column id="264" parent="238" name="parseDescription">
       <Position>4</Position>
       <DataType>text|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="238" name="minRank">
+    <column id="265" parent="238" name="minRank">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="261" parent="238" name="PRIMARY">
+    <index id="266" parent="238" name="minRank">
+      <ColNames>minRank</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="267" parent="238" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="262" parent="239" name="id">
+    <foreign-key id="268" parent="238" name="alive_permissions_ibfk_1">
+      <ColNames>minRank</ColNames>
+      <RefSchemaName>alivewebproject</RefSchemaName>
+      <RefTableName>alive_ranks</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="269" parent="239" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="263" parent="239" name="name">
+    <column id="270" parent="239" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="264" parent="239" name="description">
+    <column id="271" parent="239" name="description">
       <Position>3</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="265" parent="239" name="status">
+    <column id="272" parent="239" name="statusId">
       <Position>4</Position>
-      <DataType>enum(&apos;finished&apos;, &apos;inProgress&apos;, &apos;waiting&apos;, &apos;moderation&apos;)|0e</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;moderation&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="266" parent="239" name="createdBy">
+    <column id="273" parent="239" name="createdBy">
       <Position>5</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="267" parent="239" name="createdAt">
+    <column id="274" parent="239" name="createdAt">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="268" parent="239" name="editedAt">
+    <column id="275" parent="239" name="editedAt">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="269" parent="239" name="PRIMARY">
+    <index id="276" parent="239" name="statusId">
+      <ColNames>statusId</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="277" parent="239" name="createdBy">
+      <ColNames>createdBy</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="278" parent="239" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="270" parent="240" name="id">
+    <foreign-key id="279" parent="239" name="alive_projects_ibfk_2">
+      <ColNames>statusId</ColNames>
+      <RefSchemaName>alivewebproject</RefSchemaName>
+      <RefTableName>alive_projects_status</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="280" parent="239" name="alive_projects_ibfk_1">
+      <ColNames>createdBy</ColNames>
+      <RefSchemaName>alivewebproject</RefSchemaName>
+      <RefTableName>alive_users</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="281" parent="240" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="271" parent="240" name="userId">
+    <column id="282" parent="240" name="userId">
       <Position>2</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="272" parent="240" name="rank">
+    <column id="283" parent="240" name="rank">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>1</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="273" parent="240" name="projectId">
+    <column id="284" parent="240" name="projectId">
       <Position>4</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="274" parent="240" name="joinedAt">
+    <column id="285" parent="240" name="joinedAt">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="275" parent="240" name="PRIMARY">
+    <index id="286" parent="240" name="userId">
+      <ColNames>userId</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="287" parent="240" name="rank">
+      <ColNames>rank</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="288" parent="240" name="projectId">
+      <ColNames>projectId</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="289" parent="240" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="276" parent="241" name="id">
+    <foreign-key id="290" parent="240" name="alive_projects_members_ibfk_1">
+      <ColNames>userId</ColNames>
+      <RefSchemaName>alivewebproject</RefSchemaName>
+      <RefTableName>alive_users</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="291" parent="240" name="alive_projects_members_ibfk_2">
+      <ColNames>rank</ColNames>
+      <RefSchemaName>alivewebproject</RefSchemaName>
+      <RefTableName>alive_projects_ranks</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="292" parent="240" name="alive_projects_members_ibfk_3">
+      <ColNames>projectId</ColNames>
+      <RefSchemaName>alivewebproject</RefSchemaName>
+      <RefTableName>alive_projects</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="293" parent="241" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="277" parent="241" name="name">
+    <column id="294" parent="241" name="name">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="278" parent="241" name="PRIMARY">
+    <key id="295" parent="241" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="279" parent="242" name="id">
+    <column id="296" parent="242" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="280" parent="242" name="name">
+    <column id="297" parent="242" name="name">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="281" parent="242" name="PRIMARY">
+    <key id="298" parent="242" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="282" parent="243" name="id">
+    <column id="299" parent="243" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="283" parent="243" name="siteName">
+    <column id="300" parent="243" name="name">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="284" parent="243" name="maintenanceStatus">
+    <key id="301" parent="243" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="302" parent="244" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="303" parent="244" name="siteName">
+      <Position>2</Position>
+      <DataType>varchar(50)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="304" parent="244" name="maintenanceStatus">
       <Position>3</Position>
       <DataType>enum(&apos;true&apos;, &apos;false&apos;)|0e</DataType>
       <NotNull>1</NotNull>
@@ -1168,197 +1266,317 @@
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
     </column>
-    <column id="285" parent="243" name="contact">
+    <column id="305" parent="244" name="contact">
       <Position>4</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="286" parent="243" name="PRIMARY">
+    <key id="306" parent="244" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="287" parent="244" name="id">
+    <column id="307" parent="245" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="288" parent="244" name="userId">
+    <column id="308" parent="245" name="userId">
       <Position>2</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="289" parent="244" name="skill">
+    <column id="309" parent="245" name="skillType">
       <Position>3</Position>
-      <DataType>varchar(50)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="290" parent="244" name="level">
+    <column id="310" parent="245" name="skillLevel">
       <Position>4</Position>
-      <DataType>enum(&apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;, &apos;5&apos;)|0e</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="291" parent="244" name="PRIMARY">
+    <index id="311" parent="245" name="userId">
+      <ColNames>userId</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="312" parent="245" name="skillId">
+      <ColNames>skillType</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="313" parent="245" name="levelId">
+      <ColNames>skillLevel</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="314" parent="245" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="292" parent="245" name="id">
+    <foreign-key id="315" parent="245" name="alive_skills_ibfk_1">
+      <ColNames>userId</ColNames>
+      <RefSchemaName>alivewebproject</RefSchemaName>
+      <RefTableName>alive_users</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="316" parent="245" name="alive_skills_ibfk_2">
+      <ColNames>skillType</ColNames>
+      <RefSchemaName>alivewebproject</RefSchemaName>
+      <RefTableName>alive_skills_types</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="317" parent="245" name="alive_skills_ibfk_3">
+      <ColNames>skillLevel</ColNames>
+      <RefSchemaName>alivewebproject</RefSchemaName>
+      <RefTableName>alive_skills_levels</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="318" parent="246" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="319" parent="246" name="name">
+      <Position>2</Position>
+      <DataType>varchar(50)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="320" parent="246" name="description">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="321" parent="246" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="322" parent="247" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="323" parent="247" name="name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="324" parent="247" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="325" parent="248" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="293" parent="245" name="title">
+    <column id="326" parent="248" name="title">
       <Position>2</Position>
       <DataType>varchar(150)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="294" parent="245" name="content">
+    <column id="327" parent="248" name="content">
       <Position>3</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="295" parent="245" name="createdBy">
+    <column id="328" parent="248" name="createdBy">
       <Position>4</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="296" parent="245" name="createdAt">
+    <column id="329" parent="248" name="createdAt">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="297" parent="245" name="PRIMARY">
+    <index id="330" parent="248" name="createdBy">
+      <ColNames>createdBy</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="331" parent="248" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="298" parent="246" name="id">
+    <foreign-key id="332" parent="248" name="alive_support_tickets_ibfk_1">
+      <ColNames>createdBy</ColNames>
+      <RefSchemaName>alivewebproject</RefSchemaName>
+      <RefTableName>alive_users</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="333" parent="249" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="299" parent="246" name="userName">
+    <column id="334" parent="249" name="userName">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="300" parent="246" name="lastName">
+    <column id="335" parent="249" name="lastName">
       <Position>3</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="301" parent="246" name="firstName">
+    <column id="336" parent="249" name="firstName">
       <Position>4</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="302" parent="246" name="password">
+    <column id="337" parent="249" name="password">
       <Position>5</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="303" parent="246" name="rank">
+    <column id="338" parent="249" name="rank">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>1</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="304" parent="246" name="email">
+    <column id="339" parent="249" name="email">
       <Position>7</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="305" parent="246" name="vip_points">
+    <column id="340" parent="249" name="vip_points">
       <Position>8</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="306" parent="246" name="PRIMARY">
+    <index id="341" parent="249" name="rank">
+      <ColNames>rank</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="342" parent="249" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="307" parent="247" name="id">
+    <foreign-key id="343" parent="249" name="alive_users_ibfk_1">
+      <ColNames>rank</ColNames>
+      <RefSchemaName>alivewebproject</RefSchemaName>
+      <RefTableName>alive_ranks</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="344" parent="250" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="308" parent="247" name="action">
+    <column id="345" parent="250" name="action">
       <Position>2</Position>
       <DataType>enum(&apos;register&apos;, &apos;login&apos;, &apos;forgotPassword&apos;, &apos;createProject&apos;, &apos;validateProject&apos;)|0e</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="309" parent="247" name="createdAt">
+    <column id="346" parent="250" name="createdAt">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="310" parent="247" name="createdBy">
+    <column id="347" parent="250" name="createdBy">
       <Position>4</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="311" parent="247" name="PRIMARY">
+    <index id="348" parent="250" name="createdBy">
+      <ColNames>createdBy</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="349" parent="250" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="312" parent="248" name="id">
+    <foreign-key id="350" parent="250" name="alive_users_actions_ibfk_1">
+      <ColNames>createdBy</ColNames>
+      <RefSchemaName>alivewebproject</RefSchemaName>
+      <RefTableName>alive_users</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="351" parent="251" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="313" parent="248" name="ip">
+    <column id="352" parent="251" name="ip">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="314" parent="248" name="userId">
+    <column id="353" parent="251" name="userId">
       <Position>3</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="315" parent="248" name="createdAt">
+    <column id="354" parent="251" name="createdAt">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="316" parent="248" name="PRIMARY">
+    <index id="355" parent="251" name="userId">
+      <ColNames>userId</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="356" parent="251" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
+    <foreign-key id="357" parent="251" name="alive_visites_ibfk_1">
+      <ColNames>userId</ColNames>
+      <RefSchemaName>alivewebproject</RefSchemaName>
+      <RefTableName>alive_users</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
   </database-model>
 </dataSource>

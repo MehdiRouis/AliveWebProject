@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b7211dc5-7f36-4655-aa3d-ef14e1a4216c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="b7211dc5-7f36-4655-aa3d-ef14e1a4216c" name="Default Changelist" comment="Connexion à la DB alivewebproject par défaut">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/AWP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AWP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e7951322-7af0-492e-b9dd-5bd6ed4e359d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e7951322-7af0-492e-b9dd-5bd6ed4e359d.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/IndexController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/IndexController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App/Routes/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/Routes/Router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/Controller.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Models/Database/PDOConnect.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Database/PDOConnect.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/Users/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Users/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/App/Protections/Security.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/App/Protections/Security.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/App/Routes/Route.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/App/Routes/Route.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/App/Routes/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/App/Routes/Router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/App/Routes/RouterExceptions.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/App/Routes/RouterExceptions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/App/Session/Session.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/App/Session/Session.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/App/Validators/Validator.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/App/Validators/Validator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/App/Validators/Verifications.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/App/Validators/Verifications.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/App/Views/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/App/Views/View.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/App/Views/ViewsExceptions.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/App/Views/ViewsExceptions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/Controllers/Controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/Controllers/IndexController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/Controllers/IndexController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/Controllers/MeetingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/Controllers/MeetingsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/Controllers/PatientsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/Controllers/PatientsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/Models/Database/PDOConnect.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/Models/Database/PDOConnect.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/Models/Patients/Meeting.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/Models/Patients/Meeting.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AlivePHP/src/Models/Patients/Patient.php" beforeDir="false" afterPath="$PROJECT_DIR$/../AlivePHP/src/Models/Patients/Patient.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,37 +49,34 @@
     <option name="HIDDEN_KINDS">
       <set />
     </option>
-    <expand />
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="alivewebproject@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+    </expand>
     <select />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/views/index.php">
+        <entry file="file://$PROJECT_DIR$/src/Models/Database/PDOConnect.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="6" selection-start-column="6" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Controllers/IndexController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+            <state relative-caret-position="161">
+              <caret line="52" column="26" lean-forward="true" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
               <folding>
                 <element signature="e#6#85#0#PHP" expanded="true" />
+                <element signature="e#114#123#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Models/Database/PDOConnect.php">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="55" column="59" selection-start-line="55" selection-start-column="59" selection-end-line="55" selection-end-column="59" />
+            <state relative-caret-position="23">
+              <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -82,14 +99,12 @@
         <option value="$PROJECT_DIR$/src/App/Protections/Security.php" />
         <option value="$PROJECT_DIR$/src/App/Routes/Route.php" />
         <option value="$PROJECT_DIR$/src/App/Routes/RouterExceptions.php" />
-        <option value="$PROJECT_DIR$/src/App/Routes/Router.php" />
         <option value="$PROJECT_DIR$/src/App/Validators/Validator.php" />
         <option value="$PROJECT_DIR$/src/App/Validators/Verifications.php" />
         <option value="$PROJECT_DIR$/src/App/Views/ViewsExceptions.php" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/src/App/Views/View.php" />
         <option value="$PROJECT_DIR$/public/views/templates/footerBase.php" />
-        <option value="$PROJECT_DIR$/src/Controllers/Controller.php" />
         <option value="$PROJECT_DIR$/public/views/templates/headerBase.php" />
         <option value="$PROJECT_DIR$/public/assets/js/index.js" />
         <option value="$PROJECT_DIR$/public/assets/js/core.js" />
@@ -98,8 +113,13 @@
         <option value="$PROJECT_DIR$/../AlivePHP/src/App/Validators/Verifications.php" />
         <option value="$PROJECT_DIR$/public/views/index.php" />
         <option value="$PROJECT_DIR$/public/views/errors/404.php" />
-        <option value="$PROJECT_DIR$/src/Models/Database/PDOConnect.php" />
         <option value="$PROJECT_DIR$/src/Controllers/IndexController.php" />
+        <option value="$PROJECT_DIR$/../AlivePHP/src/App/Routes/Route.php" />
+        <option value="$PROJECT_DIR$/src/App/Routes/Router.php" />
+        <option value="$PROJECT_DIR$/../AlivePHP/src/App/Routes/Router.php" />
+        <option value="$PROJECT_DIR$/src/Controllers/Controller.php" />
+        <option value="$PROJECT_DIR$/src/Models/Database/PDOConnect.php" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -160,6 +180,7 @@
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../AliveWebProject" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
@@ -192,18 +213,18 @@
       <option name="presentableId" value="Default" />
       <updated>1548177016378</updated>
       <workItem from="1548177018724" duration="2030000" />
-      <workItem from="1548226131986" duration="10002000" />
+      <workItem from="1548226131986" duration="13222000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12032000" />
+    <option name="totallyTimeSpent" value="15252000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22505985" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22505985" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Thumbnails" />
@@ -217,7 +238,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -249,6 +270,36 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Connexion à la DB alivewebproject par défaut" />
+    <option name="LAST_COMMIT_MESSAGE" value="Connexion à la DB alivewebproject par défaut" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/../Clients/Design/Ressources/index.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -264,16 +315,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1357">
           <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="e#6#85#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App/Routes/Route.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="120" lean-forward="true" selection-start-line="120" selection-end-line="120" />
           <folding>
             <element signature="e#6#85#0#PHP" expanded="true" />
           </folding>
@@ -320,16 +361,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App/Routes/Router.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1012">
-          <caret line="101" column="9" lean-forward="true" selection-start-line="101" selection-start-column="9" selection-end-line="101" selection-end-column="9" />
-          <folding>
-            <element signature="e#6#85#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/App/Routes/RouterExceptions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-270">
@@ -369,26 +400,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/views/templatesheaderBase.php">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App/Views/ViewsExceptions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" selection-start-line="1" selection-end-line="6" selection-end-column="3" />
-          <folding>
-            <element signature="e#6#85#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App/Views/View.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="32" column="45" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
-          <folding>
-            <element signature="e#6#85#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/views/templates/footerBase.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -464,17 +475,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controllers/Controller.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="46" column="50" lean-forward="true" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
-          <folding>
-            <element signature="e#6#85#0#PHP" expanded="true" />
-            <element signature="e#111#133#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/views/errors/404.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
@@ -499,10 +499,269 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Models/Database/PDOConnect.php">
+    <entry file="file://$PROJECT_DIR$/src/App/Routes/Route.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="55" column="59" selection-start-line="55" selection-start-column="59" selection-end-line="55" selection-end-column="59" />
+        <state relative-caret-position="500">
+          <caret line="123" column="5" lean-forward="true" selection-end-line="126" />
+          <folding>
+            <element signature="e#6#85#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../AlivePHP/src/App/Routes/Router.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="144" column="54" selection-start-line="144" selection-start-column="54" selection-end-line="144" selection-end-column="54" />
+          <folding>
+            <element signature="e#6#85#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App/Routes/Router.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="141" column="26" selection-start-line="141" selection-start-column="26" selection-end-line="141" selection-end-column="26" />
+          <folding>
+            <element signature="e#6#85#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../AlivePHP/src/App/Routes/Route.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="126" lean-forward="true" selection-start-line="126" selection-end-line="126" />
+          <folding>
+            <element signature="e#6#85#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://PHP//home/esska/Documents/website/AWP/src">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>PHP</ID>
+          <OriginalElement>$PROJECT_DIR$/src</OriginalElement>
+          <nodes>
+            <node x="" y="">\App\Routes\Route</node>
+            <node x="" y="">\App\Validators\Validator</node>
+            <node x="" y="">\App\Routes\Router</node>
+            <node x="" y="">\Models\Users\User</node>
+            <node x="" y="">\App\Validators\Verifications</node>
+            <node x="" y="">\App\Routes\RouterExceptions</node>
+            <node x="" y="">\App\Protections\Security</node>
+            <node x="" y="">\App\Views\ViewsExceptions</node>
+            <node x="" y="">\Exception</node>
+            <node x="" y="">\Throwable</node>
+            <node x="" y="">\Controllers\IndexController</node>
+            <node x="" y="">\App\Views\View</node>
+            <node x="" y="">\Controllers\Controller</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="0.30000000000000016" x="305.9999999999998" y="887.333333333333" />
+          <SelectedNodes />
+          <Categories>
+            <Category>Constructors</Category>
+            <Category>Methods</Category>
+            <Category>Fields</Category>
+          </Categories>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://DATABASE/e7951322-7af0-492e-b9dd-5bd6ed4e359d">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>DATABASE</ID>
+          <OriginalElement>e7951322-7af0-492e-b9dd-5bd6ed4e359d</OriginalElement>
+          <nodes>
+            <node x="0.0" y="474.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_projects_ranks</node>
+            <node x="195.6777777777777" y="664.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_projects_members</node>
+            <node x="1899.5670634920632" y="202.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_skills_types</node>
+            <node x="733.5380952380954" y="0.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_ranks</node>
+            <node x="434.41309523809514" y="438.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_support_tickets</node>
+            <node x="1706.5670634920634" y="190.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_skills_levels</node>
+            <node x="1050.9130952380954" y="130.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_users</node>
+            <node x="846.4130952380951" y="450.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_users_actions</node>
+            <node x="1481.4130952380951" y="426.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_news</node>
+            <node x="651.4130952380951" y="450.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_visites</node>
+            <node x="592.0380952380954" y="166.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_permissions</node>
+            <node x="1708.0670634920634" y="450.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_skills</node>
+            <node x="0.0" y="861.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_settings</node>
+            <node x="153.75" y="202.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_projects_status</node>
+            <node x="193.0" y="414.0">e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_projects</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_support_tickets" target="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_users">
+              <point x="0.0" y="-76.0" />
+              <point x="532.9130952380951" y="384.0" />
+              <point x="1095.0559523809525" y="384.0" />
+              <point x="-58.85714285714289" y="112.0" />
+            </edge>
+            <edge source="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_skills" target="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_users">
+              <point x="-56.66666666666663" y="-64.0" />
+              <point x="1736.4003968253967" y="374.0" />
+              <point x="1242.1988095238096" y="374.0" />
+              <point x="88.28571428571422" y="112.0" />
+            </edge>
+            <edge source="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_visites" target="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_users">
+              <point x="0.0" y="-64.0" />
+              <point x="738.9130952380951" y="394.0" />
+              <point x="1124.484523809524" y="394.0" />
+              <point x="-29.42857142857133" y="112.0" />
+            </edge>
+            <edge source="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_projects" target="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_projects_status">
+              <point x="-49.25" y="-100.0" />
+              <point x="0.0" y="40.0" />
+            </edge>
+            <edge source="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_users" target="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_ranks">
+              <point x="0.0" y="-112.0" />
+              <point x="1153.9130952380954" y="105.0" />
+              <point x="863.2880952380954" y="105.0" />
+              <point x="43.25" y="40.0" />
+            </edge>
+            <edge source="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_projects_members" target="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_projects_ranks">
+              <point x="-66.0" y="-76.0" />
+              <point x="228.6777777777777" y="639.0" />
+              <point x="86.5" y="639.0" />
+              <point x="0.0" y="40.0" />
+            </edge>
+            <edge source="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_skills" target="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_skills_levels">
+              <point x="0.0" y="-64.0" />
+              <point x="0.0" y="52.0" />
+            </edge>
+            <edge source="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_users_actions" target="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_users">
+              <point x="2.2737367544323206E-13" y="-64.0" />
+              <point x="0.0" y="112.0" />
+            </edge>
+            <edge source="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_projects_members" target="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_users">
+              <point x="66.0" y="-76.0" />
+              <point x="360.6777777777777" y="639.0" />
+              <point x="1688.9130952380951" y="639.0" />
+              <point x="1688.9130952380951" y="384.0" />
+              <point x="1212.7702380952383" y="384.0" />
+              <point x="58.85714285714289" y="112.0" />
+            </edge>
+            <edge source="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_permissions" target="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_ranks">
+              <point x="0.0" y="-76.0" />
+              <point x="703.0380952380954" y="105.0" />
+              <point x="776.7880952380954" y="105.0" />
+              <point x="-43.25" y="40.0" />
+            </edge>
+            <edge source="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_projects" target="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_users">
+              <point x="49.25" y="-100.0" />
+              <point x="340.75" y="374.0" />
+              <point x="1065.6273809523811" y="374.0" />
+              <point x="-88.28571428571422" y="112.0" />
+            </edge>
+            <edge source="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_skills" target="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_skills_types">
+              <point x="56.66666666666663" y="-64.0" />
+              <point x="1849.73373015873" y="394.0" />
+              <point x="1990.0670634920632" y="394.0" />
+              <point x="0.0" y="40.0" />
+            </edge>
+            <edge source="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_news" target="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_users">
+              <point x="0.0" y="-88.0" />
+              <point x="1579.9130952380951" y="394.0" />
+              <point x="1183.3416666666667" y="394.0" />
+              <point x="29.42857142857133" y="112.0" />
+            </edge>
+            <edge source="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_projects_members" target="e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_projects">
+              <point x="0.0" y="-76.0" />
+              <point x="294.6777777777777" y="639.0" />
+              <point x="291.5" y="639.0" />
+              <point x="0.0" y="100.0" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="0.5" x="772.0" y="413.0" />
+          <SelectedNodes>
+            <node>e7951322-7af0-492e-b9dd-5bd6ed4e359d.TABLE:alivewebproject.alive_permissions</node>
+          </SelectedNodes>
+          <Categories>
+            <Category>Key columns</Category>
+            <Category>Columns</Category>
+          </Categories>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://PHP//home/esska/Documents/website/AlivePHP/src">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>PHP</ID>
+          <OriginalElement>$PROJECT_DIR$/../AlivePHP/src</OriginalElement>
+          <nodes>
+            <node x="" y="">\App\Routes\Route</node>
+            <node x="" y="">\Controllers\PatientsController</node>
+            <node x="" y="">\Models\Patients\Meeting</node>
+            <node x="" y="">\App\Validators\Validator</node>
+            <node x="" y="">\App\Routes\Router</node>
+            <node x="" y="">\App\Validators\Verifications</node>
+            <node x="" y="">\App\Routes\RouterExceptions</node>
+            <node x="" y="">\App\Session\Session</node>
+            <node x="" y="">\App\Protections\Security</node>
+            <node x="" y="">\App\Views\ViewsExceptions</node>
+            <node x="" y="">\Controllers\IndexController</node>
+            <node x="" y="">\Controllers\MeetingsController</node>
+            <node x="" y="">\App\Views\View</node>
+            <node x="" y="">\Models\Database\PDOConnect</node>
+            <node x="" y="">\Models\Patients\Patient</node>
+            <node x="" y="">\Controllers\Controller</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="0.9" x="677.4444444444445" y="1377.6666666666667" />
+          <SelectedNodes />
+          <Categories>
+            <Category>Fields</Category>
+            <Category>Constructors</Category>
+            <Category>Methods</Category>
+          </Categories>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App/Views/ViewsExceptions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" selection-start-line="1" selection-end-line="6" selection-end-column="3" />
+          <folding>
+            <element signature="e#6#85#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App/Views/View.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-293">
+          <caret line="30" column="12" selection-end-line="61" selection-end-column="1" />
+          <folding>
+            <element signature="e#6#85#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controllers/Controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="44" column="7" selection-end-line="63" />
+          <folding>
+            <element signature="e#6#85#0#PHP" expanded="true" />
+            <element signature="e#111#133#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controllers/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="12" column="23" selection-end-line="30" />
+          <folding>
+            <element signature="e#6#85#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -513,13 +772,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controllers/IndexController.php">
+    <entry file="file://$PROJECT_DIR$/src/Models/Database/PDOConnect.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+        <state relative-caret-position="161">
+          <caret line="52" column="26" lean-forward="true" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
           <folding>
             <element signature="e#6#85#0#PHP" expanded="true" />
+            <element signature="e#114#123#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
         </state>
       </provider>
     </entry>

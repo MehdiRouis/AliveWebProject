@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/AWP.iml" filepath="$PROJECT_DIR$/.idea/AWP.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Clients/Design/Ressources/.idea/Ressources.iml" filepath="$PROJECT_DIR$/../Clients/Design/Ressources/.idea/Ressources.iml" />
     </modules>
   </component>
 </project>
