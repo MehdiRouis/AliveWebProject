@@ -33,6 +33,8 @@
         echo $navbar->add('home', 'ACCUEIL', 'fas fa-home');
 
     } else {
+        echo $navbar->add('login', 'CONNEXION', 'fas fa-sign-in-alt');
+        echo $navbar->add('register', 'INSCRIPTION', 'far fa-plus-square');
         echo $navbar->addWithLink('#home', 'ACCUEIL', 'fas fa-home');
         echo $navbar->addWithLink('#infos', 'PRÉSENTATION', 'fas fa-info');
         if(count($news) > 0) {

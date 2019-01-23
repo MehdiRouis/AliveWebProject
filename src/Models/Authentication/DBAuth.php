@@ -22,7 +22,6 @@ class DBAuth extends Session {
     }
 
     public function logIn($username, $password) {
-
     }
 
     public function isLogged() {
