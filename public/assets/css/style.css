@@ -1,0 +1,324 @@
+body {
+    font-family: "Lato", sans-serif;
+    scroll-behavior : smooth;
+}
+
+.card {
+    overflow: hidden;
+}
+
+.dnone {
+    display : none;
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+}
+
+.background-round {
+    background-color: rgba(0, 0, 0, 0.18);
+    padding: 15px;
+    border-radius: 50%;
+}
+
+
+ul.sidenav > li.logout {
+    transition : 0.3s;
+}
+
+ul.sidenav > li.logout:hover {
+    background-color : #F44336;
+}
+
+ul.sidenav > li.logout:hover a {
+    color : white;
+}
+
+#profile-page-header .card-image {
+    height: 250px;
+}
+
+ul.sidenav > li {
+    transition : 0.3s;
+}
+
+ul.sidenav > li:hover {
+    background-color : #3a3a3a;
+}
+
+ul.sidenav > li:hover a {
+    color : white;
+}
+
+ul.sidenav > li:hover {
+    background-color : #3a3a3a;
+}
+
+.dark-blue {
+    background-color: #3a3a3a;
+}
+
+.dark-blue-text {
+    color: #3a3a3a;
+}
+
+header {
+    z-index : 500;
+}
+
+nav .brand-logo {
+    left : 50%;
+}
+
+#menuSideNav {
+    display : block;
+}
+
+.right.hide-on-med-and-down {
+    margin-right: 60px;
+}
+
+
+.brand-logo{
+    margin-left: 10px;
+    text-shadow: 1px 0px 1px #0ce7fe;
+}
+
+.fas.fa-cloud {
+    margin-left: 60px;
+    text-shadow: 1px 0px 1px #0ce7fe;
+}
+header nav a {
+    font-size: 18px;
+    font-weight: bold;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* carousel */
+.carousel {
+    box-shadow: 2px 1px 5px 1px black;
+    height: 90vh;
+}
+.carousel img {
+    z-index: 0;
+    opacity: 0.9;
+    width: auto;
+}
+.carousel.carousel-slider.carousel-item {
+    max-height: 700px;
+    vertical-align: middle;
+
+}
+
+.carousel-fixed-item.center {
+    margin-bottom: 80px;
+}
+
+.carousel.carousel-slider .carousel-item h2 {
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 40px;
+}
+
+.carousel p {
+    color: white;
+    text-shadow: 1px 1px 1px black;
+}
+
+.carousel.carousel-slider .carousel-item p {
+    font-size: 1.2rem;
+}
+
+@media screen and (max-width: 600px) {
+    table caption {
+        font-size: 1.3em;
+    }
+
+    table thead {
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+
+    table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    table td:last-child {
+        border-bottom: 0;
+    }
+}
+
+.tab > li {
+    padding-top : 10px;
+    padding-bottom : 10px;
+    transition : 0.3s;
+    cursor : pointer;
+    border : 1px solid grey;
+    margin-bottom : 10px;
+}
+
+.tab > li:hover {
+    background-color : #3a3a3a;
+    transform : scale(0.95);
+}
+
+.tab > li a {
+    color : #3a3a3a;
+}
+
+.tab > li:hover a {
+    color : #fff;
+}
+
+.pos-sticky-top {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 74px;
+}
+
+a > i.fab {
+    transition: 0.3s;
+}
+
+a > i.fab:hover {
+    color:#fff;
+}
+
+.hoverscale {
+    transition : 0.3s;
+}
+
+.hoverscale:hover {
+    transform : scale(1.2);
+}
+
+.footerIcon {
+    transition : 0.3s;
+}
+
+i.footerIcon:hover {
+    transform : scale(1.5);
+}
+
+@media all and (max-width:1232px) {
+    .hide-on-med-and-down {
+        display : none;
+    }
+
+    .hide-on-med-and-up {
+        display : block;
+    }
+}
+
+.modal-content > img {
+    height : 250px;
+    margin-left : auto;
+    margin-right : auto;
+    display : block;
+}
+
+.rem10 {
+    font-size: 1rem;
+}
+
+.rem12 {
+    font-size : 1.2rem;
+}
+
+.rem13 {
+    font-size : 1.4rem;
+}
+
+.rem20 {
+    font-size : 2rem;
+}
+
+.w-100 {
+    width : 100%;
+}
+
+.mr-3 {
+    margin-right:30px;
+}
+
+.mr-10 {
+    margin-right : 10px;
+}
+
+.mb-0 {
+    margin-bottom : 0;
+}
+
+.mb-10 {
+    margin-bottom:10px;
+}
+
+.mt-10 {
+    margin-top : 10px;
+}
+
+.mt-50 {
+    margin-top : 50px;
+}
+
+.pb-7 {
+    padding-bottom:7px;
+}
+
+h1 {
+    font-size : 2.5rem;
+}
+
+header {
+    padding-bottom : 64px;
+}
+
+header {
+    position:sticky;
+    position: -webkit-sticky;
+    top : 0;
+}
+
+#slide-out {
+    z-index: 999;
+}
+
+#home > .parallax-container {
+    height : 250px;
+}
