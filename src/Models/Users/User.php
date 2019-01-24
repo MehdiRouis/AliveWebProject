@@ -157,6 +157,14 @@ class User {
     }
 
     /**
+     * @param string $password
+     * @return bool
+     */
+    public function matchPassword($password) {
+        return password_verify($password, $this->getPassword());
+    }
+
+    /**
      * @return string
      */
     public function getEmail()

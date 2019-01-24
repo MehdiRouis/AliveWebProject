@@ -78,6 +78,10 @@ class Security extends Session {
         return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
     }
 
+    public function getUniqueToken() {
+        return md5(uniqid(rand() * time(), TRUE));
+    }
+
     public function generateCaptcha($width = 154, $height = 34, $red = 255, $green = 255, $blue = 255) {
         $text = $this->generateCaptchaCode();
         $img = imagecreate($width, $height);

@@ -13,6 +13,8 @@
 namespace Controllers;
 
 
+use Models\Authentication\DBAuth;
+
 class UserController extends Controller {
 
     /**
@@ -33,7 +35,8 @@ class UserController extends Controller {
      * @throws \Exception \App\Views\ViewsExceptions
      */
     public function postLogin() {
-        var_dump($_POST);
+        $auth = new DBAuth();
+        $auth->logIn('logUsername', 'logPassword');
         $this->render('user/login');
     }
 

@@ -314,10 +314,6 @@ h1 {
 }
 
 header {
-    padding-bottom : 64px;
-}
-
-header {
     position:sticky;
     position: -webkit-sticky;
     top : 0;
