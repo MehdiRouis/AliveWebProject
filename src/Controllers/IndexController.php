@@ -23,8 +23,18 @@ class IndexController extends Controller {
         $this->render('index', ['scripts' => ['js/index.js'], 'news' => $news->getAllNews(5)]);
     }
 
-    public function getMentions() {
+    /**
+     * @throws \Exception \App\Views\ViewsExceptions
+     */
+    public function getNotice() {
         $this->render('terms/service');
+    }
+
+    /**
+     * @throws \Exception \App\Views\ViewsExceptions
+     */
+    public function getPrivacyPolicy() {
+        $this->render('terms/privacy-policy');
     }
 
     /**

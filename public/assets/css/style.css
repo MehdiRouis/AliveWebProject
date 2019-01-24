@@ -312,6 +312,17 @@ i.footerIcon:hover {
 h1 {
     font-size : 2.5rem;
 }
+.justify-align {
+    text-align : justify;
+}
+
+.dividmb > .divider {
+    margin-bottom : 10px;
+}
+
+.dividmb > p {
+    padding-bottom : 10px;
+}
 
 header {
     position:sticky;
