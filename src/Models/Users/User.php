@@ -8,18 +8,25 @@
 
 namespace Models\Users;
 
+use App\Protections\Security;
 use Models\Database\PDOConnect;
+use Models\Globals\Session;
 
 /**
  * Class User
  * @package Models\Users
  */
-class User {
+class User extends Session {
 
     /**
      * @var PDOConnect
      */
     private $db;
+
+    /**
+     * @var Security
+     */
+    private $security;
 
     /**
      * @var int
@@ -77,7 +84,9 @@ class User {
      * @param mixed
      */
     public function __construct($value, $searchType = 'id') {
+        parent::__construct();
         $this->db = new PDOConnect();
+        $this->security = new Security();
         $user = $this->db->fetch('alive_users', $searchType, $value);
         if($user) {
             $this->id = $user->id;
@@ -91,6 +100,23 @@ class User {
             $this->email = $user->email;
             $this->shopPoints = $user->shopPoints;
         }
+    }
+
+    /**
+     * Création de la session à partir de l'instance.
+     */
+    public function createSession(){
+        $this->setValue('auth', $this->serialize());
+        $this->setValue('token', $this->security->getUniqueToken());
+    }
+
+    /**
+     * Retourne toutes les valeurs d'un utilisateur à partir de l'id sous la form fetch
+     * @return mixed
+     */
+    private function serialize() {
+        $req = $this->db->query('SELECT * FROM alive_users WHERE id = ?', [$this->getId()]);
+        return $req->fetch();
     }
 
     /**

@@ -28,7 +28,8 @@ class UserController extends Controller {
      * @throws \Exception \App\Views\ViewsExceptions
      */
     public function getRegister() {
-        $this->render('user/register');
+        $captcha = $this->security->generateCaptcha();
+        $this->render('user/register', ['captcha' => $captcha, 'scripts' => ['js/register.js']]);
     }
 
     /**
@@ -36,16 +37,18 @@ class UserController extends Controller {
      */
     public function postLogin() {
         $auth = new DBAuth();
-        $auth->logIn('logUsername', 'logPassword');
-        $this->render('user/login');
+        $errors = $auth->logIn('logUsername', 'logPassword');
+        $this->render('user/login', ['errors' => $errors]);
     }
 
     /**
      * @throws \Exception \App\Views\ViewsExceptions
      */
     public function postRegister() {
-        var_dump($_POST);
-        $this->render('user/register');
+        $auth = new DBAuth();
+        $errors = $auth->register('regUsername', 'regAccountType', 'regLastName', 'regFirstName', 'regEmail', 'regConfirmEmail', 'regPhoneNumber', 'regBirthDay', 'regPassword', 'regConfirmPassword', 'regCaptcha');
+        $captcha = $this->security->generateCaptcha();
+        $this->render('user/register', ['errors' => $errors, 'scripts' => ['js/register.js'], 'captcha' => $captcha]);
     }
 
 }

@@ -31,7 +31,8 @@
 <ul id="slide-out" class="sidenav">
     <?php if($router->getActualRoute() !== 'home') {
         echo $navbar->add('home', 'ACCUEIL', 'fas fa-home');
-
+        echo $navbar->add('login', 'CONNEXION', 'fas fa-sign-in-alt');
+        echo $navbar->add('register', 'INSCRIPTION', 'far fa-plus-square');
     } else {
         echo $navbar->add('login', 'CONNEXION', 'fas fa-sign-in-alt');
         echo $navbar->add('register', 'INSCRIPTION', 'far fa-plus-square');

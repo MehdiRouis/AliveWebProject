@@ -52,4 +52,8 @@ class Navbar
         $content = '<li><a href="' . $link . '">' . $icon . $label . '</a></li>';
         return $content;
     }
+
+    public function __destruct() {
+
+    }
 }

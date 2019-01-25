@@ -9,6 +9,7 @@
 namespace Controllers;
 
 use App\Routes\Router;
+use App\Views\Form;
 use App\Views\Navbar;
 use App\Views\View;
 use App\Protections\Security;
@@ -48,6 +49,7 @@ class Controller {
         $args['scripts'] = isset($args['scripts']) ? $args['scripts'] : [];
         $args['router'] = $this->getRouter();
         $args['navbar'] = new Navbar();
+        $args['errors'] = isset($args['errors']) ? $args['errors'] : [];
         $headerTpl = isset($args['headerTpl']) ? $args['headerTpl'] : 'templates/headerBase';
         $footerTpl = isset($args['footerTpl']) ? $args['footerTpl'] : 'templates/footerBase';
         $header = new View($headerTpl);

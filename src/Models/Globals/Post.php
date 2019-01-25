@@ -30,7 +30,7 @@ class Post {
      * @return false|mixed
      */
     public function getValue($key) {
-        return isset($_POST[$key]) ? $_POST[$key] : false;
+        return isset($_POST[$key]) && !empty($_POST[$key]) ? $_POST[$key] : false;
     }
 
     /**

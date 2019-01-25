@@ -105,6 +105,11 @@ class PDOConnect {
         return ($req->rowCount() > 0) ?  : false;
     }
 
+    public function existContent($table, $column, $value) {
+        $req = $this->query("SELECT id FROM {$table} WHERE {$column} = ?", [$value]);
+        return $req->rowCount() > 0 ? true : false;
+    }
+
     public function __destruct() {
 
     }

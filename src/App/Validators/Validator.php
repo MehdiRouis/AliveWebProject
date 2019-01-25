@@ -9,12 +9,18 @@
 namespace App\Validators;
 
 use App\Protections\Security;
+use Models\Globals\Post;
 
 /**
  * Class Validator
  * @package App\Validators
  */
 class Validator extends Security {
+
+    /**
+     * @var Post
+     */
+    private $post;
 
     /**
      * @var bool
@@ -38,13 +44,14 @@ class Validator extends Security {
      */
     public function __construct($postValues = [], $table = false) {
         parent::__construct();
+        $this->post = new Post();
         $this->table = $table;
         $this->postValues = $postValues;
         $newArray = [];
         foreach($this->postValues as $valueType => $valueArray) {
             $newArray[$valueType] = [];
             foreach($valueArray as $postName) {
-                $newArray[$valueType][] = [$postName => $_POST[$postName]];
+                $newArray[$valueType][] = [$postName => $this->post->getValue($postName)];
             }
         }
         $this->postValues = $newArray;
@@ -61,7 +68,7 @@ class Validator extends Security {
             $validType->verify($valueType, $valuePost);
             $this->verifiedInputs = $validType->getErrors();
         }
-        return $validType->getErrors();
+        return $this->getErrors();
     }
 
     /**
