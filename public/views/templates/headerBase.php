@@ -3,6 +3,7 @@
  * @var \App\Views\Navbar $navbar
  * @var array $news
  * @var string $pageName
+ * @var \Models\Authentication\DBAuth $auth
  */
 ?>
 <!DOCTYPE html>
@@ -35,21 +36,25 @@
         </div>
     </nav>
 </header>
-<ul id="slide-out" class="sidenav">
     <?php if($router->getActualRoute() !== 'home') {
-        echo $navbar->add('home', 'ACCUEIL', 'fas fa-home');
-        echo $navbar->add('login', 'CONNEXION', 'fas fa-sign-in-alt');
-        echo $navbar->add('register', 'INSCRIPTION', 'far fa-plus-square');
-    } else {
-        echo $navbar->add('login', 'CONNEXION', 'fas fa-sign-in-alt');
-        echo $navbar->add('register', 'INSCRIPTION', 'far fa-plus-square');
-        echo $navbar->addWithLink('#home', 'ACCUEIL', 'fas fa-home');
-        echo $navbar->addWithLink('#infos', 'PRÉSENTATION', 'fas fa-info');
-        if(count($news) > 0) {
-            echo $navbar->addWithLink('#news', 'ARTICLES', 'fas fa-newspaper');
+        if(!$auth->isLogged()) {
+            $navbar->add('home', 'ACCUEIL', 'fas fa-home');
+            $navbar->add('login', 'CONNEXION', 'fas fa-sign-in-alt');
+            $navbar->add('register', 'INSCRIPTION', 'far fa-plus-square');
+        } else {
+            $navbar->add('dashboard', 'DASHBOARD', 'fas fa-home');
+            $navbar->add('logout', 'SE DÉCONNECTER', 'fas fa-sign-out-alt', 'logout');
         }
-        echo $navbar->addWithLink('#sources', 'RESSOURCES', 'fas fa-search-plus');
-        echo $navbar->addWithLink('#team', 'NOTRE ÉQUIPE', 'fas fa-users');
-    } ?>
+    } else {
+        $navbar->addWithLink('#home', 'ACCUEIL', 'fas fa-home');
+        $navbar->addWithLink('#infos', 'PRÉSENTATION', 'fas fa-info');
+        if(count($news) > 0) {
+            $navbar->addWithLink('#news', 'ARTICLES', 'fas fa-newspaper');
+        }
+        $navbar->addWithLink('#sources', 'RESSOURCES', 'fas fa-search-plus');
+        $navbar->addWithLink('#team', 'NOTRE ÉQUIPE', 'fas fa-users');
+        $navbar->add('login', 'CONNEXION', 'fas fa-sign-in-alt');
+        $navbar->add('register', 'INSCRIPTION', 'far fa-plus-square');
+    }
 
-</ul>
+    $navbar->parse();?>

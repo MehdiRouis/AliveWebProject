@@ -13,7 +13,9 @@ use App\Views\Form;
 use App\Views\Navbar;
 use App\Views\View;
 use App\Protections\Security;
+use Models\Authentication\DBAuth;
 use Models\Globals\Session;
+use Models\Users\User;
 
 /**
  * Class Controller
@@ -32,11 +34,24 @@ class Controller {
     protected $security;
 
     /**
+     * @var DBAuth
+     */
+    protected $dbauth;
+
+    /**
+     * @var User
+     */
+    protected $user;
+
+    /**
      * Controller constructor.
      */
     public function __construct() {
         $this->session = new Session();
         $this->security = new Security();
+        $this->dbauth = new DBAuth();
+        $this->user = new User();
+        $this->user->updateSession();
     }
 
     /**
@@ -57,6 +72,10 @@ class Controller {
         $args['router'] = $this->getRouter();
         $args['navbar'] = new Navbar();
         $args['errors'] = isset($args['errors']) ? $args['errors'] : [];
+        $args['auth'] = $this->dbauth;
+        if($this->dbauth->isLogged()) {
+            $args['user'] = $this->user;
+        }
         $headerTpl = isset($args['headerTpl']) ? $args['headerTpl'] : 'templates/headerBase';
         $footerTpl = isset($args['footerTpl']) ? $args['footerTpl'] : 'templates/footerBase';
         $header = new View($headerTpl);

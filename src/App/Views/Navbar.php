@@ -19,38 +19,52 @@ class Navbar
      */
     private $router;
 
+    /**
+     * @var string
+     */
+    private $html;
+
     public function __construct() {
         $this->router = $GLOBALS['router'];
+        $this->html = '<ul id="slide-out" class="sidenav">';
     }
 
     public function getRouter() {
         return $this->router;
     }
 
+    private function addHTML($html) {
+        $this->html .= "{$html}\n";
+    }
+
     /**
      * @param string $routeName
      * @param string $label
      * @param bool $icon
-     * @return string
      * @throws \Exception \App\Routes\RouterExceptions
      */
-    public function add($routeName, $label, $icon = false) {
+    public function add($routeName, $label, $icon = false, $classLi = false) {
         $icon = $icon ? '<i class="' . $icon . '"></i> ' : '';
-        $active = $this->getRouter()->getActualRoute() === $routeName ? ' class="active"' : '';
-        $content = '<li' . $active . '><a href="' . $this->getRouter()->getFullUrl($routeName) . '">' . $icon . $label . '</a></li>';
-        return $content;
+        $classActiveLi = $classLi ? 'active ' . $classLi : 'active';
+        $classLi = $classLi ? ' class="' . $classLi . '"' : '';
+        $active = $this->getRouter()->getActualRoute() === $routeName ? ' class="' . $classActiveLi . '"' : $classLi;
+        $this->addHTML('<li' . $active . '><a href="' . $this->getRouter()->getFullUrl($routeName) . '">' . $icon . $label . '</a></li>');
     }
 
     /**
      * @param string $link
      * @param string $label
      * @param bool $icon
-     * @return string
      */
-    public function addWithLink($link, $label, $icon = false) {
+    public function addWithLink($link, $label, $icon = false, $classLi = false) {
         $icon = $icon ? '<i class="' . $icon . '"></i> ' : '';
-        $content = '<li><a href="' . $link . '">' . $icon . $label . '</a></li>';
-        return $content;
+        $classLi = $classLi ? ' class="' . $classLi . '"' : '';
+        $this->addHTML('<li' . $classLi . '><a href="' . $link . '">' . $icon . $label . '</a></li>');
+    }
+
+    public function parse() {
+        $this->addHTML('</ul>');
+        echo $this->html;
     }
 
     public function __destruct() {

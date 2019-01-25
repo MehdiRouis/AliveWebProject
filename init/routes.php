@@ -7,8 +7,9 @@ $router->get('/terms/terms-of-service', 'Index#getNotice', 'legalNotice');
 $router->get('/terms/privacy-policy', 'Index#getPrivacyPolicy', 'privacyPolicy');
 
 // AUTH \\
-$router->get('/account/login', 'User#getLogin', 'login');
-$router->get('/account/register', 'User#getRegister', 'register');
+$router->get('/account/login', 'Authentication#getLogin', 'login');
+$router->get('/account/register', 'Authentication#getRegister', 'register');
+$router->get('/account/logout', 'Authentication#getLogout', 'logout');
 
 // USER \\
 $router->get('/account/dashboard', 'User#getDashboard', 'dashboard');
@@ -16,5 +17,5 @@ $router->get('/account/dashboard', 'User#getDashboard', 'dashboard');
 /* -[{POST}]- */
 
 // AUTH \\
-$router->post('/account/login', 'User#postLogin', 'plogin');
-$router->post('/account/register', 'User#postRegister', 'pregister');
+$router->post('/account/login', 'Authentication#postLogin', 'plogin');
+$router->post('/account/register', 'Authentication#postRegister', 'pregister');

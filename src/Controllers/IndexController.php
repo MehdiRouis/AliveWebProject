@@ -19,6 +19,7 @@ class IndexController extends Controller {
      * @throws \Exception \App\Views\ViewsExceptions
      */
     public function getHomepage() {
+        $this->security->restrict(false);
         $news = new Article();
         $this->render('index', ['scripts' => ['js/index.js'], 'news' => $news->getAllNews(5)]);
     }

@@ -20,7 +20,7 @@ use Models\Globals\Post;
 use Models\Globals\Session;
 use Models\Users\User;
 
-class DBAuth extends Session{
+class DBAuth {
 
     /**
      * @var array
@@ -43,10 +43,9 @@ class DBAuth extends Session{
     private $post;
 
     public function __construct() {
-        parent::__construct();
         $this->db = new PDOConnect();
-        $this->post = new Post();
         $this->security = new Security();
+        $this->post = new Post();
         $this->errors = new Errors();
     }
 
@@ -104,6 +103,7 @@ class DBAuth extends Session{
      * @param string $birthDay
      * @param string $password
      * @param string $confirmPassword
+     * @param string $captcha
      * @return array
      */
     public function register($userName, $accountType, $lastName, $firstName, $email, $confirmEmail, $phoneNumber, $birthDay, $password, $confirmPassword, $captcha) {
@@ -145,7 +145,15 @@ class DBAuth extends Session{
     }
 
     public function isLogged() {
-        return $this->existValue('auth');
+        return $this->security->existValue('auth');
+    }
+
+    public function logOut() {
+        if($this->isLogged()) {
+            $this->security->deleteValue('auth');
+            $this->security->deleteValue('token');
+            $this->security->safeLocalRedirect('home');
+        }
     }
 
 }

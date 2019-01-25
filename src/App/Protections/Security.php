@@ -7,7 +7,7 @@
  */
 
 namespace App\Protections;
-
+use Models\Authentication\DBAuth;
 use Models\Globals\Session;
 
 /**
@@ -54,9 +54,9 @@ class Security extends Session {
             header('Location: ' . $link);
             header('Connection: close');
         }
-        print '<html>';
+        print '<html lang="fr">';
         print '<head><title>Redirection...</title>';
-        print "<meta http-equiv='Refresh' content='0;url='{$link}' />";
+        print "<meta http-equiv='Refresh' content='0;url=' {$link}' />";
         print '</head>';
         print "<body onload='location.replace('{$link}')'>";
         print 'Vous rencontrez peut-être un problème.<br />';
@@ -109,6 +109,13 @@ class Security extends Session {
 
     public function hash($password) {
         return password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    public function restrict($mustBeLogged = true) {
+        $dbauth = new DBAuth();
+        if($mustBeLogged && !$dbauth->isLogged() || !$mustBeLogged && $dbauth->isLogged()) {
+            $this->safeLocalRedirect('default');
+        }
     }
 
     public function __destruct() {

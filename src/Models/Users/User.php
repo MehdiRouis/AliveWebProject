@@ -9,6 +9,7 @@
 namespace Models\Users;
 
 use App\Protections\Security;
+use Models\Authentication\DBAuth;
 use Models\Database\PDOConnect;
 use Models\Globals\Session;
 
@@ -27,6 +28,11 @@ class User extends Session {
      * @var Security
      */
     private $security;
+
+    /**
+     * @var DBAuth
+     */
+    private $dbauth;
 
     /**
      * @var int
@@ -87,21 +93,28 @@ class User extends Session {
         parent::__construct();
         $this->db = new PDOConnect();
         $this->security = new Security();
+        $this->dbauth = new DBAuth();
         if($value) {
             $req = $this->db->query("SELECT * FROM alive_users WHERE {$searchType} = ?", [$value]);
             if ($req->rowCount() > 0) {
                 $user = $req->fetch();
-                $this->id = $user->id;
-                $this->userName = $user->userName;
-                $this->lastName = $user->lastName;
-                $this->firstName = $user->firstName;
-                $this->phoneNumber = $user->phoneNumber;
-                $this->birthDay = $user->birthDay;
-                $this->password = $user->password;
-                $this->rank = $user->rank;
-                $this->email = $user->email;
-                $this->shopPoints = $user->shopPoints;
             }
+        } else {
+            if($this->dbauth->isLogged()) {
+                $user = $this->getValue('auth');
+            }
+        }
+        if(isset($user)) {
+            $this->id = $user->id;
+            $this->userName = $user->userName;
+            $this->lastName = $user->lastName;
+            $this->firstName = $user->firstName;
+            $this->phoneNumber = $user->phoneNumber;
+            $this->birthDay = $user->birthDay;
+            $this->password = $user->password;
+            $this->rank = $user->rank;
+            $this->email = $user->email;
+            $this->shopPoints = $user->shopPoints;
         }
     }
 
@@ -111,6 +124,23 @@ class User extends Session {
     public function createSession(){
         $this->setValue('auth', $this->serialize());
         $this->setValue('token', $this->security->getUniqueToken());
+    }
+
+    public function updateSession() {
+        $req = $this->db->query('SELECT * FROM alive_users WHERE id = ?', [$this->getId()]);
+        if ($req->rowCount() > 0) {
+            $user = $req->fetch();
+            $this->id = $user->id;
+            $this->userName = $user->userName;
+            $this->lastName = $user->lastName;
+            $this->firstName = $user->firstName;
+            $this->phoneNumber = $user->phoneNumber;
+            $this->birthDay = $user->birthDay;
+            $this->password = $user->password;
+            $this->rank = $user->rank;
+            $this->email = $user->email;
+            $this->shopPoints = $user->shopPoints;
+        }
     }
 
     /**
