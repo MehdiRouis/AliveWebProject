@@ -11,7 +11,7 @@
             <?php
             $form = new \App\Views\Form('plogin', 'POST');
             $form->addField($errors, 'logUsername', 'Nom d\'utilisateur / Adresse mail', 'col s12 m6');
-            $form->addField($errors, 'logPassword', 'Mot de passe', 'col s12 m6');
+            $form->addField($errors, 'logPassword', 'Mot de passe', 'col s12 m6', 'password');
             $form->addSubmit('Se connecter');
             $form->parse();
             ?>
