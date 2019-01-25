@@ -67,7 +67,7 @@ class PDOConnect {
     public function getPDO() {
         if($this->pdo === null) {
             try {
-                $pdo = new PDO('mysql:dbname=' . $this->db_name . ';host=' . $this->db_host, $this->db_user, $this->db_pass);
+                $pdo = new PDO('mysql:dbname=' . $this->db_name . ';host=' . $this->db_host . ';charset=utf8', $this->db_user, $this->db_pass);
                 $this->pdo = $pdo;
                 $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
@@ -92,17 +92,6 @@ class PDOConnect {
             $req = $this->getPDO()->query($statement);
         }
         return $req;
-    }
-
-    /**
-     * @param string $table
-     * @param string $column
-     * @param mixed $value
-     * @return bool|mixed
-     */
-    public function fetch($table, $column, $value) {
-        $req = $this->query("SELECT * FROM {$table} WHERE {$column} = ?", [$value]);
-        return ($req->rowCount() > 0) ?  : false;
     }
 
     public function existContent($table, $column, $value) {

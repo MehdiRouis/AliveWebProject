@@ -211,26 +211,30 @@ class User extends Session {
         return $this->firstName;
     }
 
+    private function getInitial($value) {
+        return $value[0] === '&' ? substr($value, 0, strpos($value, ';')+strlen(';')) : $value[0];
+    }
+
     /**
      * @return string
      */
     public function getInitialUserName() {
-        return strtoupper($this->getUserName()[0]);
+        return $this->getInitial($this->getUserName());
     }
 
     /**
      * @return string
      */
     public function getInitialFirstName() {
-        return strtoupper($this->getFirstName()[0]);
+        return $this->getInitial($this->getFirstName());
     }
 
     public function getInitialLastName() {
-        return strtoupper($this->getLastName()[0]);
+        return $this->getInitial($this->getLastName());
     }
 
     public function getInitialFullName() {
-        return strtoupper($this->getFirstName()[0]) . ' ' . strtoupper($this->getLastName()[0]);
+        return $this->getInitial($this->getFirstName()) . ' ' . $this->getInitial($this->getLastName());
     }
 
     /**

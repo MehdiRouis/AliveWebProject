@@ -1,11 +1,8 @@
 <main class="container">
     <div class="card">
-        <div class="card-content">
-            <p class="card-title">Mentions légales</p>
-            <div class="divider"></div>
-            <strong>La seule contrepartie à l'utilisation de ces mentions légales, est l'engagement total à laisser le lien crédit subdelirium sur cette page de mentions légales.</strong><br />
-            Vos mentions légales :
+        <div class="card-content justify-align dividmb">
             <p class="card-title">Informations légales</p>
+            <div class="divider"></div>
             <p class="card-title">1. Présentation du site.</p>
             <div class="divider"></div>
             <p>En vertu de l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, il est précisé aux utilisateurs du site <a href="<?= PROJECT_LINK; ?>"><?= PROJECT_LINK; ?></a> l'identité des différents intervenants dans le cadre de sa réalisation et de son suivi :</p>

@@ -125,9 +125,22 @@ class Security extends Session {
         }
     }
 
+    /**
+     * @param int|string $id
+     * @param string $table
+     * @return bool
+     */
     public function idVerification($id, $table) {
         $req = $this->db->query("SELECT id FROM {$table} WHERE id = ?", [$id]);
         return $req->rowCount() > 0 ? true : false;
+    }
+
+    /**
+     * @param string $value
+     * @return string
+     */
+    public function secureValue($value) {
+        return htmlspecialchars($value);
     }
 
     public function __destruct() {

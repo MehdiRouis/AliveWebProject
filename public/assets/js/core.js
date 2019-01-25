@@ -2,9 +2,6 @@ $(function() {
     /** INITIALISATIONS OBJETS MATERIALIZE **/
     $('.parallax').parallax();
     $('.sidenav').sidenav({edge: 'right'});
-    $('#slide-out > li').on('click', function() {
-        setTimeout(function() { window.scrollBy(0, -64); }, 500);
-    });
     /** FIN INITIALISATIONS OBJETS MATERIALIZE **/
     
     
