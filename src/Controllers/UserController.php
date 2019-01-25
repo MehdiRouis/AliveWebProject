@@ -19,4 +19,8 @@ class UserController extends Controller {
         $this->render('user/dashboard', ['pageName' => 'Dashboard']);
     }
 
+    public function getProfile($id) {
+
+    }
+
 }

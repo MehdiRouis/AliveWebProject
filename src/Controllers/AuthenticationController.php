@@ -16,17 +16,11 @@ use Models\Authentication\DBAuth;
 
 class AuthenticationController extends Controller {
 
-    /**
-     * @throws \Exception \App\Views\ViewsExceptions
-     */
     public function getLogin() {
         $this->security->restrict(false);
         $this->render('user/login', ['pageName' => 'Connexion']);
     }
 
-    /**
-     * @throws \Exception \App\Views\ViewsExceptions
-     */
     public function getRegister() {
         $this->security->restrict(false);
         $captcha = $this->security->generateCaptcha();
@@ -38,9 +32,6 @@ class AuthenticationController extends Controller {
         $this->dbauth->logOut();
     }
 
-    /**
-     * @throws \Exception \App\Views\ViewsExceptions
-     */
     public function postLogin() {
         $this->security->restrict(false);
         $auth = new DBAuth();
@@ -48,9 +39,6 @@ class AuthenticationController extends Controller {
         $this->render('user/login', ['pageName' => 'Connexion', 'errors' => $errors]);
     }
 
-    /**
-     * @throws \Exception \App\Views\ViewsExceptions
-     */
     public function postRegister() {
         $this->security->restrict(false);
         $auth = new DBAuth();

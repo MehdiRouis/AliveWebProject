@@ -39,12 +39,26 @@ class Rank {
     public function __construct($id = false) {
         $this->db = new PDOConnect();
         if ($id) {
-            $rank = $this->db->fetch('alive_ranks', 'id', $id);
-            if ($rank) {
+            $req = $this->db->query('SELECT * FROM alive_users_ranks WHERE id = ?', [$id]);
+            if ($req->rowCount() > 0) {
+                $rank = $req->fetch();
                 $this->id = $rank->id;
                 $this->name = $rank->name;
             }
         }
+    }
+
+    public function getRankedUsers($order = 'ORDER BY id DESC', $limit = false) {
+        $permission = new Permission('admin-access');
+        $limit = $limit ? ' LIMIT ' . $limit : '';
+        $req = $this->db->query('SELECT id FROM alive_users WHERE `rank` >= ? ' . $order . $limit, [$permission->getMinRank()]);
+        $users = [];
+        if($req->rowCount() > 0) {
+            while($user = $req->fetch()) {
+                $users[] = new User($user->id);
+            }
+        }
+        return $users;
     }
 
     /**

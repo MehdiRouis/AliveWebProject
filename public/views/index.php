@@ -1,6 +1,7 @@
 <?php
 /**
  * @var array $news
+ * @var array $staffs
  */
 ?>
 <main>
@@ -243,42 +244,20 @@
                         <div class="card-content center-align">
                             <p class="card-title">Équipe</p>
                             <div class="divider"></div>
-                            <div class="col s12 m4">
-                                <div class="card">
-                                    <div class="card-image">
-                                        <img class="responsive-img-perso himg" src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg" alt="poing-bureau.jpg" />
+                            <?php foreach($staffs as $staff) { /** @var \Models\Users\User $staff */?>
+                                <div class="col s12 m4">
+                                    <div class="card">
+                                        <div class="card-image">
+                                            <img class="responsive-img-perso himg" src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg" alt="poing-bureau.jpg" />
+                                        </div>
+                                        <span class="card-title mt-10 truncate"><?= $staff->getUserName(); ?> ( <?= $staff->getFullName(); ?> )</span>
+                                        <div class="divider mb-10"></div>
+                                        <p><?= $staff->getRank()->getName(); ?></p>
+                                        <div class="divider mt-10"></div>
+                                        <a class="btn right mr-10 mt-10 mb-10 waves-effect waves-light pulse tooltipped" data-position="top" data-tooltip="Voir son profil" target="_blank" href="./" ><i class="material-icons">account_circle</i></a>
                                     </div>
-                                    <span class="card-title mt-10 truncate">Èsska</span>
-                                    <div class="divider mb-10"></div>
-                                    <p>Développeur</p>
-                                    <div class="divider mt-10"></div>
-                                    <a class="btn right mr-10 mt-10 mb-10 waves-effect waves-light pulse tooltipped" data-position="top" data-tooltip="Voir son profil" target="_blank" href="./" ><i class="material-icons">account_circle</i></a>
                                 </div>
-                            </div>
-                            <div class="col s12 m4">
-                                <div class="card">
-                                    <div class="card-image">
-                                        <img class="responsive-img-perso himg" src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg" alt="poing-bureau.jpg" />
-                                    </div>
-                                    <span class="card-title mt-10 truncate">AliveWebProject</span>
-                                    <div class="divider mb-10"></div>
-                                    <p>Support</p>
-                                    <div class="divider mt-10"></div>
-                                    <a class="btn right mr-10 mt-10 mb-10 waves-effect waves-light pulse tooltipped" data-position="top" data-tooltip="Voir son profil" target="_blank" href="./" ><i class="material-icons">account_circle</i></a>
-                                </div>
-                            </div>
-                            <div class="col s12 m4">
-                                <div class="card">
-                                    <div class="card-image">
-                                        <img class="responsive-img-perso himg" src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg" alt="poing-bureau.jpg" />
-                                    </div>
-                                    <span class="card-title mt-10 truncate">Membre 3</span>
-                                    <div class="divider mb-10"></div>
-                                    <p>Modérateur</p>
-                                    <div class="divider mt-10"></div>
-                                    <a class="btn right mr-10 mt-10 mb-10 waves-effect waves-light pulse tooltipped" data-position="top" data-tooltip="Voir son profil" target="_blank" href="./" ><i class="material-icons">account_circle</i></a>
-                                </div>
-                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

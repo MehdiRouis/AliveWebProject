@@ -54,8 +54,9 @@ class Permission {
     public function __construct($value = false, $searchType = 'name') {
         $this->db = new PDOConnect();
         if($value) {
-            $permission = $this->db->fetch('alive_permissions', $searchType, $value);
-            if($permission) {
+            $req = $this->db->query("SELECT * FROM alive_users_permissions WHERE {$searchType} = ?", [$value]);
+            if($req->rowCount() > 0) {
+                $permission = $req->fetch();
                 $this->id = $permission->id;
                 $this->name = $permission->name;
                 $this->parseName = $permission->parseName;
