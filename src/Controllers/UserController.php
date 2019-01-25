@@ -22,9 +22,12 @@ class UserController extends Controller {
     }
 
     public function getProfile($id) {
+        $this->security->restrict();
         if($this->security->idVerification($id, 'alive_users')) {
             $user = new User($id);
-            $this->render('user/profile', ['pageName' => $user->getUserName()]);
+            $this->render('user/profile', ['pageName' => $user->getUserName(), 'userProfile' => $user]);
+        } else {
+            $this->security->safeLocalRedirect('default');
         }
     }
 

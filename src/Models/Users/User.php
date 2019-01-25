@@ -211,10 +211,16 @@ class User extends Session {
         return $this->firstName;
     }
 
+    /**
+     * @return string
+     */
     public function getInitialUserName() {
         return strtoupper($this->getUserName()[0]);
     }
 
+    /**
+     * @return string
+     */
     public function getInitialFirstName() {
         return strtoupper($this->getFirstName()[0]);
     }
@@ -299,6 +305,13 @@ class User extends Session {
     {
         $permission = new Permission($permission, $searchType);
         return $permission->hasRight($this->getRank()->getId());
+    }
+
+    /**
+     * @return string
+     */
+    public function getProfileLink() {
+        return $GLOBALS['router']->getFullUrl('profile', ['id' => $this->getId()]);
     }
 
 }

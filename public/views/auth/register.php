@@ -13,9 +13,9 @@
             $form = new \App\Views\Form('pregister', 'POST');
             $form->addField($errors, 'regUsername', 'Nom d\'utilisateur', 'col s12 m8', 'text', '[A-Za-zÂ-ÿ0-9]+');
             $form->addSelect($errors, 'regAccountType', 'Type de compte', [
-                1 => 'Particulier',
-                2 => 'Entreprise',
-                3 => 'Développeur'
+                '1' => 'Particulier',
+                '2' => 'Entreprise',
+                '3' => 'Développeur'
             ], 'col s12 m4');
             $form->addField($errors, 'regLastName', 'Nom de famille', 'col s12 m6', 'text', '[A-Za-zÂ-ÿ0-9]+');
             $form->addField($errors, 'regFirstName', 'Prénom', 'col s12 m6', 'text', '[A-Za-zÂ-ÿ0-9]+');
