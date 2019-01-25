@@ -12,6 +12,8 @@
 
 namespace Controllers;
 
+use Models\Users\User;
+
 class UserController extends Controller {
 
     public function getDashboard() {
@@ -20,7 +22,10 @@ class UserController extends Controller {
     }
 
     public function getProfile($id) {
-
+        if($this->security->idVerification($id, 'alive_users')) {
+            $user = new User($id);
+            $this->render('user/profile', ['pageName' => $user->getUserName()]);
+        }
     }
 
 }

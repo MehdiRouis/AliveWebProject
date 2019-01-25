@@ -8,6 +8,7 @@
 
 namespace App\Protections;
 use Models\Authentication\DBAuth;
+use Models\Database\PDOConnect;
 use Models\Globals\Session;
 
 /**
@@ -15,6 +16,11 @@ use Models\Globals\Session;
  * @package App\Protections
  */
 class Security extends Session {
+
+    /**
+     * @var PDOConnect
+     */
+    private $db;
 
     /**
      * Vérifier les injections SQL dans les paramètres de l'URL ( $_GET )
@@ -30,6 +36,7 @@ class Security extends Session {
                 }
             }
         }
+        $this->db = new PDOConnect();
     }
 
     /**
@@ -116,6 +123,11 @@ class Security extends Session {
         if($mustBeLogged && !$dbauth->isLogged() || !$mustBeLogged && $dbauth->isLogged()) {
             $this->safeLocalRedirect('default');
         }
+    }
+
+    public function idVerification($id, $table) {
+        $req = $this->db->query("SELECT id FROM {$table} WHERE id = ?", [$id]);
+        return $req->rowCount() > 0 ? true : false;
     }
 
     public function __destruct() {

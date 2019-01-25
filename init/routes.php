@@ -13,6 +13,7 @@ $router->get('/account/logout', 'Authentication#getLogout', 'logout');
 
 // USER \\
 $router->get('/account/dashboard', 'User#getDashboard', 'dashboard');
+$router->get('/user/:id/profile', 'User#getProfile', 'profile');
 
 /* -[{POST}]- */
 

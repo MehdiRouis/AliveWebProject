@@ -4,6 +4,7 @@
  * @var array $news
  * @var string $pageName
  * @var \Models\Authentication\DBAuth $auth
+ * @var \Models\Users\User $user
  */
 ?>
 <!DOCTYPE html>
@@ -42,6 +43,7 @@
             $navbar->add('login', 'CONNEXION', 'fas fa-sign-in-alt');
             $navbar->add('register', 'INSCRIPTION', 'far fa-plus-square');
         } else {
+            $navbar->addUserView($user);
             $navbar->add('dashboard', 'DASHBOARD', 'fas fa-home');
             $navbar->add('logout', 'SE DÉCONNECTER', 'fas fa-sign-out-alt', 'logout');
         }

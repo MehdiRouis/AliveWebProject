@@ -38,6 +38,22 @@ class Navbar
     }
 
     /**
+     * @param \Models\Users\User $user
+     */
+    public function addUserView($user) {
+        $this->addHTML('<li>');
+        $this->addHTML('<div class="user-view">');
+        $this->addHTML('<div class="background">');
+        $this->addHTML('<img src="' . PROJECT_LINK  . '/public/assets/img/navbar/background.jpg" alt="Office background" />');
+        $this->addHTML('</div>');
+        $this->addHTML('<a href="#user"><span class="circle white darken-1 black-text hoverable avatar">' . $user->getInitialFirstName() . '</span></a>');
+        $this->addHTML('<a href="#name"><span class="white-text name right-align">' . $user->getFullName() . '</span></a>');
+        $this->addHTML('<a href="#email"><span class="white-text email right-align">' . $user->getEmail() . '</span></a>');
+        $this->addHTML('</div>');
+        $this->addHTML('</li>');
+    }
+
+    /**
      * @param string $routeName
      * @param string $label
      * @param bool $icon

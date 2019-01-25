@@ -14,6 +14,7 @@ use App\Views\Navbar;
 use App\Views\View;
 use App\Protections\Security;
 use Models\Authentication\DBAuth;
+use Models\Database\PDOConnect;
 use Models\Globals\Session;
 use Models\Users\User;
 

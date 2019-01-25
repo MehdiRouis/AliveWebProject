@@ -211,6 +211,22 @@ class User extends Session {
         return $this->firstName;
     }
 
+    public function getInitialUserName() {
+        return strtoupper($this->getUserName()[0]);
+    }
+
+    public function getInitialFirstName() {
+        return strtoupper($this->getFirstName()[0]);
+    }
+
+    public function getInitialLastName() {
+        return strtoupper($this->getLastName()[0]);
+    }
+
+    public function getInitialFullName() {
+        return strtoupper($this->getFirstName()[0]) . ' ' . strtoupper($this->getLastName()[0]);
+    }
+
     /**
      * @return string
      */
