@@ -1,6 +1,5 @@
 #AliveWebProject
-```Le projet utilise le micro-framework [#AlivePHP](../AlivePHP).```
-
+Le projet utilise le micro-framework [#AlivePHP](../AlivePHP).
 Aujourd'hui, nous sommes dans un monde qui nécessite d'avoir de nouveaux outils pour faciliter ou automatiser les tâches récurrentes d'une personne.
 En tant que développeur, je me dois de faire mon possible pour faciliter ces tâches interminables. Nous savons tous déjà que les recruteurs cherchent "le" développeur à 6 pattes. Et nous savons tous aussi que le développeur à 6 pattes est extrêmement rare.
 
