@@ -13,12 +13,18 @@ use App\Views\Form;
 use App\Views\Navbar;
 use App\Views\View;
 use App\Protections\Security;
+use Models\Globals\Session;
 
 /**
  * Class Controller
  * @package Controllers
  */
 class Controller {
+
+    /**
+     * @var Session
+     */
+    protected $session;
 
     /**
      * @var Security
@@ -29,6 +35,7 @@ class Controller {
      * Controller constructor.
      */
     public function __construct() {
+        $this->session = new Session();
         $this->security = new Security();
     }
 

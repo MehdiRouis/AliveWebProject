@@ -10,6 +10,9 @@ $router->get('/terms/privacy-policy', 'Index#getPrivacyPolicy', 'privacyPolicy')
 $router->get('/account/login', 'User#getLogin', 'login');
 $router->get('/account/register', 'User#getRegister', 'register');
 
+// USER \\
+$router->get('/account/dashboard', 'User#getDashboard', 'dashboard');
+
 /* -[{POST}]- */
 
 // AUTH \\

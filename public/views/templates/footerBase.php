@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var array $scripts
+ */
+?>
 <footer id="footer" class="page-footer dark-blue">
     <div class="container">
         <div class="row">

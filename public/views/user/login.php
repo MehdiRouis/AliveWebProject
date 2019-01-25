@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var array $errors
+ */
+?>
 <main>
     <div class="card">
         <div class="card-content center-align">

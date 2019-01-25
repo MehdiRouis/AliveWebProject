@@ -21,7 +21,7 @@ class UserController extends Controller {
      * @throws \Exception \App\Views\ViewsExceptions
      */
     public function getLogin() {
-        $this->render('user/login');
+        $this->render('user/login', ['pageName' => 'Connexion']);
     }
 
     /**
@@ -29,7 +29,11 @@ class UserController extends Controller {
      */
     public function getRegister() {
         $captcha = $this->security->generateCaptcha();
-        $this->render('user/register', ['captcha' => $captcha, 'scripts' => ['js/register.js']]);
+        $this->render('user/register', ['pageName' => 'Inscription', 'captcha' => $captcha, 'scripts' => ['js/register.js']]);
+    }
+
+    public function getDashboard() {
+        $this->render('user/dashboard', ['pageName' => 'Dashboard']);
     }
 
     /**
@@ -38,7 +42,7 @@ class UserController extends Controller {
     public function postLogin() {
         $auth = new DBAuth();
         $errors = $auth->logIn('logUsername', 'logPassword');
-        $this->render('user/login', ['errors' => $errors]);
+        $this->render('user/login', ['pageName' => 'Connexion', 'errors' => $errors]);
     }
 
     /**
@@ -48,7 +52,7 @@ class UserController extends Controller {
         $auth = new DBAuth();
         $errors = $auth->register('regUsername', 'regAccountType', 'regLastName', 'regFirstName', 'regEmail', 'regConfirmEmail', 'regPhoneNumber', 'regBirthDay', 'regPassword', 'regConfirmPassword', 'regCaptcha');
         $captcha = $this->security->generateCaptcha();
-        $this->render('user/register', ['errors' => $errors, 'scripts' => ['js/register.js'], 'captcha' => $captcha]);
+        $this->render('user/register', ['pageName' => 'Inscription', 'errors' => $errors, 'scripts' => ['js/register.js'], 'captcha' => $captcha]);
     }
 
 }

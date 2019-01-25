@@ -22,7 +22,7 @@ class Session {
     }
 
     public function getValue($key) {
-        return $_SESSION[$key];
+        return isset($_SESSION[$key]) ? $_SESSION[$key] : false;
     }
 
     public function setValue($key, $value) {

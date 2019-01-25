@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var array $news
+ */
+?>
 <main>
         <div class="container">
             <div id="infos" class="row">

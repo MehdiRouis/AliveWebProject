@@ -49,6 +49,7 @@ class Verifications {
             'username' => 'isValidUsername',
             'name' => 'isValidName',
             'birthDay' => 'isValidBirthDay',
+            'adultBirthDay' => 'isAdult',
             'email' => 'isValidEmail',
             'phoneNumber' => 'isValidPhoneNumber',
             'password' => 'isValidPassword',
@@ -136,18 +137,18 @@ class Verifications {
      * @return bool
      */
     public function isValidDate($inputName, $inputValue) {
-        if(preg_match('/^[\d]{1,2}\/[\d]{1,2}\/[\d]{4}$/', $inputValue)) {
-            $date = explode('/', $inputValue);
-            $day = (int)$date[0];
+        if(preg_match('/^[\d]{4}\-[\d]{1,2}\-[\d]{1,2}$/', $inputValue)) {
+            $date = explode('-', $inputValue);
+            $day = (int)$date[2];
             $month = (int)$date[1];
-            $year = (int)$date[2];
+            $year = (int)$date[0];
             if (checkdate($month, $day, $year)) {
                 return true;
             } else {
                 $this->addError($inputName, 'Date invalide.');
             }
         } else {
-            $this->addError($inputName, 'Date demandée sous la forme : DD/MM/YYYY');
+            $this->addError($inputName, 'Date demandée sous la forme : YYYY-MM-DD');
         }
         return false;
     }
@@ -160,10 +161,21 @@ class Verifications {
      */
     public function isValidBirthDay($inputName, $inputValue) {
         if($this->isValidDate($inputName, $inputValue)) {
-            if($inputValue <= date('d/m/Y')) {
+            if($inputValue <= date('Y-m-d')) {
                 return true;
             } else {
                 $this->addError($inputName, 'Date de naissance invalide.');
+            }
+        }
+        return false;
+    }
+
+    public function isAdult($inputName, $inputValue) {
+        if($this->isValidDate($inputName, $inputValue)) {
+            if($inputValue <= date('Y-m-d', strtotime('-18 years'))) {
+                return true;
+            } else {
+                $this->addError($inputName, 'Vous devez avoir la majorité.');
             }
         }
         return false;
@@ -213,9 +225,17 @@ class Verifications {
      */
     public function isValidPhoneNumber($inputName, $inputValue) {
         if(preg_match('/^(\+33)[1-9]([0-9]{2}){4}$/i', $inputValue)) {
-            return true;
+            if($this->getVerificationTable()) {
+                if(!$this->db->existContent($this->getVerificationTable(), 'phoneNumber', $inputValue)) {
+                    return true;
+                } else {
+                    $this->addError($inputName, 'Numéro de téléphone déjà utilisé.');
+                }
+            } else {
+                return true;
+            }
         } else {
-            $this->addError($inputName, 'Numéro demandé sous la forme +331 00 00 00 00');
+            $this->addError($inputName, 'Numéro demandé sous la forme +33101010101');
         }
         return false;
     }
@@ -228,7 +248,11 @@ class Verifications {
      */
     public function isValidPassword($inputName, $inputValue) {
         if(strlen($inputValue) > 6) {
-            return true;
+            if(preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).+$/', $inputValue)) {
+                return true;
+            } else {
+                $this->addError($inputName, 'Un lettre minuscule, majuscule, un chiffre et un caractère spécial minimum.');
+            }
         } else {
             $this->addError($inputName, 'Le mot de passe doit contenir plus de 6 caractères.');
         }

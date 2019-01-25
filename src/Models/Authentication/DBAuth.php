@@ -95,6 +95,7 @@ class DBAuth extends Session{
 
     /**
      * @param string $userName
+     * @param string $accountType
      * @param string $lastName
      * @param string $firstName
      * @param string $email
@@ -111,32 +112,34 @@ class DBAuth extends Session{
             'name' => [$lastName, $firstName],
             'email' => [$email],
             'phoneNumber' => [$phoneNumber],
-            'birthDay' => [$birthDay],
+            'adultBirthDay' => [$birthDay],
             'password' => [$password],
             'captcha' => [$captcha]
         ], 'alive_users');
         $validator->validate();
-        var_dump($validator->getErrors());
+        $pUserName = $this->getPost()->getValue($userName);
+        $pAccountType = $this->getPost()->getValue($accountType);
+        $pLastName = $this->getPost()->getValue($lastName);
+        $pFirstName = $this->getPost()->getValue($firstName);
+        $pEmail = $this->getPost()->getValue($email);
+        $pConfirmEmail = $this->getPost()->getValue($confirmEmail);
+        $pPhoneNumber = $this->getPost()->getValue($phoneNumber);
+        $pBirthDay = $this->getPost()->getValue($birthDay);
+        $pPassword = $this->getPost()->getValue($password);
+        $pConfirmPassword = $this->getPost()->getValue($confirmPassword);
+        if($pEmail !== $pConfirmEmail) {
+            $validator->addError($confirmEmail, 'Ce champs ne correspond pas avec l\'adresse email.');
+        }
+        if($pPassword !== $pConfirmPassword) {
+            $validator->addError($confirmPassword, 'Ce champs ne correspond pas avec le mot de passe.');
+        }
+        if((int) $pAccountType > 3 || (int) $pAccountType <= 0) {
+            $validator->addError($accountType, 'Erreur interne...');
+        }
         if(!$validator->isThereErrors()) {
-            $pUserName = $this->getPost()->getValue($userName);
-            $pAccountType = $this->getPost()->getValue($accountType);
-            $pLastName = $this->getPost()->getValue($lastName);
-            $pFirstName = $this->getPost()->getValue($firstName);
-            $pEmail = $this->getPost()->getValue($email);
-            $pConfirmEmail = $this->getPost()->getValue($confirmEmail);
-            $pPhoneNumber = $this->getPost()->getValue($phoneNumber);
-            $pBirthDay = $this->getPost()->getValue($birthDay);
-            $pPassword = $this->getPost()->getValue($password);
-            $pConfirmPassword = $this->getPost()->getValue($confirmPassword);
-            if($pEmail !== $pConfirmEmail) {
-                $validator->addError($confirmEmail, 'Ce champs ne correspond pas avec l\'adresse email.');
-            }
-            if($pPassword !== $pConfirmPassword) {
-                $validator->addError($confirmPassword, 'Ce champs ne correspond pas avec le mot de passe.');
-            }
-            if(!$validator->isThereErrors()) {
+            $user = new User();
+            $user->add($pUserName, $pAccountType, $pLastName, $pFirstName, $pEmail, $pPhoneNumber, $pBirthDay, $pPassword, true);
 
-            }
         }
         return $validator->getErrors();
     }

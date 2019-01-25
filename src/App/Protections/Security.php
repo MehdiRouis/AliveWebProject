@@ -107,6 +107,10 @@ class Security extends Session {
         return $randomString;
     }
 
+    public function hash($password) {
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
+
     public function __destruct() {
 
     }

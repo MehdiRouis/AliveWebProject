@@ -80,25 +80,28 @@ class User extends Session {
 
     /**
      * User constructor.
-     * @param string
-     * @param mixed
+     * @param false|string $value
+     * @param string $searchType
      */
-    public function __construct($value, $searchType = 'id') {
+    public function __construct($value = false, $searchType = 'id') {
         parent::__construct();
         $this->db = new PDOConnect();
         $this->security = new Security();
-        $user = $this->db->fetch('alive_users', $searchType, $value);
-        if($user) {
-            $this->id = $user->id;
-            $this->userName = $user->userName;
-            $this->lastName = $user->lastName;
-            $this->firstName = $user->firstName;
-            $this->phoneNumber = $user->phoneNumber;
-            $this->birthDay = $user->birthDay;
-            $this->password = $user->password;
-            $this->rank = $user->rank;
-            $this->email = $user->email;
-            $this->shopPoints = $user->shopPoints;
+        if($value) {
+            $req = $this->db->query("SELECT * FROM alive_users WHERE {$searchType} = ?", [$value]);
+            if ($req->rowCount() > 0) {
+                $user = $req->fetch();
+                $this->id = $user->id;
+                $this->userName = $user->userName;
+                $this->lastName = $user->lastName;
+                $this->firstName = $user->firstName;
+                $this->phoneNumber = $user->phoneNumber;
+                $this->birthDay = $user->birthDay;
+                $this->password = $user->password;
+                $this->rank = $user->rank;
+                $this->email = $user->email;
+                $this->shopPoints = $user->shopPoints;
+            }
         }
     }
 
@@ -117,6 +120,33 @@ class User extends Session {
     private function serialize() {
         $req = $this->db->query('SELECT * FROM alive_users WHERE id = ?', [$this->getId()]);
         return $req->fetch();
+    }
+
+    /**
+     * @param string $userName
+     * @param string $accountType
+     * @param string $lastName
+     * @param string $firstName
+     * @param string $email
+     * @param string $phoneNumber
+     * @param string $birthDay
+     * @param string $password
+     * @param bool $session
+     */
+    public function add($userName, $accountType, $lastName, $firstName, $email, $phoneNumber, $birthDay, $password, $session = false) {
+        $password = $this->security->hash($password);
+        $req = $this->db->query('INSERT INTO alive_users (userName, lastName, firstName, phoneNumber, birthDay, password, `rank`, email, shopPoints) VALUES (?,?,?,?,?,?,?,?,?)', [
+            $userName, $lastName, $firstName, $phoneNumber, $birthDay, $password, $accountType, $email, 0
+        ]);
+        if($session) {
+            $req = $this->db->query('SELECT id FROM alive_users WHERE userName = ? AND email = ? AND password = ?', [$userName, $email, $password]);
+            if($req->rowCount() > 0) {
+                $fetch = $req->fetch();
+                $user = new User($fetch->id);
+                $user->createSession();
+                $this->security->safeLocalRedirect('dashboard');
+            }
+        }
     }
 
     /**
