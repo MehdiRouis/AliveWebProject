@@ -15,6 +15,8 @@ $router->get('/account/logout', 'Authentication#getLogout', 'logout');
 $router->get('/account/dashboard', 'User#getDashboard', 'dashboard');
 $router->get('/user/:id/profile', 'User#getProfile', 'profile');
 
+// PROJECTS \\
+$router->get('/project/create', 'User#getCreateProject', 'createProject');
 /* -[{POST}]- */
 
 // AUTH \\

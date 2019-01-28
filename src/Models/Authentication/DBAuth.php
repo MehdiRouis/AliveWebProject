@@ -70,7 +70,7 @@ class DBAuth {
      */
     public function logIn($username, $password) {
         $valueUsername = $this->security->secureValue($this->getPost()->getValue($username));
-        $valuePassword = $this->security->secureValue($this->getPost()->getValue($password));
+        $valuePassword = $this->getPost()->getValue($password);
         if($valueUsername && $valuePassword) {
             $req = $this->db->query('SELECT id FROM alive_users WHERE userName = ? OR email = ?', [$valueUsername, $valueUsername]);
             if($req->rowCount() > 0) {
@@ -138,7 +138,7 @@ class DBAuth {
         }
         if(!$validator->isThereErrors()) {
             $user = new User();
-            $user->add($this->security->secureValue($pUserName), $this->security->secureValue($pAccountType), $this->security->secureValue($pLastName), $this->security->secureValue($pFirstName), $this->security->secureValue($pEmail), $this->security->secureValue($pPhoneNumber), $this->security->secureValue($pBirthDay), $this->security->secureValue($pPassword), true);
+            $user->add($this->security->secureValue($pUserName), $this->security->secureValue($pAccountType), $this->security->secureValue($pLastName), $this->security->secureValue($pFirstName), $this->security->secureValue($pEmail), $this->security->secureValue($pPhoneNumber), $this->security->secureValue($pBirthDay), $pPassword, true);
 
         }
         return $validator->getErrors();

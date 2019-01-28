@@ -59,8 +59,9 @@ class Article {
     public function __construct($value = false, $searchType = 'id') {
         $this->db = new PDOConnect();
         if($value) {
-            $new = $this->db->fetch('alive_users', $searchType, $value);
-            if ($new) {
+            $req = $this->db->query("SELECT * FROM alive_news WHERE {$searchType} = ?", [$value]);
+            if ($req->rowCount() > 0) {
+                $new = $req->fetch();
                 $this->id = $new->id;
                 $this->title = $new->title;
                 $this->description = $new->description;

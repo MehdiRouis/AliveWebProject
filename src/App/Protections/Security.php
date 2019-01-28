@@ -140,7 +140,7 @@ class Security extends Session {
      * @return string
      */
     public function secureValue($value) {
-        return htmlspecialchars($value);
+        return htmlentities($value);
     }
 
     public function __destruct() {

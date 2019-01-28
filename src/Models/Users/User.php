@@ -318,4 +318,17 @@ class User extends Session {
         return $GLOBALS['router']->getFullUrl('profile', ['id' => $this->getId()]);
     }
 
+    /**
+     * @return int
+     */
+    public function countCreatedProjects() {
+        $projects = new Projects($this->getId());
+        return $projects->countCreatedProjects();
+    }
+
+    public function getAllCreatedProjects() {
+        $projects = new Projects($this->getId());
+        return $projects->getAllCreatedProjects();
+    }
+
 }
