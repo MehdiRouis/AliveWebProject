@@ -16,9 +16,13 @@ $router->get('/account/dashboard', 'User#getDashboard', 'dashboard');
 $router->get('/user/:id/profile', 'User#getProfile', 'profile');
 
 // PROJECTS \\
-$router->get('/project/create', 'User#getCreateProject', 'createProject');
+$router->get('/project/create', 'Projects#getCreateProject', 'createProject');
+
 /* -[{POST}]- */
 
 // AUTH \\
 $router->post('/account/login', 'Authentication#postLogin', 'plogin');
 $router->post('/account/register', 'Authentication#postRegister', 'pregister');
+
+// PROJECTS \\
+$router->post('/project/create', 'Projects#postCreateProject', 'pcreateproject');

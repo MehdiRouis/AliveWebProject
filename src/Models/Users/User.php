@@ -331,4 +331,9 @@ class User extends Session {
         return $projects->getAllCreatedProjects();
     }
 
+    public function getCSRFToken() {
+        $token = $this->security->getValue('token');
+        return isset($token) ? $token : false;
+    }
+
 }

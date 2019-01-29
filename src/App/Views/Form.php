@@ -140,7 +140,18 @@ class Form {
         $this->addHTML('<span class="helper-text red-text">' . $error . '</span>');
         $this->addHTML('</div>');
     }
+    //<textarea id="projectDescription" name="projectDescription" class="materialize-textarea white-text"></textarea>
+    public function addTextarea($errors, $id, $label, $class = false) {
+        $value = $this->getPost()->getValue($id) ? $this->getPost()->getValue($id) : $label;
+        $error = isset($errors[$id]) ? $errors[$id] : '';
+        $class = $class ? 'materialize-textarea ' . $class : 'materialize-textarea';
+        $this->addHTML('<textarea id="' . $id . '" name="' . $id . '" class="' . $class . '">' . $value . '</textarea>');
+        $this->addHTML('<p class="helper-text red-text">' . $error . '</p>');
+    }
 
+    public function addSecurityToken($id, $value) {
+        $this->addHTML('<input id="' . $id . '" name="' . $id . '" type="hidden" value="' . $value . '" />');
+    }
     /**
      * @param string $label
      * @param string $class
