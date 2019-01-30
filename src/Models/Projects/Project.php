@@ -13,7 +13,10 @@
 namespace Models\Projects;
 
 
+use App\Protections\Security;
+use App\Validators\Validator;
 use Models\Database\PDOConnect;
+use Models\Globals\Post;
 use Models\Users\User;
 
 class Project {
@@ -79,6 +82,31 @@ class Project {
         }
     }
 
+    public function add($title, $description, $captcha, $token, $userId) {
+        $validator = new Validator([
+            'title' => [$title],
+            'description' => [$description],
+            'captcha' => [$captcha],
+            'token' => [$token]
+        ], 'alive_projects');
+        $req = $this->db->query('SELECT id FROM alive_projects WHERE createdBy = ? AND statusId = ?', [$userId, 3]);
+        $validator->validate();
+        if($req->rowCount() > 0) {
+            $validator->addError($token, 'Vous avez déjà un projet en attente de modération.');
+        }
+        $security = new Security();
+        $post = new Post();
+        if(!$validator->isThereErrors()) {
+            $req = $this->db->query('INSERT INTO alive_projects (name, description, statusId, createdBy, createdAt) VALUES (?,?,?,?,?)', [$security->secureValue($post->getValue($title)), $security->secureValue($post->getValue($description)), 3, $userId, time()]);
+            if($req) {
+                return true;
+            } else {
+                $validator->addError($title, 'Erreur lors de la requête... Merci de réessayer plus tard.');
+            }
+        }
+        return $validator->getErrors();
+    }
+
     /**
      * @return int
      */
@@ -89,7 +117,7 @@ class Project {
     /**
      * @return string
      */
-    public function getName() {
+    public function getTitle() {
         return $this->name;
     }
 

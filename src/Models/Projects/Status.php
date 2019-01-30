@@ -34,11 +34,11 @@ class Status {
 
     /**
      * Status constructor.
-     * @param int $projectId
+     * @param int $statusId
      */
-    public function __construct($projectId) {
+    public function __construct($statusId) {
         $this->db = new PDOConnect();
-        $req = $this->db->query('SELECT * FROM alive_projects_status WHERE id = ?', [$projectId]);
+        $req = $this->db->query('SELECT * FROM alive_projects_status WHERE id = ?', [$statusId]);
         if($req->rowCount() > 0) {
             $status = $req->fetch();
             $this->id = $status->id;

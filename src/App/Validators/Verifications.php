@@ -52,8 +52,11 @@ class Verifications {
             'adultBirthDay' => 'isAdult',
             'email' => 'isValidEmail',
             'phoneNumber' => 'isValidPhoneNumber',
+            'title' => 'isValidTitle',
+            'description' => 'isValidDescription',
             'password' => 'isValidPassword',
-            'captcha' => 'isValidCaptcha'
+            'captcha' => 'isValidCaptcha',
+            'token' => 'isValidToken'
         ];
     }
 
@@ -241,6 +244,42 @@ class Verifications {
     }
 
     /**
+     * @param string $inputName
+     * @param string $inputValue
+     * @return bool
+     */
+    public function isValidTitle($inputName, $inputValue) {
+        if(preg_match('/^[a-zA-ZÂ-ÿ -!:.,+=\'"*0-9]+$/', $inputValue)) {
+            if(strlen($inputValue) > 5 && strlen($inputValue) < 30) {
+                return true;
+            } else {
+                $this->addError($inputName, 'La valeur doit contenir entre 5 et 30 caractères.');
+            }
+        } else {
+            $this->addError($inputName, 'Ce champs contient des caractères spéciaux non prit en charge.');
+        }
+        return false;
+    }
+
+    /**
+     * @param string $inputName
+     * @param string $inputValue
+     * @return bool
+     */
+    public function isValidDescription($inputName, $inputValue) {
+        if(preg_match('/^[a-zA-ZÂ-ÿ -!$€:().\'",*+=0-9 \n \r]+$/', $inputValue)) {
+            if(strlen($inputValue) > 50 && strlen($inputValue) < 1000) {
+                return true;
+            } else {
+                $this->addError($inputName, 'Le champs doit contenir entre 50 et 1000 caractères.');
+            }
+        } else {
+            $this->addError($inputName, 'Ce champs contient des caractères spéciaux non prit en charge.');
+        }
+        return false;
+    }
+
+    /**
      * Savoir si un mot de passe est valide.
      * @param string $inputName
      * @param string $inputValue
@@ -271,6 +310,14 @@ class Verifications {
         }
         $this->addError($inputName, 'Captcha invalide.');
         return false;
+    }
+
+    public function isValidToken($inputName, $inputValue) {
+        $session = new Session();
+        if($inputValue === $session->getValue('token')) {
+            return true;
+        }
+        $this->addError($inputName, 'Une erreur est survenue... Merci de réessayer plus tard.');
     }
 
     /**

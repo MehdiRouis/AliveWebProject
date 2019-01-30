@@ -13,15 +13,25 @@
 namespace Controllers;
 
 
+use Models\Projects\Project;
+
 class ProjectsController extends Controller {
 
     public function getCreateProject() {
-        $this->render('projects/create', ['pageName' => 'Créer un projet']);
+        $this->security->restrict();
+        $captcha = $this->security->generateCaptcha();
+        $this->render('projects/create', ['pageName' => 'Créer un projet', 'captcha' => $captcha]);
     }
 
     public function postCreateProject() {
-        var_dump($_POST);
-        $this->render('projects/create', ['pageName' => 'Créer un projet']);
+        $this->security->restrict();
+        $project = new Project();
+        $errors = $project->add('projectTitle', 'projectDescription', 'projectCaptcha', 'CSRFToken', $this->user->getId());
+        $captcha = $this->security->generateCaptcha(154, 34, 255, 255, 255);
+        if(!is_array($errors)) {
+            $this->security->safeLocalRedirect('dashboard');
+        }
+        $this->render('projects/create', ['pageName' => 'Créer un projet', 'captcha' => $captcha, 'errors' => $errors]);
     }
 
 }

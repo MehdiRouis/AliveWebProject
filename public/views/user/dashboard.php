@@ -48,6 +48,25 @@
             <div class="divider"></div>
             <?php if($user->countCreatedProjects() === 0) { ?>
                 <p>Nous avons remarqué que vous n'avez crée aucun projet! Vous pouvez en créer un en cliquant <a href="<?= $router->getFullUrl('createProject'); ?>">ici</a>.</p>
+            <?php } else { ?>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Statut</th>
+                        <th>Date de création</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($user->getAllCreatedProjects() as $project) { /** @var \Models\Projects\Project $project */?>
+                        <tr>
+                            <td><?= $project->getTitle(); ?></td>
+                            <td><?= $project->getStatus()->getName(); ?></td>
+                            <td><?= $project->getCreatedAt(); ?></td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
             <?php } ?>
         </div>
     </div>

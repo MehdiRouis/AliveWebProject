@@ -13,6 +13,7 @@
 namespace App\Views;
 
 use Models\Globals\Post;
+use Models\Users\User;
 
 class Form {
 
@@ -42,17 +43,29 @@ class Form {
     private $html;
 
     /**
+     * @var array
+     */
+    private $errors;
+
+    /**
      * Form constructor.
+     * @param array $errors
      * @param string $routeName
      * @param string $method
+     * @param bool $csrf
      * @throws \Exception \App\Routes\RouterExceptions
      */
-    public function __construct($routeName, $method = 'POST') {
+    public function __construct($errors, $routeName, $method = 'POST', $csrf = false) {
+        $this->errors = $errors;
         $this->post = new Post();
         $this->router = $GLOBALS['router'];
         $this->method = $method;
         $this->route = $this->getRouter()->getFullUrl($routeName);
         $this->html = '<form class="row" method="' . $method . '" action="' . $this->route . '">';
+        $user = new User();
+        if($csrf) {
+            $this->addSecurityToken('CSRFToken', $user->getCSRFToken());
+        }
     }
 
     /**
@@ -77,7 +90,6 @@ class Form {
     }
 
     /**
-     * @param array $errors
      * @param string $id
      * @param string $label
      * @param string $fieldClass
@@ -85,13 +97,13 @@ class Form {
      * @param string $pattern
      * @param string $inputClass
      */
-    public function addField($errors, $id, $label, $fieldClass = 'col s12', $type = 'text', $pattern = '', $inputClass = 'validate') {
+    public function addField($id, $label, $fieldClass = 'col s12', $type = 'text', $pattern = '', $inputClass = 'validate') {
         $fieldClass = 'input-field ' . $fieldClass;
         $inputClass = $inputClass === 'validate' ? $inputClass : 'validate '.$inputClass;
         $pattern = !empty($pattern) ? ' pattern="' . $pattern . '"' : '';
         $placeHolder = $type === 'date' || $type === 'time' ? ' placeholder=""' : '';
         $value = $this->getPost()->getValue($id) ? $this->getPost()->getValue($id) : '';
-        $error = isset($errors[$id]) ? $errors[$id] : '';
+        $error = isset($this->errors[$id]) ? $this->errors[$id] : '';
         $this->addHTML('<div class="' . $fieldClass . '">');
         $this->addHTML('<input id="' . $id . '" name="' . $id . '" type="' . $type . '" value="' . $value . '"' . $placeHolder . ' class="' . $inputClass . '"' . $pattern . ' />');
         $this->addHTML('<label for="' . $id . '">' . $label . '</label>');
@@ -100,16 +112,15 @@ class Form {
     }
 
     /**
-     * @param array $errors
      * @param string $id
      * @param string $label
      * @param array $content
      * @param string $fieldClass
      */
-    public function addSelect($errors, $id, $label, $content = [], $fieldClass = 'col s12') {
+    public function addSelect($id, $label, $content = [], $fieldClass = 'col s12') {
         $selected = $this->getPost()->getValue($id) ? 'selected' : '';
         $fieldClass = 'input-field ' . $fieldClass;
-        $error = isset($errors[$id]) ? $errors[$id] : '';
+        $error = isset($this->errors[$id]) ? $this->errors[$id] : '';
         $this->addHTML('<div class="' . $fieldClass . '">');
         $this->addHTML('<select id="' . $id . '" name="' . $id . '">');
         $this->addHTML('<option value="" disabled selected>Choisissez une option</option>');
@@ -123,14 +134,13 @@ class Form {
     }
 
     /**
-     * @param array $errors
      * @param string $captcha
      * @param string $id
      * @param string $label
      */
-    public function addCaptcha($errors, $captcha, $id, $label) {
+    public function addCaptcha($captcha, $id, $label) {
         $value = $this->getPost()->getValue($id) ? $this->getPost()->getValue($id) : '';
-        $error = isset($errors[$id]) ? $errors[$id] : '';
+        $error = isset($this->errors[$id]) ? $this->errors[$id] : '';
         $this->addHTML('<div class="input-field col s4">');
         $this->addHTML($captcha);
         $this->addHTML('</div>');
@@ -140,17 +150,29 @@ class Form {
         $this->addHTML('<span class="helper-text red-text">' . $error . '</span>');
         $this->addHTML('</div>');
     }
-    //<textarea id="projectDescription" name="projectDescription" class="materialize-textarea white-text"></textarea>
-    public function addTextarea($errors, $id, $label, $class = false) {
+
+    /**
+     * @param string $id
+     * @param string $label
+     * @param bool $class
+     */
+    public function addTextarea($id, $label, $class = false, $pattern = false) {
         $value = $this->getPost()->getValue($id) ? $this->getPost()->getValue($id) : $label;
-        $error = isset($errors[$id]) ? $errors[$id] : '';
-        $class = $class ? 'materialize-textarea ' . $class : 'materialize-textarea';
-        $this->addHTML('<textarea id="' . $id . '" name="' . $id . '" class="' . $class . '">' . $value . '</textarea>');
+        $error = isset($this->errors[$id]) ? $this->errors[$id] : '';
+        $pattern = $pattern ? 'pattern="' . $pattern . '"' : '';
+        $class = $class ? 'materialize-textarea validate ' . $class : 'materialize-textarea validate';
+        $this->addHTML('<textarea id="' . $id . '" name="' . $id . '" class="' . $class . '" ' . $pattern . '>' . $value . '</textarea>');
         $this->addHTML('<p class="helper-text red-text">' . $error . '</p>');
     }
 
+    /**
+     * @param string $id
+     * @param string $value
+     */
     public function addSecurityToken($id, $value) {
+        $error = isset($this->errors[$id]) ? $this->errors[$id] : '';
         $this->addHTML('<input id="' . $id . '" name="' . $id . '" type="hidden" value="' . $value . '" />');
+        $this->addHTML('<p class="red-text">' . $error . '</p>');
     }
     /**
      * @param string $label

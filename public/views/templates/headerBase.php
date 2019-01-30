@@ -45,7 +45,7 @@
         } else {
             $navbar->addUserView($user);
             $navbar->add('dashboard', 'DASHBOARD', 'fas fa-home');
-            $navbar->add('createProject', 'CRÉER UN PROJET', 'fas fa-home');
+            $navbar->add('createProject', 'CRÉER UN PROJET', 'fas fa-project-diagram');
             $navbar->add('logout', 'SE DÉCONNECTER', 'fas fa-sign-out-alt', 'logout');
         }
     } else {
