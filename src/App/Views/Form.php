@@ -118,14 +118,14 @@ class Form {
      * @param string $fieldClass
      */
     public function addSelect($id, $label, $content = [], $fieldClass = 'col s12') {
-        $selected = $this->getPost()->getValue($id) ? 'selected' : '';
         $fieldClass = 'input-field ' . $fieldClass;
         $error = isset($this->errors[$id]) ? $this->errors[$id] : '';
         $this->addHTML('<div class="' . $fieldClass . '">');
         $this->addHTML('<select id="' . $id . '" name="' . $id . '">');
         $this->addHTML('<option value="" disabled selected>Choisissez une option</option>');
         foreach($content as $value => $name) {
-            $this->addHTML('<option value="' . $value . '" ' . $selected . '>' . $name . '</option>');
+            $selected = $this->getPost()->getValue($id) == $value ? ' selected' : '';
+            $this->addHTML('<option value="' . $value . '"' . $selected . '>' . $name . '</option>');
         }
         $this->addHTML('</select>');
         $this->addHTML('<label for="' . $id . '">' . $label . '</label>');

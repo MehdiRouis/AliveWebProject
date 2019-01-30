@@ -27,7 +27,7 @@ class ProjectsController extends Controller {
         $this->security->restrict();
         $project = new Project();
         $errors = $project->add('projectTitle', 'projectDescription', 'projectCaptcha', 'CSRFToken', $this->user->getId());
-        $captcha = $this->security->generateCaptcha(154, 34, 255, 255, 255);
+        $captcha = $this->security->generateCaptcha(154, 34, 179,229,252);
         if(!is_array($errors)) {
             $this->security->safeLocalRedirect('dashboard');
         }
