@@ -64,7 +64,7 @@ class Verifications {
      * Récupérer la table où auront lieu les vérifications si elle existe.
      * @return bool|string
      */
-    public function getVerificationTable() {
+    public function getVerificationTable(): string {
         return $this->verification_table;
     }
 
@@ -85,7 +85,7 @@ class Verifications {
                 if(isset($value[key($value)]) && !empty($value[key($value)])) {
                     $this->$found(key($value), $value[key($value)]);
                 } else {
-                    $this->addError(key($value),'Champs vide.');
+                    $this->addError(key($value),'Champ vide.');
                 }
             } else {
                 $this->addError(key($value), 'La clé "' . $valueType . '" de vérification est introuvable.');
@@ -93,7 +93,12 @@ class Verifications {
         }
     }
 
-    public function isValidUsername($inputName, $inputValue) {
+    /**
+     * @param $inputName
+     * @param $inputValue
+     * @return bool
+     */
+    public function isValidUsername($inputName, $inputValue): bool {
         if(preg_match('/^[A-Za-zÂ-ÿ0-9-]+$/', $inputValue)) {
             if(strlen($inputName) > 3 && strlen($inputName) <= 15) {
                 if($this->getVerificationTable()) {
@@ -106,7 +111,7 @@ class Verifications {
                     return true;
                 }
             } else {
-                $this->addError($inputName, 'Le champs doit contenir entre 3 et 15 caractères.');
+                $this->addError($inputName, 'Le champ doit contenir entre 3 et 15 caractères.');
             }
         } else {
             $this->addError($inputName, 'Caractères spéciaux non-autorisés.');
@@ -120,12 +125,12 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidName($inputName, $inputValue) {
+    public function isValidName($inputName, $inputValue): bool {
         if(preg_match('/^[A-Za-zÂ-ÿ -]+$/', $inputValue)) {
             if(strlen($inputName) > 3 && strlen($inputName) <= 25) {
                 return true;
             } else {
-                $this->addError($inputName, 'Le champs doit contenir entre 3 et 25 caractères.');
+                $this->addError($inputName, 'Le champ doit contenir entre 3 et 25 caractères.');
             }
         } else {
             $this->addError($inputName, 'Caractères spéciaux non-autorisés.');
@@ -139,7 +144,7 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidDate($inputName, $inputValue) {
+    public function isValidDate($inputName, $inputValue): bool {
         if(preg_match('/^[\d]{4}\-[\d]{1,2}\-[\d]{1,2}$/', $inputValue)) {
             $date = explode('-', $inputValue);
             $day = (int)$date[2];
@@ -162,7 +167,7 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidBirthDay($inputName, $inputValue) {
+    public function isValidBirthDay($inputName, $inputValue): bool {
         if($this->isValidDate($inputName, $inputValue)) {
             if($inputValue <= date('Y-m-d')) {
                 return true;
@@ -173,7 +178,7 @@ class Verifications {
         return false;
     }
 
-    public function isAdult($inputName, $inputValue) {
+    public function isAdult($inputName, $inputValue): bool {
         if($this->isValidDate($inputName, $inputValue)) {
             if($inputValue <= date('Y-m-d', strtotime('-18 years'))) {
                 return true;
@@ -190,7 +195,7 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    private function isBaseEmailValid($inputName, $inputValue) {
+    private function isBaseEmailValid($inputName, $inputValue): bool {
         if(filter_var($inputValue, FILTER_VALIDATE_EMAIL)) {
             return true;
         } else {
@@ -205,7 +210,7 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidEmail($inputName, $inputValue) {
+    public function isValidEmail($inputName, $inputValue): bool {
         if($this->isBaseEmailValid($inputName, $inputValue)) {
             if($this->getVerificationTable()) {
                 if(!$this->db->existContent($this->getVerificationTable(), 'email', $inputValue)) {
@@ -226,7 +231,7 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidPhoneNumber($inputName, $inputValue) {
+    public function isValidPhoneNumber($inputName, $inputValue): bool {
         if(preg_match('/^(\+33)[1-9]([0-9]{2}){4}$/i', $inputValue)) {
             if($this->getVerificationTable()) {
                 if(!$this->db->existContent($this->getVerificationTable(), 'phoneNumber', $inputValue)) {
@@ -248,7 +253,7 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidTitle($inputName, $inputValue) {
+    public function isValidTitle($inputName, $inputValue): bool {
         if(preg_match('/^[a-zA-ZÂ-ÿ -!:.,+=\'"*0-9]+$/', $inputValue)) {
             if(strlen($inputValue) > 5 && strlen($inputValue) < 30) {
                 return true;
@@ -256,7 +261,7 @@ class Verifications {
                 $this->addError($inputName, 'La valeur doit contenir entre 5 et 30 caractères.');
             }
         } else {
-            $this->addError($inputName, 'Ce champs contient des caractères spéciaux non prit en charge.');
+            $this->addError($inputName, 'Ce champ contient des caractères spéciaux non prit en charge.');
         }
         return false;
     }
@@ -266,15 +271,15 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidDescription($inputName, $inputValue) {
+    public function isValidDescription($inputName, $inputValue): bool {
         if(preg_match('/^[a-zA-ZÂ-ÿ -!$€:().\'",*+=0-9 \n \r]+$/', $inputValue)) {
             if(strlen($inputValue) > 50 && strlen($inputValue) < 1000) {
                 return true;
             } else {
-                $this->addError($inputName, 'Le champs doit contenir entre 50 et 1000 caractères.');
+                $this->addError($inputName, 'Le champ doit contenir entre 50 et 1000 caractères.');
             }
         } else {
-            $this->addError($inputName, 'Ce champs contient des caractères spéciaux non prit en charge.');
+            $this->addError($inputName, 'Ce champ contient des caractères spéciaux non prit en charge.');
         }
         return false;
     }
@@ -285,15 +290,15 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidPassword($inputName, $inputValue) {
-        if(strlen($inputValue) > 6) {
-            if(preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).+$/', $inputValue)) {
+    public function isValidPassword($inputName, $inputValue): bool {
+        if(preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).+$/', $inputValue)) {
+            if(strlen($inputValue) > 6) {
                 return true;
             } else {
-                $this->addError($inputName, 'Un lettre minuscule, majuscule, un chiffre et un caractère spécial minimum.');
+                $this->addError($inputName, 'Le mot de passe doit contenir plus de 6 caractères.');
             }
         } else {
-            $this->addError($inputName, 'Le mot de passe doit contenir plus de 6 caractères.');
+            $this->addError($inputName, 'Une lettre minuscule, majuscule, un chiffre et un caractère spécial minimum.');
         }
         return false;
     }
@@ -303,7 +308,7 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidCaptcha($inputName, $inputValue) {
+    public function isValidCaptcha($inputName, $inputValue): bool {
         $session = new Session();
         if($inputValue === $session->getValue('captcha')) {
             return true;
@@ -312,18 +317,19 @@ class Verifications {
         return false;
     }
 
-    public function isValidToken($inputName, $inputValue) {
+    public function isValidToken($inputName, $inputValue): bool {
         $session = new Session();
         if($inputValue === $session->getValue('token')) {
             return true;
         }
         $this->addError($inputName, 'Une erreur est survenue... Merci de réessayer plus tard.');
+        return false;
     }
 
     /**
      * Ajouter une erreur.
      * @param string $inputName
-     * @param string$message
+     * @param string $message
      */
     public function addError($inputName, $message) {
         $this->errorList[$inputName] = $message;
@@ -333,7 +339,7 @@ class Verifications {
      * Récupérer les erreurs.
      * @return array
      */
-    public function getErrors() {
+    public function getErrors(): array {
         return $this->errorList;
     }
 

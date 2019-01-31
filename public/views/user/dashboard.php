@@ -4,9 +4,9 @@
  */
 ?>
 <main class="container">
-    <div class="row">
+    <div class="row white-text">
         <div class="col s12 m3">
-            <div class="card gradient-45deg-amber-amber white-text">
+            <div class="card gradient-45deg-amber-amber">
                 <div class="card-content">
                     <p class="card-title">Vous êtes</p>
                     <div class="divider mb-10"></div>
@@ -17,18 +17,18 @@
         <div class="col s12 m3">
             <div class="card gradient-45deg-green-teal">
                 <div class="card-content">
-                    <p class="card-title"></p>
-                    <div class="divider"></div>
-                    <p></p>
+                    <p class="card-title">Projets</p>
+                    <div class="divider mb-10"></div>
+                    <p class="right-align"><?= $user->countAllProjects(); ?></p>
                 </div>
             </div>
         </div>
         <div class="col s12 m3">
             <div class="card gradient-45deg-indigo-light-blue">
                 <div class="card-content">
-                    <p class="card-title"></p>
-                    <div class="divider"></div>
-                    <p></p>
+                    <p class="card-title">Projets réalisés</p>
+                    <div class="divider mb-10"></div>
+                    <p class="right-align"><?= $user->countFinishedProjects(); ?></p>
                 </div>
             </div>
         </div>

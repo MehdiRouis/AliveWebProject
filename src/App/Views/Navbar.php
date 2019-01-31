@@ -12,6 +12,8 @@
 
 namespace App\Views;
 
+use App\Routes\Router;
+
 class Navbar
 {
     /**
@@ -29,7 +31,7 @@ class Navbar
         $this->html = '<ul id="slide-out" class="sidenav">';
     }
 
-    public function getRouter() {
+    public function getRouter(): Router {
         return $this->router;
     }
 

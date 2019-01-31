@@ -52,14 +52,14 @@ class DBAuth {
     /**
      * @return Post
      */
-    public function getPost() {
+    public function getPost(): Post {
         return $this->post;
     }
 
     /**
-     * @return Errors|array
+     * @return array
      */
-    public function getErrors() {
+    public function getErrors(): array {
         return $this->errors;
     }
 
@@ -68,7 +68,7 @@ class DBAuth {
      * @param string $password
      * @return array
      */
-    public function logIn($username, $password) {
+    public function logIn($username, $password):array {
         $valueUsername = $this->security->secureValue($this->getPost()->getValue($username));
         $valuePassword = $this->getPost()->getValue($password);
         if($valueUsername && $valuePassword) {
@@ -106,7 +106,7 @@ class DBAuth {
      * @param string $captcha
      * @return array
      */
-    public function register($userName, $accountType, $lastName, $firstName, $email, $confirmEmail, $phoneNumber, $birthDay, $password, $confirmPassword, $captcha) {
+    public function register($userName, $accountType, $lastName, $firstName, $email, $confirmEmail, $phoneNumber, $birthDay, $password, $confirmPassword, $captcha): array {
         $validator = new Validator([
             'username' => [$userName],
             'name' => [$lastName, $firstName],
@@ -144,7 +144,10 @@ class DBAuth {
         return $validator->getErrors();
     }
 
-    public function isLogged() {
+    /**
+     * @return bool
+     */
+    public function isLogged(): bool {
         return $this->security->existValue('auth');
     }
 

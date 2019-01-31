@@ -2,6 +2,7 @@
 /**
  * @var array $errors
  * @var \Models\Users\User $user
+ * @var string $captcha
  */
 ?>
 <main class="container">

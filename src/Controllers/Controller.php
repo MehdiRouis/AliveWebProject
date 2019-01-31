@@ -58,7 +58,7 @@ class Controller {
     /**
      * @return Router
      */
-    protected function getRouter() {
+    protected function getRouter(): Router {
         return $GLOBALS['router'];
     }
 

@@ -16,6 +16,7 @@ namespace Models\Projects;
 use App\Protections\Security;
 use App\Validators\Validator;
 use Models\Database\PDOConnect;
+use App\Date\Parser;
 use Models\Globals\Post;
 use Models\Users\User;
 
@@ -82,7 +83,15 @@ class Project {
         }
     }
 
-    public function add($title, $description, $captcha, $token, $userId) {
+    /**
+     * @param string $title
+     * @param string $description
+     * @param string $captcha
+     * @param string $token
+     * @param int $userId
+     * @return array|bool
+     */
+    public function add($title, $description, $captcha, $token, $userId): array {
         $validator = new Validator([
             'title' => [$title],
             'description' => [$description],
@@ -110,50 +119,52 @@ class Project {
     /**
      * @return int
      */
-    public function getId() {
+    public function getId(): int {
         return $this->id;
     }
 
     /**
      * @return string
      */
-    public function getTitle() {
-        return $this->name;
+    public function getTitle(): string {
+        return (string) $this->name;
     }
 
     /**
      * @return string
      */
-    public function getDescription() {
+    public function getDescription(): string {
         return $this->description;
     }
 
     /**
      * @return Status
      */
-    public function getStatus() {
+    public function getStatus(): Status {
         return $this->status;
     }
 
     /**
      * @return User
      */
-    public function getCreatedBy() {
+    public function getCreatedBy(): User {
         return $this->createdBy;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getCreatedAt() {
-        return $this->createdAt;
+    public function getCreatedAt(): string {
+        $date = new Parser($this->createdAt);
+        return $date->format();
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getEditedAt() {
-        return $this->editedAt;
+    public function getEditedAt(): string {
+        $date = new Parser($this->editedAt);
+        return $date->format();
     }
 
 }

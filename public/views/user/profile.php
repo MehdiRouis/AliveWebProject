@@ -6,35 +6,14 @@
 <main class="container">
     <div id="profile-page-header" class="card">
         <div class="card-image waves-effect waves-block waves-light">
+            <span class="circle white darken-1 black-text hoverable avatar"><?= $userProfile->getInitialUserName(); ?></span>
             <img class="activator" src="<?= PROJECT_LINK; ?>/public/assets/img/carousel/sky.jpg" alt="user background">
         </div>
-        <figure class="card-profile-image">
-            <span class="circle white darken-1 black-text hoverable avatar"><?= $userProfile->getInitialUserName(); ?></span>
-        </figure>
         <div class="card-content">
-            <?php
-            ?>
             <div class="row pt-2">
                 <div class="col s12 m3 offset-m2">
                     <h4 class="card-title grey-text text-darken-4"><?= $userProfile->getFullName(); ?></h4>
                     <p class="medium-small grey-text">@<?= $userProfile->getUserName(); ?></p>
-                </div>
-                <div class="col s12 m2 center-align">
-                    <h4 class="card-title grey-text text-darken-4">10+</h4>
-                    <p class="medium-small grey-text">Work Experience</p>
-                </div>
-                <div class="col s12 m2 center-align">
-                    <h4 class="card-title grey-text text-darken-4">6</h4>
-                    <p class="medium-small grey-text">Completed Projects</p>
-                </div>
-                <div class="col s12 m2 center-align">
-                    <h4 class="card-title grey-text text-darken-4">$ 1,253,000</h4>
-                    <p class="medium-small grey-text">Busness Profit</p>
-                </div>
-                <div class="col s12 m1 right-align">
-                    <a class="btn-floating activator waves-effect waves-light rec accent-2 right">
-                        <i class="material-icons">perm_identity</i>
-                    </a>
                 </div>
             </div>
         </div>

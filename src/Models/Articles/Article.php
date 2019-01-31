@@ -12,6 +12,7 @@
 
 namespace Models\Articles;
 
+use App\Date\Parser;
 use Models\Database\PDOConnect;
 use Models\Users\User;
 
@@ -72,7 +73,11 @@ class Article {
         }
     }
 
-    public function getAllNews($limit = false) {
+    /**
+     * @param bool $limit
+     * @return array
+     */
+    public function getAllNews($limit = false): array {
         $sql = 'SELECT id FROM alive_news';
         if($limit) {
             $sql = 'SELECT id FROM alive_news LIMIT '. $limit;
@@ -88,7 +93,7 @@ class Article {
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -96,7 +101,7 @@ class Article {
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -104,7 +109,7 @@ class Article {
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -112,23 +117,24 @@ class Article {
     /**
      * @return string
      */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): string
     {
-        return $this->createdAt;
+        $date = new Parser($this->createdAt);
+        return $date->format();
     }
 
     /**
      * @return User
      */
-    public function getCreatedBy()
+    public function getCreatedBy(): User
     {
         return new User($this->createdBy);
     }

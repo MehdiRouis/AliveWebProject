@@ -12,6 +12,7 @@
 
 namespace App\Views;
 
+use App\Routes\Router;
 use Models\Globals\Post;
 use Models\Users\User;
 
@@ -71,14 +72,14 @@ class Form {
     /**
      * @return \App\Routes\Router
      */
-    private function getRouter() {
+    private function getRouter(): Router {
         return $this->router;
     }
 
     /**
      * @return Post
      */
-    private function getPost() {
+    private function getPost(): Post {
         return $this->post;
     }
 

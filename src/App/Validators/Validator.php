@@ -61,7 +61,7 @@ class Validator extends Security {
      * Valider les informations des inputs via la classe Vérifications
      * @return array
      */
-    public function validate() {
+    public function validate(): array {
         $postValues = $this->postValues;
         $validType = new Verifications($this->table);
         foreach ($postValues as $valueType => $valuePost) {
@@ -75,7 +75,7 @@ class Validator extends Security {
      * Obtenir les erreurs des vérifications
      * @return array
      */
-    public function getErrors() {
+    public function getErrors(): array {
         return $this->verifiedInputs;
     }
 
@@ -91,7 +91,7 @@ class Validator extends Security {
      * Savoir s'il y a des erreurs.
      * @return bool
      */
-    public function isThereErrors() {
+    public function isThereErrors(): bool {
         if(count($this->verifiedInputs) > 0) {
             return true;
         } else {

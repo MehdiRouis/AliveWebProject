@@ -69,7 +69,7 @@ class Permission {
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -77,7 +77,7 @@ class Permission {
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -85,7 +85,7 @@ class Permission {
     /**
      * @return string
      */
-    public function getParseName()
+    public function getParseName(): string
     {
         return $this->parseName;
     }
@@ -93,7 +93,7 @@ class Permission {
     /**
      * @return string
      */
-    public function getParseDescription()
+    public function getParseDescription(): string
     {
         return $this->parseDescription;
     }
@@ -101,12 +101,12 @@ class Permission {
     /**
      * @return int
      */
-    public function getMinRank()
+    public function getMinRank(): int
     {
         return $this->minRank;
     }
 
-    public function hasRight($rankId) {
+    public function hasRight($rankId): bool {
         if($this->getMinRank() <= $rankId) {
             return true;
         }

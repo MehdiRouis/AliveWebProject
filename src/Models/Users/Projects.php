@@ -29,13 +29,19 @@ class Projects {
     private $projects = [];
 
     /**
+     * @var int
+     */
+    private $userId;
+
+    /**
      * Projects constructor.
      * @param bool|int $userId
      */
     public function __construct($userId = false) {
         $this->db = new PDOConnect();
         if($userId) {
-            $req = $this->db->query('SELECT * FROM alive_projects WHERE createdBy = ?', [$userId]);
+            $this->userId = $userId;
+            $req = $this->db->query('SELECT * FROM alive_projects_members WHERE userId = ?', [$userId]);
             if($req->rowCount() > 0) {
                 while($project = $req->fetch()) {
                     $this->projects[] = new Project($project->id);
@@ -44,11 +50,53 @@ class Projects {
         }
     }
 
-    public function countCreatedProjects() {
+    /**
+     * @return int
+     */
+    public function countCreatedProjects(): int {
+        return count($this->getAllCreatedProjects());
+    }
+
+    /**
+     * @return int
+     */
+    public function countFinishedProjects(): int {
+        $finishedProjects = 0;
+        $projects = $this->getAllProjects();
+        foreach($projects as $project) {
+            /** @var Project $project */
+            if($project->getStatus()->getId() === 5) {
+                $finishedProjects++;
+            }
+        }
+        return $finishedProjects;
+    }
+
+    /**
+     * @return int
+     */
+    public function countAllProjects(): int {
         return count($this->projects);
     }
 
-    public function getAllCreatedProjects() {
+    /**
+     * @return array
+     */
+    public function getAllProjects(): array {
         return $this->projects;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllCreatedProjects(): array {
+        $projects = [];
+        if($this->userId !== null) {
+            $req = $this->db->query('SELECT id FROM alive_projects WHERE createdBy = ?', [$this->userId]);
+            while($project = $req->fetch()) {
+                $projects[] = new Project($project->id);
+            }
+        }
+        return $projects;
     }
 }

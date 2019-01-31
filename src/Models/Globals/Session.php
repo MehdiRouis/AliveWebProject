@@ -21,19 +21,35 @@ class Session {
         }
     }
 
+    /**
+     * @param string|int $key
+     * @return bool
+     */
     public function getValue($key) {
         return isset($_SESSION[$key]) ? $_SESSION[$key] : false;
     }
 
+    /**
+     * @param string|bool $key
+     * @param mixed $value
+     * @return mixed
+     */
     public function setValue($key, $value) {
         $_SESSION[$key] = $value;
         return $_SESSION[$key];
     }
 
-    public function existValue($key) {
+    /**
+     * @param string|int $key
+     * @return bool
+     */
+    public function existValue($key): bool {
         return isset($_SESSION[$key]);
     }
 
+    /**
+     * @param bool|string $key
+     */
     public function deleteValue($key = false)
     {
         if ($key) {

@@ -81,15 +81,26 @@ class Security extends Session {
      * @param string $text
      * @return string
      */
-    public function parse($text) {
+    public function parse($text): string {
         return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
     }
 
-    public function getUniqueToken() {
+    /**
+     * @return string
+     */
+    public function getUniqueToken(): string {
         return md5(uniqid(rand() * time(), TRUE));
     }
 
-    public function generateCaptcha($width = 154, $height = 34, $red = 255, $green = 255, $blue = 255) {
+    /**
+     * @param int $width
+     * @param int $height
+     * @param int $red
+     * @param int $green
+     * @param int $blue
+     * @return string
+     */
+    public function generateCaptcha($width = 154, $height = 34, $red = 255, $green = 255, $blue = 255): string {
         $text = $this->generateCaptchaCode();
         $img = imagecreate($width, $height);
         imagecolorallocate($img, $red, $green, $blue);
@@ -103,7 +114,10 @@ class Security extends Session {
         return "<img src='data:image/png;base64,{$imagedata}' alt='Image'/>";
     }
 
-    public function generateCaptchaCode() {
+    /**
+     * @return string
+     */
+    public function generateCaptchaCode(): string {
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -114,10 +128,17 @@ class Security extends Session {
         return $randomString;
     }
 
-    public function hash($password) {
+    /**
+     * @param string $password
+     * @return string
+     */
+    public function hash($password): string {
         return password_hash($password, PASSWORD_BCRYPT);
     }
 
+    /**
+     * @param bool $mustBeLogged
+     */
     public function restrict($mustBeLogged = true) {
         $dbauth = new DBAuth();
         if($mustBeLogged && !$dbauth->isLogged() || !$mustBeLogged && $dbauth->isLogged()) {
@@ -130,7 +151,7 @@ class Security extends Session {
      * @param string $table
      * @return bool
      */
-    public function idVerification($id, $table) {
+    public function idVerification($id, $table): bool {
         $req = $this->db->query("SELECT id FROM {$table} WHERE id = ?", [$id]);
         return $req->rowCount() > 0 ? true : false;
     }
@@ -139,7 +160,7 @@ class Security extends Session {
      * @param string $value
      * @return string
      */
-    public function secureValue($value) {
+    public function secureValue($value): string {
         return htmlentities($value);
     }
 

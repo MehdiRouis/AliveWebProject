@@ -38,6 +38,9 @@ class Route {
      */
     private $params = [];
 
+    /**
+     * @var bool|string
+     */
     private $actualRoute = false;
 
     /**
@@ -57,7 +60,7 @@ class Route {
      * @param string $regex
      * @return $this
      */
-    public function with($param, $regex) {
+    public function with($param, $regex): Route {
         $this->params[$param] = str_replace('(', '(?:', $regex);
         return $this;
     }
@@ -65,9 +68,9 @@ class Route {
     /**
      * Vérifier le contenu de l'url ( REGEX ) afin de savoir s'il y a des paramètres à prendre en compte
      * @param string $url
-     * @return boolean
+     * @return bool
      */
-    public function match($url) {
+    public function match($url): bool {
         $url = trim($url, '/');
         $path = preg_replace_callback('#:([\w]+)#', [$this, 'paramMatch'], $this->path);
         $regex = '#^' . $path . '$#i';
@@ -86,7 +89,7 @@ class Route {
      * @param array $match
      * @return string
      */
-    private function paramMatch($match) {
+    private function paramMatch($match): string {
         if (isset($this->params[$match[1]])) {
             return "({$this->params[$match[1]]})";
         }
@@ -94,9 +97,9 @@ class Route {
     }
 
     /**
-     * @return bool
+     * @return bool|string
      */
-    public function getActualRoute() {
+    public function getActualRoute(): string {
         return $this->actualRoute;
     }
 
@@ -104,14 +107,14 @@ class Route {
      * @param bool$value
      * @return bool
      */
-    public function setActualRoute($value) {
+    public function setActualRoute($value): bool {
         return $this->actualRoute = $value;
     }
 
     /**
      * @return bool
      */
-    public function isActualRoute() {
+    public function isActualRoute(): string {
         return $this->getActualRoute();
     }
 
@@ -136,7 +139,7 @@ class Route {
      * @param array $params
      * @return string
      */
-    public function getUrl($params) {
+    public function getUrl($params): string {
         $path = $this->path;
         foreach ($params as $k => $v) {
             $path = str_replace(':' . $k, $v, $path);

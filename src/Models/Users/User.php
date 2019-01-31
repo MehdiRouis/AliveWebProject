@@ -182,7 +182,7 @@ class User extends Session {
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -190,7 +190,7 @@ class User extends Session {
     /**
      * @return string
      */
-    public function getUserName()
+    public function getUserName(): string
     {
         return $this->userName;
     }
@@ -198,7 +198,7 @@ class User extends Session {
     /**
      * @return string
      */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->lastName;
     }
@@ -206,48 +206,58 @@ class User extends Session {
     /**
      * @return string
      */
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    private function getInitial($value) {
+    /**
+     * @param $value
+     * @return string
+     */
+    private function getInitial($value): string {
         return $value[0] === '&' ? substr($value, 0, strpos($value, ';')+strlen(';')) : $value[0];
     }
 
     /**
      * @return string
      */
-    public function getInitialUserName() {
+    public function getInitialUserName(): string {
         return $this->getInitial($this->getUserName());
     }
 
     /**
      * @return string
      */
-    public function getInitialFirstName() {
+    public function getInitialFirstName(): string {
         return $this->getInitial($this->getFirstName());
     }
 
-    public function getInitialLastName() {
+    /**
+     * @return string
+     */
+    public function getInitialLastName(): string {
         return $this->getInitial($this->getLastName());
     }
 
-    public function getInitialFullName() {
+    /**
+     * @return string
+     */
+    public function getInitialFullName(): string {
         return $this->getInitial($this->getFirstName()) . ' ' . $this->getInitial($this->getLastName());
     }
 
     /**
      * @return string
      */
-    public function getFullName() {
+    public function getFullName(): string {
         return strtoupper($this->getLastName()) . ' ' . $this->getFirstName();
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getPhoneNumber()
+    public function getPhoneNumber(): string
     {
         return $this->phoneNumber;
     }
@@ -255,7 +265,7 @@ class User extends Session {
     /**
      * @return string
      */
-    public function getBirthDay()
+    public function getBirthDay(): string
     {
         return $this->birthDay;
     }
@@ -324,6 +334,16 @@ class User extends Session {
     public function countCreatedProjects() {
         $projects = new Projects($this->getId());
         return $projects->countCreatedProjects();
+    }
+
+    public function countAllProjects() {
+        $projects = new Projects($this->getId());
+        return $projects->countAllProjects();
+    }
+
+    public function countFinishedProjects() {
+        $projects = new Projects($this->getId());
+        return $projects->countFinishedProjects();
     }
 
     public function getAllCreatedProjects() {

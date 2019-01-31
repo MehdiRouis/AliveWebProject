@@ -64,7 +64,7 @@ class PDOConnect {
      * Récupérer l'instance de PDO
      * @return PDO
      */
-    public function getPDO() {
+    public function getPDO(): PDO {
         if($this->pdo === null) {
             try {
                 $pdo = new PDO('mysql:dbname=' . $this->db_name . ';host=' . $this->db_host . ';charset=utf8', $this->db_user, $this->db_pass);
@@ -84,7 +84,7 @@ class PDOConnect {
      * @param bool|array $parameters
      * @return \PDOStatement
      */
-    public function query($statement, $parameters = false) {
+    public function query($statement, $parameters = false): \PDOStatement {
         if($parameters) {
             $req = $this->getPDO()->prepare($statement);
             $req->execute($parameters);
@@ -94,7 +94,13 @@ class PDOConnect {
         return $req;
     }
 
-    public function existContent($table, $column, $value) {
+    /**
+     * @param string $table
+     * @param string $column
+     * @param string $value
+     * @return bool
+     */
+    public function existContent($table, $column, $value): bool {
         $req = $this->query("SELECT id FROM {$table} WHERE {$column} = ?", [$value]);
         return $req->rowCount() > 0 ? true : false;
     }
