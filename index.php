@@ -25,6 +25,26 @@ $router = new \App\Routes\Router('url');
 /* #Routes# */
 require PROJECT_LIBS . '/init/routes.php';
 
+/*$mailer = new \App\Email\Sender();
+$mailer->setSubject('Sujet');
+$mailer->setTo(['mehdi.rouis.1@laposte.net' => 'AliveWebProject']);
+$mailer->setMessage('Contenu du message.');
+$mailer->send();
+
+
+// Create the Transport
+
+
+// Create the Mailer using your created Transport
+$mailer = new Swift_Mailer($transport);
+
+// Create a message
+$message = (new Swift_Message('Wonderful Subject'))
+    ->setFrom(['john@doe.com' => 'John Doe'])
+    ->setTo(['mehdi.rouis.1@laposte.net'])
+    ->setBody('Here is the message itself')
+;*/
+
 /* ~Run~ */
 try {
     $router->run();

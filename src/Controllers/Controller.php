@@ -44,6 +44,16 @@ class Controller {
     protected $user;
 
     /**
+     * @var \Swift_SmtpTransport
+     */
+    protected $mail;
+
+    /**
+     * @var \App\SMS\Sender
+     */
+    protected $sms;
+
+    /**
      * Controller constructor.
      */
     public function __construct() {
@@ -52,6 +62,20 @@ class Controller {
         $this->dbauth = new DBAuth();
         $this->user = new User();
         $this->user->updateSession();
+        $transport = (new \Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))->setUsername('stuuf.kdev@gmail.com')->setPassword('AeroGames0s');
+        $this->mail = new \Swift_Mailer($transport);
+        $this->sms = new \App\SMS\Sender('esskafr', '3312abd3258bfce');
+    }
+
+    /**
+     * @param string $subject
+     * @param array $to
+     * @param string $message
+     * @return int
+     */
+    protected function sendMail($subject, $to, $message) {
+        $message = (new \Swift_Message($subject))->setFrom(['stuuf.kdev@gmail.com' => 'AliveWebProject'])->setTo($to)->setBody($message);
+        return $this->mail->send($message);
     }
 
     /**

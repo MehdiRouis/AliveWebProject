@@ -31,18 +31,16 @@
                 <p>Il est possible de modifier vos informations personnelles à partir de ces onglets.</p>
             </div>
         </div>
-        <div class="card dark-blue">
-            <div class="card-content">
-                <ul class="tabs tabs-transparent dark">
-                    <li class="tab"><a href="#infos">Informations du compte</a></li>
-                    <li class="tab"><a href="#parameters">Paramètres</a></li>
-                </ul>
-            </div>
-        </div>
         <div id="infos" class="card">
             <div class="card-content">
                 <p class="card-title">Informations</p>
                 <div class="divider"></div>
+                <p>Nom d'utilisateur : <?= $userProfile->getUserName(); ?></p>
+                <p>Prénom : <?= $userProfile->getFirstName(); ?></p>
+                <p>Nom de famille : <?= $userProfile->getLastName(); ?></p>
+                <p>Adresse email : <?= $userProfile->getEmail(); ?></p>
+                <p>Date de naissance : <?= $userProfile->getBirthDay(); ?></p>
+                <p>Numéro de téléphone : <?= $userProfile->getPhoneNumber(); ?></p>
             </div>
         </div>
         <div id="parameters" class="card dark-blue">
@@ -53,13 +51,13 @@
                 </ul>
             </div>
         </div>
-        <div id="emailChange" class="card dnone">
+        <div id="emailChange" class="card<?= isset($_GET['post']) && $_GET['post'] === 'emailChange' ? '' : ' dnone'; ?>">
             <div class="card-content">
                 <p class="card-title">Modifier votre adresse email</p>
                 <div class="divider"></div>
                 <?php
-                $formEmail = new \App\Views\Form($errors, 'pEmailChange', 'POST', true);
-                $formEmail->addField('email', 'Adresse email', 'col s12 m6', 'email');
+                $formEmail = new \App\Views\Form($errors, $router->getFullUrl('pEmailChange') . '?post=emailChange', 'POST', true);
+                $formEmail->addField('email', 'Nouvelle adresse email', 'col s12 m6', 'email');
                 $formEmail->addField('reEmail', 'Retappez votre adresse email', 'col s12 m6', 'email');
                 $formEmail->addField('password', 'Tappez votre mot de passe', 'col s12', 'password');
                 $formEmail->addSubmit();
@@ -67,12 +65,12 @@
                 ?>
             </div>
         </div>
-        <div id="passwordChange" class="card dnone">
+        <div id="passwordChange" class="card<?= isset($_GET['post']) && $_GET['post'] === 'passwordChange' ? '' : ' dnone'; ?>">
             <div class="card-content">
                 <p class="card-title">Modifier votre mot de passe</p>
                 <div class="divider"></div>
                 <?php
-                $formEmail = new \App\Views\Form($errors, 'pPasswordChange', 'POST', true);
+                $formEmail = new \App\Views\Form($errors, $router->getFullUrl('pPasswordChange') . '?post=passwordChange', 'POST', true);
                 $formEmail->addField('oldPassword', 'Ancien mot de passe', 'col s12', 'email');
                 $formEmail->addField('newPassword', 'Choisissez un nouveau mot de passe', 'col s12 m6', 'email');
                 $formEmail->addField('reNewPassword', 'Retappez votre nouveau mot de passe', 'col s12 m6', 'password');

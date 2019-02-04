@@ -14,5 +14,7 @@
             "Controllers\\" : "src/Controllers"
         }
     },
-    "require": {}
+    "require": {
+        "swiftmailer/swiftmailer": "^6.0"
+    }
 }

@@ -189,7 +189,7 @@ class User extends Session {
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -274,7 +274,7 @@ class User extends Session {
      */
     public function getBirthDay(): string
     {
-        return $this->birthDay;
+        return date('d/m/Y', strtotime($this->birthDay));
     }
 
     /**

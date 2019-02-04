@@ -12,6 +12,7 @@
 
 namespace Controllers;
 
+use App\Validators\Validator;
 use Models\Users\User;
 
 class UserController extends Controller {
@@ -32,8 +33,12 @@ class UserController extends Controller {
     }
 
     public function postEmailChange() {
-        var_dump($_POST);
         $this->security->restrict();
+        var_dump($_POST);
+        $validator = new Validator([
+            'email' => ['email']
+        ], 'alive_users');
+        $validator->validate();
         $user = new User();
         $this->render('user/profile', ['pageName' => $user->getUserName(), 'userProfile' => $user, 'scripts' => ['js/userProfile.js']]);
     }

@@ -61,7 +61,11 @@ class Form {
         $this->post = new Post();
         $this->router = $GLOBALS['router'];
         $this->method = $method;
-        $this->route = $this->getRouter()->getFullUrl($routeName);
+        if(filter_var($routeName, FILTER_VALIDATE_URL)) {
+            $this->route = $routeName;
+        } else {
+            $this->route = $this->getRouter()->getFullUrl($routeName);
+        }
         $this->html = '<form class="row" method="' . $method . '" action="' . $this->route . '">';
         $user = new User();
         if($csrf) {
