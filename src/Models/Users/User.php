@@ -179,10 +179,17 @@ class User extends Session {
         }
     }
 
+    public function restrict($permissionName) {
+        $this->security->restrict();
+        if(!$this->hasRight($permissionName)) {
+            $this->security->safeLocalRedirect('default');
+        }
+    }
+
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }

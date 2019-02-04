@@ -1,6 +1,11 @@
 <?php
 /**
+ * Copyright (c) 2019. Tous droit réservé.
+ */
+
+/**
  * @var \Models\Users\User $user
+ * @var \Models\Projects\Project
  */
 ?>
 <main class="container">
@@ -19,7 +24,7 @@
                 <div class="card-content">
                     <p class="card-title">Projets total</p>
                     <div class="divider mb-10"></div>
-                    <p class="right-align"><?= $user->countAllProjects(); ?></p>
+                    <p class="right-align"><?= $projects->countAllProjects(); ?></p>
                 </div>
             </div>
         </div>
@@ -55,7 +60,6 @@
                         <th>Titre</th>
                         <th>Statut</th>
                         <th>Date de création</th>
-                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -64,7 +68,6 @@
                             <td data-label="Titre"><?= $project->getTitle(); ?></td>
                             <td data-label="Statut"><?= $project->getStatus()->getName(); ?></td>
                             <td data-label="Date"><?= $project->getCreatedAt(); ?></td>
-                            <td data-label="Actions"><a class="btn btn-small" href="<?= $router->getFullUrl('profileProject', ['id' => $project->getId()]); ?>">Voir</a></td>
                         </tr>
                     <?php } ?>
                     </tbody>

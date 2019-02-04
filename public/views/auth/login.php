@@ -3,7 +3,7 @@
  * @var array $errors
  */
 ?>
-<main>
+<main class="container">
     <div class="card">
         <div class="card-content center-align">
             <p class="card-title">Connexion</p>

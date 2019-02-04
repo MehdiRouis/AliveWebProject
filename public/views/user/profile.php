@@ -1,39 +1,85 @@
 <?php
 /**
  * @var \Models\Users\User $userProfile
+ * @var \Models\Users\User $user
+ * @var array $errors
  */
 ?>
 <main class="container">
     <div id="profile-page-header" class="card">
         <div class="card-image waves-effect waves-block waves-light">
-            <span class="circle white darken-1 black-text hoverable avatar"><?= $userProfile->getInitialUserName(); ?></span>
             <img class="activator" src="<?= PROJECT_LINK; ?>/public/assets/img/carousel/sky.jpg" alt="user background">
+            <a class="btn-floating halfway-fab2 waves-effect waves-teal white"><i class="fas fa-camera-retro black-text"></i></a>
         </div>
-        <div class="card-content">
-            <div class="row pt-2">
-                <div class="col s12 m3 offset-m2">
+        <div class="card-content card-avatar center-align">
+            <div class="row">
+                <div class="circle white darken-1 black-text hoverable avatar">
+                    <p><?= $userProfile->getInitialUserName(); ?></p>
+                </div>
+                <div class="col s12">
                     <h4 class="card-title grey-text text-darken-4"><?= $userProfile->getFullName(); ?></h4>
                     <p class="medium-small grey-text">@<?= $userProfile->getUserName(); ?></p>
                 </div>
             </div>
         </div>
-        <div class="card-reveal">
-            <p>
-                    <span class="card-title grey-text text-darken-4">Roger Waters
-                      <i class="material-icons right">close</i>
-                    </span>
-                <span>
-                      <i class="material-icons cyan-text text-darken-2">perm_identity</i> Project Manager</span>
-            </p>
-            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-            <p>
-                <i class="material-icons cyan-text text-darken-2">perm_phone_msg</i> +1 (612) 222 8989</p>
-            <p>
-                <i class="material-icons cyan-text text-darken-2">email</i> mail@domain.com</p>
-            <p>
-                <i class="material-icons cyan-text text-darken-2">cake</i> 18th June 1990</p>
-            <p>
-                <i class="material-icons cyan-text text-darken-2">airplanemode_active</i> BAR - AUS</p>
-        </div>
     </div>
+    <?php if($userProfile->getId() === $user->getId()) { ?>
+        <div class="card">
+            <div class="card-content">
+                <p class="card-title">Paramètres</p>
+                <div class="divider"></div>
+                <p>Il est possible de modifier vos informations personnelles à partir de ces onglets.</p>
+            </div>
+        </div>
+        <div class="card dark-blue">
+            <div class="card-content">
+                <ul class="tabs tabs-transparent dark">
+                    <li class="tab"><a href="#infos">Informations du compte</a></li>
+                    <li class="tab"><a href="#parameters">Paramètres</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="infos" class="card">
+            <div class="card-content">
+                <p class="card-title">Informations</p>
+                <div class="divider"></div>
+            </div>
+        </div>
+        <div id="parameters" class="card dark-blue">
+            <div class="card-content">
+                <ul class="tabs tabs-transparent dark">
+                    <li class="tab"><a href="#emailChange">Modifier son adresse email</a></li>
+                    <li class="tab"><a href="#passwordChange">Modifier son mot de passe</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="emailChange" class="card dnone">
+            <div class="card-content">
+                <p class="card-title">Modifier votre adresse email</p>
+                <div class="divider"></div>
+                <?php
+                $formEmail = new \App\Views\Form($errors, 'pEmailChange', 'POST', true);
+                $formEmail->addField('email', 'Adresse email', 'col s12 m6', 'email');
+                $formEmail->addField('reEmail', 'Retappez votre adresse email', 'col s12 m6', 'email');
+                $formEmail->addField('password', 'Tappez votre mot de passe', 'col s12', 'password');
+                $formEmail->addSubmit();
+                $formEmail->parse();
+                ?>
+            </div>
+        </div>
+        <div id="passwordChange" class="card dnone">
+            <div class="card-content">
+                <p class="card-title">Modifier votre mot de passe</p>
+                <div class="divider"></div>
+                <?php
+                $formEmail = new \App\Views\Form($errors, 'pPasswordChange', 'POST', true);
+                $formEmail->addField('oldPassword', 'Ancien mot de passe', 'col s12', 'email');
+                $formEmail->addField('newPassword', 'Choisissez un nouveau mot de passe', 'col s12 m6', 'email');
+                $formEmail->addField('reNewPassword', 'Retappez votre nouveau mot de passe', 'col s12 m6', 'password');
+                $formEmail->addSubmit();
+                $formEmail->parse();
+                ?>
+            </div>
+        </div>
+    <?php } ?>
 </main>

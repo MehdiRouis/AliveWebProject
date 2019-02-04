@@ -25,10 +25,24 @@ class UserController extends Controller {
         $this->security->restrict();
         if($this->security->idVerification($id, 'alive_users')) {
             $user = new User($id);
-            $this->render('user/profile', ['pageName' => $user->getUserName(), 'userProfile' => $user]);
+            $this->render('user/profile', ['pageName' => $user->getUserName(), 'userProfile' => $user, 'scripts' => ['js/userProfile.js']]);
         } else {
             $this->security->safeLocalRedirect('default');
         }
+    }
+
+    public function postEmailChange() {
+        var_dump($_POST);
+        $this->security->restrict();
+        $user = new User();
+        $this->render('user/profile', ['pageName' => $user->getUserName(), 'userProfile' => $user, 'scripts' => ['js/userProfile.js']]);
+    }
+
+    public function postPasswordChange() {
+        var_dump($_POST);
+        $this->security->restrict();
+        $user = new User();
+        $this->render('user/profile', ['pageName' => $user->getUserName(), 'userProfile' => $user, 'scripts' => ['js/userProfile.js']]);
     }
 
 }

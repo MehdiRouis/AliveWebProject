@@ -13,6 +13,7 @@
 namespace Controllers;
 
 
+use Models\Database\PDOConnect;
 use Models\Projects\Project;
 
 class ProjectsController extends Controller {
@@ -21,6 +22,16 @@ class ProjectsController extends Controller {
         $this->security->restrict();
         $captcha = $this->security->generateCaptcha();
         $this->render('projects/create', ['pageName' => 'Créer un projet', 'captcha' => $captcha]);
+    }
+
+    public function getProfile($id) {
+        $db = new PDOConnect();
+        if($db->existContent('alive_projects', 'id', $id)) {
+            $project = new Project($id);
+            $this->render('projects/profile', ['pageName' => $project->getTitle(), 'project' => $project]);
+        } else {
+            $this->security->safeLocalRedirect('default');
+        }
     }
 
     public function postCreateProject() {

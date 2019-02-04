@@ -57,9 +57,9 @@ class DBAuth {
     }
 
     /**
-     * @return array
+     * @return Errors
      */
-    public function getErrors(): array {
+    public function getErrors(): Errors {
         return $this->errors;
     }
 

@@ -17,6 +17,7 @@ $router->get('/user/:id/profile', 'User#getProfile', 'profile');
 
 // PROJECTS \\
 $router->get('/project/create', 'Projects#getCreateProject', 'createProject');
+$router->get('/project/profile/:id', 'Projects#getProfile', 'profileProject')->with('id', '[\d]+');
 
 /* -[{POST}]- */
 
@@ -24,5 +25,18 @@ $router->get('/project/create', 'Projects#getCreateProject', 'createProject');
 $router->post('/account/login', 'Authentication#postLogin', 'plogin');
 $router->post('/account/register', 'Authentication#postRegister', 'pregister');
 
+// USER \\
+$router->post('/user/edit/email', 'User#postEmailChange', 'pEmailChange');
+$router->post('/user/edit/password', 'User#postPasswordChange', 'pPasswordChange');
+
 // PROJECTS \\
 $router->post('/project/create', 'Projects#postCreateProject', 'pcreateproject');
+
+
+
+
+// ----- ADMINISTRATION  ----- \\
+/* -[{GET}]- */
+$router->get('/administration/dashboard', 'Administration#getDashboard', 'padmindashboard');
+
+/* -[{POST}]- */

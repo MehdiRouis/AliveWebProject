@@ -8,6 +8,8 @@
 
 namespace App\Views;
 
+use App\Cache\Cache;
+
 /**
  * Class View
  * @package App\Views
@@ -27,10 +29,16 @@ class View {
     private $render = false;
 
     /**
+     * @var \App\Routes\Router
+     */
+    private $router;
+
+    /**
      * @param string $templateFile Nom du fichier à rendre
      * @throws \Exception ViewsExceptions
      */
     public function __construct($templateFile) {
+        $this->router = $GLOBALS['router'];
         $templateFile = str_replace('.php', '', $templateFile);
         $file = PROJECT_LIBS . '/public/views/' . $templateFile . '.php';
         if (file_exists($file)) {

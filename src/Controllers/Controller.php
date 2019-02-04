@@ -8,13 +8,12 @@
 
 namespace Controllers;
 
+use App\Cache\Cache;
 use App\Routes\Router;
-use App\Views\Form;
 use App\Views\Navbar;
 use App\Views\View;
 use App\Protections\Security;
 use Models\Authentication\DBAuth;
-use Models\Database\PDOConnect;
 use Models\Globals\Session;
 use Models\Users\User;
 
@@ -68,17 +67,19 @@ class Controller {
      * @param array $args
      * @throws \Exception \App\Views\ViewsExceptions
      */
-    protected function render($path, $args = []) {
+    protected function render($path, $args = [])
+    {
         $args['scripts'] = isset($args['scripts']) ? $args['scripts'] : [];
         $args['router'] = $this->getRouter();
         $args['navbar'] = new Navbar();
         $args['errors'] = isset($args['errors']) ? $args['errors'] : [];
         $args['auth'] = $this->dbauth;
-        if($this->dbauth->isLogged()) {
+        if ($this->dbauth->isLogged()) {
             $args['user'] = $this->user;
         }
         $headerTpl = isset($args['headerTpl']) ? $args['headerTpl'] : 'templates/headerBase';
         $footerTpl = isset($args['footerTpl']) ? $args['footerTpl'] : 'templates/footerBase';
+
         $header = new View($headerTpl);
         $header->assign($args);
         $view = new View($path);
