@@ -62,7 +62,7 @@ class Controller {
         $this->dbauth = new DBAuth();
         $this->user = new User();
         $this->user->updateSession();
-        $transport = (new \Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))->setUsername('stuuf.kdev@gmail.com')->setPassword('AeroGames0s');
+        $transport = (new \Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))->setUsername('aliveprojectmail@gmail.com')->setPassword('alivePassword1');
         $this->mail = new \Swift_Mailer($transport);
         $this->sms = new \App\SMS\Sender('esskafr', '3312abd3258bfce');
     }

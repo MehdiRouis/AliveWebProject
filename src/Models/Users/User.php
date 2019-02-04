@@ -269,6 +269,10 @@ class User extends Session {
         return $this->phoneNumber;
     }
 
+    public function isPhoneNumberValidate() {
+
+    }
+
     /**
      * @return string
      */

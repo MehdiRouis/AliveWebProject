@@ -10,6 +10,7 @@ namespace Controllers;
 
 use Models\Articles\Article;
 use Models\Users\Rank;
+use Models\Users\User;
 
 /**
  * Class IndexController

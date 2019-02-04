@@ -31,6 +31,14 @@
                 <p>Il est possible de modifier vos informations personnelles à partir de ces onglets.</p>
             </div>
         </div>
+        <div class="card dark-blue">
+            <div class="card-content">
+                <ul class="tabs tabs-transparent dark">
+                    <li class="tab"><a href="#infos">Informations</a></li>
+                    <li class="tab"><a href="#parameters">Paramètres</a></li>
+                </ul>
+            </div>
+        </div>
         <div id="infos" class="card">
             <div class="card-content">
                 <p class="card-title">Informations</p>
