@@ -108,7 +108,14 @@ class Project {
         if(!$validator->isThereErrors()) {
             $req = $this->db->query('INSERT INTO alive_projects (name, description, statusId, createdBy, createdAt) VALUES (?,?,?,?,?)', [$security->secureValue($post->getValue($title)), $security->secureValue($post->getValue($description)), 3, $userId, time()]);
             if($req) {
-                return true;
+                $projects = $this->db->query('SELECT id FROM alive_projects WHERE createdBy = ? ORDER BY id DESC', [$userId]);
+                if($projects->rowCount() > 0) {
+                    $project = $projects->fetch();
+                    $req = $this->db->query('INSERT INTO alive_projects_members (userId, `rank`, projectId, joinedAt) VALUES (?, ?, ?, ?)', [$userId, 3, $project->id, time()]);
+                    if($req) {
+                        return [];
+                    }
+                }
             } else {
                 $validator->addError($title, 'Erreur lors de la requête... Merci de réessayer plus tard.');
             }
@@ -140,7 +147,7 @@ class Project {
     /**
      * @return Status
      */
-    public function getStatus(): Status {
+    public function getStatus(): ?Status {
         return $this->status;
     }
 

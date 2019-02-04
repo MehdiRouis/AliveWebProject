@@ -20,7 +20,7 @@ class ProjectsController extends Controller {
 
     public function getCreateProject() {
         $this->security->restrict();
-        $captcha = $this->security->generateCaptcha();
+        $captcha = $this->security->generateCaptcha(154, 34, 179,229,252);
         $this->render('projects/create', ['pageName' => 'Créer un projet', 'captcha' => $captcha]);
     }
 
@@ -39,7 +39,7 @@ class ProjectsController extends Controller {
         $project = new Project();
         $errors = $project->add('projectTitle', 'projectDescription', 'projectCaptcha', 'CSRFToken', $this->user->getId());
         $captcha = $this->security->generateCaptcha(154, 34, 179,229,252);
-        if(!is_array($errors)) {
+        if(count($errors) === 0) {
             $this->security->safeLocalRedirect('dashboard');
         }
         $this->render('projects/create', ['pageName' => 'Créer un projet', 'captcha' => $captcha, 'errors' => $errors]);

@@ -13,6 +13,7 @@
 namespace Controllers;
 
 use App\Validators\Validator;
+use Models\Globals\Post;
 use Models\Users\User;
 
 class UserController extends Controller {
@@ -34,20 +35,51 @@ class UserController extends Controller {
 
     public function postEmailChange() {
         $this->security->restrict();
-        var_dump($_POST);
+        $email = 'email';
+        $reMail = 'reEmail';
+        $password = 'password';
+        $token = 'CSRFToken';
         $validator = new Validator([
-            'email' => ['email']
+            'email' => [$email],
+            'token' => [$token]
         ], 'alive_users');
         $validator->validate();
-        $user = new User();
-        $this->render('user/profile', ['pageName' => $user->getUserName(), 'userProfile' => $user, 'scripts' => ['js/userProfile.js']]);
+        $post = new Post();
+        if(!$validator->isThereErrors()) {
+            if($post->getValue($email) !== $post->getValue($reMail)) {
+                $validator->addError($email, 'Les 2 adresses email ne correspondent pas.');
+            }
+            if(!$this->user->matchPassword($post->getValue($password))) {
+                $validator->addError($password, 'Le mot de passe est incorrect.');
+            }
+            if(!$validator->isThereErrors()) {
+                $this->user->setEmail($post->getValue($email));
+                $this->security->safeLocalRedirect('profile', ['id' => $this->user->getId()]);
+            }
+        }
+        $this->render('user/profile', ['pageName' => $this->user->getUserName(), 'userProfile' => $this->user, 'scripts' => ['js/userProfile.js'], 'errors' => $validator->getErrors()]);
     }
 
     public function postPasswordChange() {
-        var_dump($_POST);
         $this->security->restrict();
-        $user = new User();
-        $this->render('user/profile', ['pageName' => $user->getUserName(), 'userProfile' => $user, 'scripts' => ['js/userProfile.js']]);
+        $oldPassword = 'oldPassword';
+        $newPassword = 'newPassword';
+        $reNewPassword = 'reNewPassword';
+        $validator = new Validator(['password' => [$newPassword]]);
+        $validator->validate();
+        $post = new Post();
+        if(!$validator->isThereErrors()) {
+            if($post->getValue($newPassword) !== $post->getValue($reNewPassword)) {
+                $validator->addError($newPassword, 'Les mots de passes ne correspondent pas.');
+            }
+            if(!$this->user->matchPassword($post->getValue($oldPassword))) {
+                $validator->addError($oldPassword, 'Le mot de passe est incorrect.');
+            }
+            if(!$validator->isThereErrors()) {
+                $this->user->setPassword($post->getValue($newPassword));
+            }
+        }
+        $this->render('user/profile', ['pageName' => $this->user->getUserName(), 'userProfile' => $this->user, 'scripts' => ['js/userProfile.js'], 'errors' => $validator->getErrors()]);
     }
 
 }

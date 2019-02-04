@@ -298,11 +298,30 @@ class User extends Session {
     }
 
     /**
+     * @param string $password
+     * @return \PDOStatement
+     */
+    public function setPassword($password) {
+        $newpass = $this->security->hash($password);
+        $req = $this->db->query('UPDATE alive_users SET password = ? WHERE id = ?', [$newpass, $this->getId()]);
+        return $req;
+    }
+
+    /**
      * @return string
      */
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return \PDOStatement
+     */
+    public function setEmail($email) {
+        $req = $this->db->query('UPDATE alive_users SET email = ? WHERE id = ?', [$email, $this->getId()]);
+        return $req;
     }
 
     /**

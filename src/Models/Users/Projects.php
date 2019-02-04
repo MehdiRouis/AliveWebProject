@@ -44,7 +44,7 @@ class Projects {
             $req = $this->db->query('SELECT * FROM alive_projects_members WHERE userId = ?', [$userId]);
             if($req->rowCount() > 0) {
                 while($project = $req->fetch()) {
-                    $this->projects[] = new Project($project->id);
+                    $this->projects[] = new Project($project->projectId);
                 }
             }
         }

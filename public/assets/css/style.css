@@ -11,6 +11,10 @@ body {
     display : none;
 }
 
+.dblock {
+    display : block;
+}
+
 .background-round {
     background-color: rgba(0, 0, 0, 0.18);
     padding: 15px;

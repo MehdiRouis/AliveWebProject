@@ -66,8 +66,8 @@
                 <?php
                 $formEmail = new \App\Views\Form($errors, $router->getFullUrl('pEmailChange') . '?post=emailChange', 'POST', true);
                 $formEmail->addField('email', 'Nouvelle adresse email', 'col s12 m6', 'email');
-                $formEmail->addField('reEmail', 'Retappez votre adresse email', 'col s12 m6', 'email');
-                $formEmail->addField('password', 'Tappez votre mot de passe', 'col s12', 'password');
+                $formEmail->addField('reEmail', 'Retapez votre adresse email', 'col s12 m6', 'email');
+                $formEmail->addField('password', 'Tapez votre mot de passe', 'col s12', 'password');
                 $formEmail->addSubmit();
                 $formEmail->parse();
                 ?>
@@ -79,9 +79,9 @@
                 <div class="divider"></div>
                 <?php
                 $formEmail = new \App\Views\Form($errors, $router->getFullUrl('pPasswordChange') . '?post=passwordChange', 'POST', true);
-                $formEmail->addField('oldPassword', 'Ancien mot de passe', 'col s12', 'email');
-                $formEmail->addField('newPassword', 'Choisissez un nouveau mot de passe', 'col s12 m6', 'email');
-                $formEmail->addField('reNewPassword', 'Retappez votre nouveau mot de passe', 'col s12 m6', 'password');
+                $formEmail->addField('oldPassword', 'Ancien mot de passe', 'col s12', 'password');
+                $formEmail->addField('newPassword', 'Choisissez un nouveau mot de passe', 'col s12 m6', 'password');
+                $formEmail->addField('reNewPassword', 'Retapez votre nouveau mot de passe', 'col s12 m6', 'password');
                 $formEmail->addSubmit();
                 $formEmail->parse();
                 ?>
