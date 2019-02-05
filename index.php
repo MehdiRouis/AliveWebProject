@@ -21,6 +21,13 @@ require PROJECT_LIBS . '/vendor/autoload.php';
 
 /* {Instance des classes} */
 $router = new \App\Routes\Router('url');
+$security = new \App\Protections\Security();
+
+/* Redirection vers HTTPS */
+if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'off') {
+    $location = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    $security->safeExternalRedirect($location);
+}
 
 /* #Routes# */
 require PROJECT_LIBS . '/init/routes.php';
