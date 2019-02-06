@@ -55,8 +55,7 @@ class Verifications {
             'title' => 'isValidTitle',
             'description' => 'isValidDescription',
             'password' => 'isValidPassword',
-            'captcha' => 'isValidCaptcha',
-            'token' => 'isValidToken'
+            'captcha' => 'isValidCaptcha'
         ];
     }
 
@@ -314,15 +313,6 @@ class Verifications {
             return true;
         }
         $this->addError($inputName, 'Captcha invalide.');
-        return false;
-    }
-
-    public function isValidToken($inputName, $inputValue): bool {
-        $session = new Session();
-        if($inputValue === $session->getValue('token')) {
-            return true;
-        }
-        $this->addError($inputName, 'Une erreur est survenue... Merci de réessayer plus tard.');
         return false;
     }
 

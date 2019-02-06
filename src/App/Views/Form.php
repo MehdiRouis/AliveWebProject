@@ -56,7 +56,7 @@ class Form {
      * @param bool $csrf
      * @throws \Exception \App\Routes\RouterExceptions
      */
-    public function __construct($errors, $routeName, $method = 'POST', $csrf = false) {
+    public function __construct($errors, $routeName, $method = 'POST', $csrf = true) {
         $this->errors = $errors;
         $this->post = new Post();
         $this->router = $GLOBALS['router'];
@@ -68,6 +68,7 @@ class Form {
         }
         $this->html = '<form class="row" method="' . $method . '" action="' . $this->route . '">';
         $user = new User();
+        $this->addGlobalMessage();
         if($csrf) {
             $this->addSecurityToken('CSRFToken', $user->getCSRFToken());
         }
@@ -92,6 +93,11 @@ class Form {
      */
     private function addHTML($html) {
         $this->html .= "{$html}\n";
+    }
+
+    private function addGlobalMessage() {
+        $error = isset($this->errors['global']) ? $this->errors['global'] : '';
+        $this->addHTML('<p class="helper-text red-text center-align">' . $error . '</p>');
     }
 
     /**
@@ -175,9 +181,7 @@ class Form {
      * @param string $value
      */
     public function addSecurityToken($id, $value) {
-        $error = isset($this->errors[$id]) ? $this->errors[$id] : '';
         $this->addHTML('<input id="' . $id . '" name="' . $id . '" type="hidden" value="' . $value . '" />');
-        $this->addHTML('<p class="red-text">' . $error . '</p>');
     }
     /**
      * @param string $label

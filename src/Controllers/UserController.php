@@ -40,22 +40,19 @@ class UserController extends Controller {
         $password = 'password';
         $token = 'CSRFToken';
         $validator = new Validator([
-            'email' => [$email],
-            'token' => [$token]
+            'email' => [$email]
         ], 'alive_users');
         $validator->validate();
         $post = new Post();
+        if($post->getValue($email) !== $post->getValue($reMail)) {
+            $validator->addError($email, 'Les 2 adresses email ne correspondent pas.');
+        }
+        if(!$this->user->matchPassword($post->getValue($password))) {
+            $validator->addError($password, 'Le mot de passe est incorrect.');
+        }
         if(!$validator->isThereErrors()) {
-            if($post->getValue($email) !== $post->getValue($reMail)) {
-                $validator->addError($email, 'Les 2 adresses email ne correspondent pas.');
-            }
-            if(!$this->user->matchPassword($post->getValue($password))) {
-                $validator->addError($password, 'Le mot de passe est incorrect.');
-            }
-            if(!$validator->isThereErrors()) {
-                $this->user->setEmail($post->getValue($email));
-                $this->security->safeLocalRedirect('profile', ['id' => $this->user->getId()]);
-            }
+            $this->user->setEmail($post->getValue($email));
+            $this->security->safeLocalRedirect('profile', ['id' => $this->user->getId()]);
         }
         $this->render('user/profile', ['pageName' => $this->user->getUserName(), 'userProfile' => $this->user, 'scripts' => ['js/userProfile.js'], 'errors' => $validator->getErrors()]);
     }
@@ -68,16 +65,29 @@ class UserController extends Controller {
         $validator = new Validator(['password' => [$newPassword]]);
         $validator->validate();
         $post = new Post();
+        if($post->getValue($newPassword) !== $post->getValue($reNewPassword)) {
+            $validator->addError($newPassword, 'Les mots de passes ne correspondent pas.');
+        }
+        if(!$this->user->matchPassword($post->getValue($oldPassword))) {
+            $validator->addError($oldPassword, 'Le mot de passe est incorrect.');
+        }
         if(!$validator->isThereErrors()) {
-            if($post->getValue($newPassword) !== $post->getValue($reNewPassword)) {
-                $validator->addError($newPassword, 'Les mots de passes ne correspondent pas.');
-            }
-            if(!$this->user->matchPassword($post->getValue($oldPassword))) {
-                $validator->addError($oldPassword, 'Le mot de passe est incorrect.');
-            }
-            if(!$validator->isThereErrors()) {
-                $this->user->setPassword($post->getValue($newPassword));
-            }
+            $this->user->setPassword($post->getValue($newPassword));
+            $this->security->safeLocalRedirect('profile', ['id' => $this->user->getId()]);
+        }
+        $this->render('user/profile', ['pageName' => $this->user->getUserName(), 'userProfile' => $this->user, 'scripts' => ['js/userProfile.js'], 'errors' => $validator->getErrors()]);
+    }
+
+    public function postPhoneNumberChange() {
+        $this->security->restrict();
+        $phoneNumber = 'phoneNumber';
+        $password = 'password';
+        $validator = new Validator(['phoneNumber' => [$phoneNumber]]);
+        $validator->validate();
+        $post = new Post();
+        if(!$validator->isThereErrors()) {
+            $this->user->setPhoneNumber($post->getValue($phoneNumber));
+            $this->security->safeLocalRedirect('profile', ['id' => $this->user->getId()]);
         }
         $this->render('user/profile', ['pageName' => $this->user->getUserName(), 'userProfile' => $this->user, 'scripts' => ['js/userProfile.js'], 'errors' => $validator->getErrors()]);
     }

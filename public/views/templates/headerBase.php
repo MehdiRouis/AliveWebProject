@@ -5,6 +5,7 @@
  * @var string $pageName
  * @var \Models\Authentication\DBAuth $auth
  * @var \Models\Users\User $user
+ * @var \App\Routes\Router $router
  */
 ?>
 <!DOCTYPE html>
@@ -30,7 +31,7 @@
     <nav id="navbar">
         <div class="nav-wrapper dark-blue">
             <i class="fas fa-cloud"></i>
-            <a href="#" class="brand-logo"><?= PROJECT_INITIALS; ?></a>
+            <a href="<?= $auth->isLogged() ? $router->getFullUrl('dashboard') : $router->getFullUrl('home'); ?>" class="brand-logo"><?= PROJECT_INITIALS; ?></a>
             <ul class="right center-align">
                 <li><a id="menuSideNav" data-target="slide-out" class="right sidenav-trigger"><i class="material-icons">menu</i></a></li>
             </ul>

@@ -28,6 +28,7 @@ $router->post('/account/register', 'Authentication#postRegister', 'pregister');
 // USER \\
 $router->post('/user/edit/email', 'User#postEmailChange', 'pEmailChange');
 $router->post('/user/edit/password', 'User#postPasswordChange', 'pPasswordChange');
+$router->post('/user/edit/phonenumber', 'User#postPhoneNumberChange', 'pPhoneNumberChange');
 
 // PROJECTS \\
 $router->post('/project/create', 'Projects#postCreateProject', 'pcreateproject');

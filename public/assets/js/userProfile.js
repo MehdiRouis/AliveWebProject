@@ -3,3 +3,4 @@
  */
 
 $('.tabs').tabs();
+$('.collapsible').collapsible();

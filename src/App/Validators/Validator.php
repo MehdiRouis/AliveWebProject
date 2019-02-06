@@ -9,7 +9,9 @@
 namespace App\Validators;
 
 use App\Protections\Security;
+use Models\Authentication\DBAuth;
 use Models\Globals\Post;
+use Models\Globals\Session;
 
 /**
  * Class Validator
@@ -67,6 +69,13 @@ class Validator extends Security {
         foreach ($postValues as $valueType => $valuePost) {
             $validType->verify($valueType, $valuePost);
             $this->verifiedInputs = $validType->getErrors();
+        }
+        $dbauth = new DBAuth();
+        if($dbauth->isLogged()) {
+            $session = new Session();
+            if($session->getValue('token') !== $this->post->getValue('CSRFToken')) {
+                $this->addError('global', 'Une erreur est survenue... Merci de réessayer plus tard.');
+            }
         }
         return $this->getErrors();
     }

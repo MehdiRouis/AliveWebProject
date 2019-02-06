@@ -10,7 +10,7 @@
             <p class="card-title">Inscription</p>
             <div class="divider"></div>
             <?php
-            $form = new \App\Views\Form($errors, 'pregister', 'POST');
+            $form = new \App\Views\Form($errors, 'pregister', 'POST', false);
             $form->addField('regUsername', 'Nom d\'utilisateur', 'col s12 m8', 'text', '[A-Za-zÂ-ÿ0-9]+');
             $form->addSelect('regAccountType', 'Type de compte', [
                 '1' => 'Particulier',

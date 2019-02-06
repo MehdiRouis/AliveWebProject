@@ -8,6 +8,7 @@
 
 namespace Models\Users;
 
+use App\Date\Parser;
 use App\Protections\Security;
 use Models\Authentication\DBAuth;
 use Models\Database\PDOConnect;
@@ -85,6 +86,11 @@ class User extends Session {
     private $shopPoints;
 
     /**
+     * @var int
+     */
+    private $createdAt;
+
+    /**
      * User constructor.
      * @param false|string $value
      * @param string $searchType
@@ -115,6 +121,7 @@ class User extends Session {
             $this->rank = $user->rank;
             $this->email = $user->email;
             $this->shopPoints = $user->shopPoints;
+            $this->createdAt = $user->createdAt;
         }
     }
 
@@ -126,6 +133,9 @@ class User extends Session {
         $this->setValue('token', $this->security->getUniqueToken());
     }
 
+    /**
+     * Rafraîchir les informations de l'utilisateur à chaque chargement de page.
+     */
     public function updateSession() {
         $req = $this->db->query('SELECT * FROM alive_users WHERE id = ?', [$this->getId()]);
         if ($req->rowCount() > 0) {
@@ -165,8 +175,8 @@ class User extends Session {
      */
     public function add($userName, $accountType, $lastName, $firstName, $email, $phoneNumber, $birthDay, $password, $session = false) {
         $password = $this->security->hash($password);
-        $req = $this->db->query('INSERT INTO alive_users (userName, lastName, firstName, phoneNumber, birthDay, password, `rank`, email, shopPoints) VALUES (?,?,?,?,?,?,?,?,?)', [
-            $userName, $lastName, $firstName, $phoneNumber, $birthDay, $password, $accountType, $email, 0
+        $req = $this->db->query('INSERT INTO alive_users (userName, lastName, firstName, phoneNumber, birthDay, password, `rank`, email, shopPoints, createdAt) VALUES (?,?,?,?,?,?,?,?,?,?)', [
+            $userName, $lastName, $firstName, $phoneNumber, $birthDay, $password, $accountType, $email, 0, time()
         ]);
         if($session) {
             $req = $this->db->query('SELECT id FROM alive_users WHERE userName = ? AND email = ? AND password = ?', [$userName, $email, $password]);
@@ -179,6 +189,10 @@ class User extends Session {
         }
     }
 
+    /**
+     * Restreindre l'accès à des droits spécifique.
+     * @param $permissionName
+     */
     public function restrict($permissionName) {
         $this->security->restrict();
         if(!$this->hasRight($permissionName)) {
@@ -197,7 +211,7 @@ class User extends Session {
     /**
      * @return string
      */
-    public function getUserName(): string
+    public function getUserName(): ?string
     {
         return $this->userName;
     }
@@ -205,7 +219,7 @@ class User extends Session {
     /**
      * @return string
      */
-    public function getLastName(): string
+    public function getLastName(): ?string
     {
         return $this->lastName;
     }
@@ -213,7 +227,7 @@ class User extends Session {
     /**
      * @return string
      */
-    public function getFirstName(): string
+    public function getFirstName(): ?string
     {
         return $this->firstName;
     }
@@ -222,61 +236,73 @@ class User extends Session {
      * @param $value
      * @return string
      */
-    private function getInitial($value): string {
+    private function getInitial($value): ?string {
         return $value[0] === '&' ? substr($value, 0, strpos($value, ';')+strlen(';')) : $value[0];
     }
 
     /**
      * @return string
      */
-    public function getInitialUserName(): string {
+    public function getInitialUserName(): ?string {
         return $this->getInitial($this->getUserName());
     }
 
     /**
      * @return string
      */
-    public function getInitialFirstName(): string {
+    public function getInitialFirstName(): ?string {
         return $this->getInitial($this->getFirstName());
     }
 
     /**
      * @return string
      */
-    public function getInitialLastName(): string {
+    public function getInitialLastName(): ?string {
         return $this->getInitial($this->getLastName());
     }
 
     /**
      * @return string
      */
-    public function getInitialFullName(): string {
+    public function getInitialFullName(): ?string {
         return $this->getInitial($this->getFirstName()) . ' ' . $this->getInitial($this->getLastName());
     }
 
     /**
      * @return string
      */
-    public function getFullName(): string {
+    public function getFullName(): ?string {
         return strtoupper($this->getLastName()) . ' ' . $this->getFirstName();
     }
 
     /**
      * @return string
      */
-    public function getPhoneNumber(): string
+    public function getPhoneNumber(): ?string
     {
         return $this->phoneNumber;
     }
 
-    public function isPhoneNumberValidate() {
+    /**
+     * @var string|int $phoneNumber
+     * @return \PDOStatement
+     */
+    public function setPhoneNumber($phoneNumber): \PDOStatement {
+        $req = $this->db->query('UPDATE alive_users SET phoneNumber = ? WHERE id = ?', [$phoneNumber, $this->getId()]);
+        return $req;
+    }
 
+    /**
+     * @return bool
+     */
+    public function isPhoneNumberValidate(): bool {
+        return false;
     }
 
     /**
      * @return string
      */
-    public function getBirthDay(): string
+    public function getBirthDay(): ?string
     {
         return date('d/m/Y', strtotime($this->birthDay));
     }
@@ -284,7 +310,7 @@ class User extends Session {
     /**
      * @return string
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -293,7 +319,7 @@ class User extends Session {
      * @param string $password
      * @return bool
      */
-    public function matchPassword($password) {
+    public function matchPassword($password): ?bool {
         return password_verify($password, $this->getPassword());
     }
 
@@ -301,7 +327,7 @@ class User extends Session {
      * @param string $password
      * @return \PDOStatement
      */
-    public function setPassword($password) {
+    public function setPassword($password): \PDOStatement {
         $newpass = $this->security->hash($password);
         $req = $this->db->query('UPDATE alive_users SET password = ? WHERE id = ?', [$newpass, $this->getId()]);
         return $req;
@@ -310,7 +336,7 @@ class User extends Session {
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -319,23 +345,30 @@ class User extends Session {
      * @param string $email
      * @return \PDOStatement
      */
-    public function setEmail($email) {
+    public function setEmail($email): \PDOStatement {
         $req = $this->db->query('UPDATE alive_users SET email = ? WHERE id = ?', [$email, $this->getId()]);
         return $req;
     }
 
     /**
+     * @return bool
+     */
+    public function isEmailValidate(): bool {
+        return false;
+    }
+
+    /**
      * @return Rank
      */
-    public function getRank()
+    public function getRank(): Rank
     {
         return new Rank($this->rank);
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getShopPoints()
+    public function getShopPoints(): ?int
     {
         return $this->shopPoints;
     }
@@ -345,7 +378,7 @@ class User extends Session {
      * @param string $searchType
      * @return bool
      */
-    public function hasRight($permission, $searchType = 'name')
+    public function hasRight($permission, $searchType = 'name'): bool
     {
         $permission = new Permission($permission, $searchType);
         return $permission->hasRight($this->getRank()->getId());
@@ -354,34 +387,54 @@ class User extends Session {
     /**
      * @return string
      */
-    public function getProfileLink() {
+    public function getProfileLink(): ?string {
         return $GLOBALS['router']->getFullUrl('profile', ['id' => $this->getId()]);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string {
+        $date = new Parser($this->createdAt);
+        return $date->format();
     }
 
     /**
      * @return int
      */
-    public function countCreatedProjects() {
+    public function countCreatedProjects(): ?int {
         $projects = new Projects($this->getId());
         return $projects->countCreatedProjects();
     }
 
-    public function countAllProjects() {
+    /**
+     * @return int
+     */
+    public function countAllProjects(): ?int {
         $projects = new Projects($this->getId());
         return $projects->countAllProjects();
     }
 
-    public function countFinishedProjects() {
+    /**
+     * @return int|null
+     */
+    public function countFinishedProjects(): ?int {
         $projects = new Projects($this->getId());
         return $projects->countFinishedProjects();
     }
 
-    public function getAllCreatedProjects() {
+    /**
+     * @return array|null
+     */
+    public function getAllCreatedProjects(): ?array {
         $projects = new Projects($this->getId());
         return $projects->getAllCreatedProjects();
     }
 
-    public function getCSRFToken() {
+    /**
+     * @return string|null
+     */
+    public function getCSRFToken(): ?string {
         $token = $this->security->getValue('token');
         return isset($token) ? $token : false;
     }

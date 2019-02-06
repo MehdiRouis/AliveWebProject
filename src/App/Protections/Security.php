@@ -142,7 +142,11 @@ class Security extends Session {
     public function restrict($mustBeLogged = true) {
         $dbauth = new DBAuth();
         if($mustBeLogged && !$dbauth->isLogged() || !$mustBeLogged && $dbauth->isLogged()) {
-            $this->safeLocalRedirect('default');
+            if($GLOBALS['router']->getActualRoute() === 'home') {
+                $this->safeLocalRedirect('dashboard');
+            } else {
+                $this->safeLocalRedirect('default');
+            }
         }
     }
 
