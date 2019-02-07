@@ -38,7 +38,6 @@ class ProjectsController extends Controller {
         $this->security->restrict();
         $project = new Project();
         $errors = $project->add('projectTitle', 'projectDescription', $this->user->getId());
-        var_dump($errors);
         if(count($errors) === 0) {
             $this->security->safeLocalRedirect('dashboard');
         }

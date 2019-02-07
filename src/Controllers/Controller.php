@@ -10,6 +10,7 @@ namespace Controllers;
 
 use App\Cache\Cache;
 use App\Routes\Router;
+use App\Views\EmailTemplating;
 use App\Views\Navbar;
 use App\Views\View;
 use App\Protections\Security;
@@ -62,9 +63,9 @@ class Controller {
         $this->dbauth = new DBAuth();
         $this->user = new User();
         $this->user->updateSession();
-        $transport = (new \Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))->setUsername('aliveprojectmail@gmail.com')->setPassword('alivePassword1');
+        $transport = (new \Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))->setUsername('email@host.domain')->setPassword('password');
         $this->mail = new \Swift_Mailer($transport);
-        $this->sms = new \App\SMS\Sender('esskafr', '3312abd3258bfce');
+        $this->sms = new \App\SMS\Sender('esskafr', 'apiKey :3');
     }
 
     /**
@@ -74,7 +75,8 @@ class Controller {
      * @return int
      */
     protected function sendMail($subject, $to, $message) {
-        $message = (new \Swift_Message($subject))->setFrom(['stuuf.kdev@gmail.com' => 'AliveWebProject'])->setTo($to)->setBody($message);
+        $templating = new EmailTemplating();
+        $message = (new \Swift_Message($subject))->setFrom(['stuuf.kdev@gmail.com' => 'AliveWebProject'])->setTo($to)->setBody($templating->getEmailTemplate($message), 'text/html', 'utf-8');
         return $this->mail->send($message);
     }
 

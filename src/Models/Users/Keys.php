@@ -12,7 +12,9 @@
 
 namespace Models\Users;
 
+use App\Protections\Security;
 use Models\Database\PDOConnect;
+use Models\Keys\Key;
 
 /**
  * Class Keys
@@ -25,8 +27,33 @@ class Keys {
      */
     private $db;
 
+    /**
+     * @var array
+     */
+    private $keys;
+
     public function __construct($userId) {
         $this->db = new PDOConnect();
+        $this->userId = $userId;
+    }
+
+    public function getUserKeys() {
+        $req = $this->db->query('SELECT id FROM alive_keys WHERE userId = ?', [$this->userId]);
+        while($key = $req->fetch()) {
+            $this->keys[] = new Key($key->id);
+        }
+    }
+
+    public function addKey($type, $status, $value = null) {
+        $key = new Key();
+        return $key->generate($type, $this->userId, $status, $value);
+    }
+
+    public function generateSMSKey($status, $value = null) {
+        $security = new Security();
+        $keygen = $security->generateRandomString(5, '0123456789');
+        $key = new Key();
+        return $key->generate(2, $this->userId, $status, $value, $keygen);
     }
 
 }

@@ -38,8 +38,47 @@ class UserController extends Controller {
     public function getEmailValidationKey() {
         $this->security->restrict();
         if(!$this->user->isEmailValidate()) {
-
+            $key = $this->user->generateKey(1, 1, $this->user->getEmail());
+            $this->sendMail('AliveWebProject - Service de validation', [$this->user->getEmail() => $this->user->getFullName()], "
+            <p>Bonjour {$this->user->getFullName()},</p>
+            <p>Nous avons remarqué que vous vouliez confirmer votre adresse email ( {$this->user->getEmail()} ).</p>
+            <p>Pour ce faire, il faut entrer la clé qui suit dans vos paramètres de comptes.</p>
+            <p>( Menu : -> PROFIL -> Paramètres -> Valider mon adresse email ).</p>
+            <p>Voici la clé : {$key}</p>
+            <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"btn btn-primary\">
+                          <tbody>
+                            <tr>
+                              <td align=\"left\">
+                                <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">
+                                  <tbody>
+                                    <tr>
+                                      <td><a href=\"{$this->getRouter()->getFullUrl('profile', ['id' => $this->user->getId()])}#parameters\" target=\"_blank\">Valider son adresse email</a></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+</table>
+            <p>Lien d'accès : <a href=\"{$this->getRouter()->getFullUrl('profile', ['id' => $this->user->getId()])}#parameters\">{$this->getRouter()->getFullUrl('profile', ['id' => $this->user->getId()])}#parameters</a></p>");
         }
+        $this->security->safeLocalRedirect('default');
+    }
+
+    public function getPhoneNumberValidationKey() {
+        $this->security->restrict();
+        if(!$this->user->isPhoneNumberValidate()) {
+            $key = $this->user->generateSMSKey(1, $this->user->getPhoneNumber());
+            if($key) {
+                $this->sms->definePhoneNumber($this->user->getPhoneNumber());
+                $this->sms->defineMessage('Validation de compte AliveWebProject -> CODE : ' . $key);
+                $this->sms->send();
+                $this->security->safeExternalRedirect($this->security->safeExternalRedirect($this->getRouter()->getFullUrl('profile', ['id' => $this->user->getId()]) . '?success=generationSMS#parameters'));
+            } else {
+                $this->security->safeExternalRedirect($this->security->safeExternalRedirect($this->getRouter()->getFullUrl('profile', ['id' => $this->user->getId()]) . '?error=generationSMS#parameters'));
+            }
+        }
+        $this->security->safeLocalRedirect('default');
     }
 
     public function postEmailChange() {
@@ -47,7 +86,6 @@ class UserController extends Controller {
         $email = 'email';
         $reMail = 'reEmail';
         $password = 'emailFormPassword';
-        $token = 'CSRFToken';
         $validator = new Validator([
             'email' => [$email]
         ], 'alive_users');
@@ -118,9 +156,21 @@ class UserController extends Controller {
     public function postValidateEmail() {
         $this->security->restrict();
         $key = 'emailValidationKey';
-        $post = new Post();
-        var_dump($post->getValue($key));
-        $this->render('user/profile', ['pageName' => $this->user->getUserName(), 'userProfile' => $this->user, 'scripts' => ['js/userProfile.js']]);
+        $errors = $this->user->validateEmail($key);
+        if(count($errors) === 0) {
+            $this->security->safeExternalRedirect($this->getRouter()->getFullUrl('profile', ['id' => $this->user->getId()]). '?success=emailValidated');
+        }
+        $this->render('user/profile', ['pageName' => $this->user->getUserName(), 'userProfile' => $this->user, 'errors' => $errors, 'scripts' => ['js/userProfile.js']]);
+    }
+
+    public function postValidatePhoneNumber() {
+        $this->security->restrict();
+        $key = 'phoneNumberValidationKey';
+        $errors = $this->user->validatePhoneNumber($key);
+        if(count($errors) === 0) {
+            $this->security->safeExternalRedirect($this->getRouter()->getFullUrl('profile', ['id' => $this->user->getId()]). '?success=phoneNumberValidated');
+        }
+        $this->render('user/profile', ['pageName' => $this->user->getUserName(), 'userProfile' => $this->user, 'errors' => $errors, 'scripts' => ['js/userProfile.js']]);
     }
 
 }

@@ -10,9 +10,12 @@ namespace Models\Users;
 
 use App\Date\Parser;
 use App\Protections\Security;
+use App\Validators\Errors;
 use Models\Authentication\DBAuth;
 use Models\Database\PDOConnect;
+use Models\Globals\Post;
 use Models\Globals\Session;
+use Models\Keys\Key;
 
 /**
  * Class User
@@ -175,7 +178,7 @@ class User extends Session {
      */
     public function add($userName, $accountType, $lastName, $firstName, $email, $phoneNumber, $birthDay, $password, $session = false) {
         $password = $this->security->hash($password);
-        $req = $this->db->query('INSERT INTO alive_users (userName, lastName, firstName, phoneNumber, birthDay, password, `rank`, email, shopPoints, createdAt) VALUES (?,?,?,?,?,?,?,?,?,?)', [
+        $this->db->query('INSERT INTO alive_users (userName, lastName, firstName, phoneNumber, birthDay, password, `rank`, email, shopPoints, createdAt) VALUES (?,?,?,?,?,?,?,?,?,?)', [
             $userName, $lastName, $firstName, $phoneNumber, $birthDay, $password, $accountType, $email, 0, time()
         ]);
         if($session) {
@@ -296,7 +299,8 @@ class User extends Session {
      * @return bool
      */
     public function isPhoneNumberValidate(): bool {
-        return false;
+        $req = $this->db->query('SELECT id FROM alive_keys WHERE userId = ? AND `value` = ? AND status = ?', [$this->getId(), $this->getPhoneNumber(), 2]);
+        return $req->rowCount() > 0 ? true : false;
     }
 
     /**
@@ -354,7 +358,8 @@ class User extends Session {
      * @return bool
      */
     public function isEmailValidate(): bool {
-        return false;
+        $req = $this->db->query('SELECT id FROM alive_keys WHERE userId = ? AND `value` = ? AND status = ?', [$this->getId(), $this->getEmail(), 2]);
+        return $req->rowCount() > 0 ? true : false;
     }
 
     /**
@@ -437,6 +442,54 @@ class User extends Session {
     public function getCSRFToken(): ?string {
         $token = $this->security->getValue('token');
         return isset($token) ? $token : false;
+    }
+
+    public function generateKey($type, $status, $value = null) {
+        $keys = new Keys($this->getId());
+        return $keys->addKey($type, $status, $value);
+    }
+
+    public function generateSMSKey($status, $value = null) {
+        $keys = new Keys($this->getId());
+        return $keys->generateSMSKey($status, $value);
+    }
+
+    public function validateEmail($inputKey) {
+        $post = new Post();
+        $errors = new Errors();
+        if ($post->getValue($inputKey)) {
+            $req = $this->db->query('SELECT id FROM alive_keys WHERE code = ? AND userId = ? AND type = ? AND status = ?', [$post->getValue($inputKey), $this->getId(), 1, 1]);
+            if($req->rowCount() > 0) {
+                $keyId = $req->fetch();
+                $key = new Key($keyId->id);
+                $key->setStatus(2);
+                return $errors->getErrors();
+            } else {
+                $errors->setError($inputKey, 'Clé introuvable.');
+            }
+        } else {
+            $errors->setError($inputKey, 'Clé introuvable.');
+        }
+        return $errors->getErrors();
+    }
+
+    public function validatePhoneNumber($inputKey) {
+        $post = new Post();
+        $errors = new Errors();
+        if ($post->getValue($inputKey)) {
+            $req = $this->db->query('SELECT id FROM alive_keys WHERE code = ? AND userId = ? AND type = ? AND status = ?', [$post->getValue($inputKey), $this->getId(), 2, 1]);
+            if($req->rowCount() > 0) {
+                $keyId = $req->fetch();
+                $key = new Key($keyId->id);
+                $key->setStatus(2);
+                return $errors->getErrors();
+            } else {
+                $errors->setError($inputKey, 'Clé introuvable.');
+            }
+        } else {
+            $errors->setError($inputKey, 'Clé introuvable.');
+        }
+        return $errors->getErrors();
     }
 
 }

@@ -136,6 +136,7 @@ class DBAuth {
         if((int) $pAccountType > 3 || (int) $pAccountType <= 0) {
             $validator->addError($accountType, 'Erreur interne...');
         }
+        
         if(!$validator->isThereErrors()) {
             $user = new User();
             $user->add($this->security->secureValue($pUserName), $this->security->secureValue($pAccountType), $this->security->secureValue($pLastName), $this->security->secureValue($pFirstName), $this->security->secureValue($pEmail), $this->security->secureValue($pPhoneNumber), $this->security->secureValue($pBirthDay), $pPassword, true);

@@ -71,6 +71,38 @@
             </div>
         </div>
         <div id="parameters">
+            <?php if(isset($_GET['success']) && $_GET['success'] === 'emailValidated') { ?>
+                <div class="card gradient-45deg-green-teal">
+                    <div class="card-content white-text">
+                        <span class="card-title">Mise à jour réussie.</span>
+                        <p>Votre adresse email a bien été validée.</p>
+                    </div>
+                </div>
+            <?php } ?>
+            <?php if(isset($_GET['success']) && $_GET['success'] === 'phoneNumberValidated') { ?>
+                <div class="card gradient-45deg-green-teal">
+                    <div class="card-content white-text">
+                        <span class="card-title">Mise à jour réussie.</span>
+                        <p>Votre numéro de téléphone a bien été validé.</p>
+                    </div>
+                </div>
+            <?php } ?>
+            <?php if(isset($_GET['success']) && $_GET['success'] === 'generationSMS') { ?>
+                <div class="card gradient-45deg-green-teal">
+                    <div class="card-content white-text">
+                        <span class="card-title">SMS envoyé!</span>
+                        <p>Vérifiez vos messages afin de recevoir votre code de validation.</p>
+                    </div>
+                </div>
+            <?php } ?>
+            <?php if(isset($_GET['error']) && $_GET['error'] === 'generationSMS') { ?>
+                <div class="card gradient-45deg-red-pink">
+                    <div class="card-content white-text">
+                        <span class="card-title">Erreur...</span>
+                        <p>Pour recevoir de nouveau un SMS de validation, il faut attendre 15 minutes.</p>
+                    </div>
+                </div>
+            <?php } ?>
             <ul class="collapsible popout">
                 <li<?= isset($_GET['post']) && $_GET['post'] === 'emailChange' ? ' class="active"' : ''; ?>>
                     <div class="collapsible-header">Modifier votre adresse email</div>
@@ -111,18 +143,33 @@
                     </div>
                 </li>
                 <?php if(!$user->isEmailValidate()) { ?>
-                <li<?= isset($_GET['post']) && $_GET['post'] === 'emailValidation' ? ' class="active"' : ''; ?>>
-                    <div class="collapsible-header">Valider son adresse email</div>
-                    <div class="collapsible-body white">
-                        <?php
-                        $formValidateEmail = new \App\Views\Form($errors, $router->getFullUrl('pEmailValidation') . '?post=emailValidation#parameters', 'POST');
-                        $formValidateEmail->addField('emailValidationKey', 'Clé d\'activation (Envoyée par mail)', 'col s12', 'text', '[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}');
-                        $formValidateEmail->addHTML('<p><a href="' . $router->getFullUrl('emailKeyGenValidation') . '">Vous n\'avez pas reçu de clé?</a></p>');
-                        $formValidateEmail->addSubmit();
-                        $formValidateEmail->parse();
-                        ?>
-                    </div>
-                </li>
+                    <li<?= isset($_GET['post']) && $_GET['post'] === 'emailValidation' ? ' class="active"' : ''; ?>>
+                        <div class="collapsible-header">Valider son adresse email</div>
+                        <div class="collapsible-body white">
+                            <?php
+                            $formValidateEmail = new \App\Views\Form($errors, $router->getFullUrl('pEmailValidation') . '?post=emailValidation#parameters', 'POST');
+                            $formValidateEmail->addField('emailValidationKey', 'Clé d\'activation (Envoyée par mail)', 'col s12', 'text', '[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}');
+                            $formValidateEmail->addHTML('<p><a href="' . $router->getFullUrl('emailKeyGenValidation') . '">Vous n\'avez pas reçu de clé?</a></p>');
+                            $formValidateEmail->addSubmit();
+                            $formValidateEmail->parse();
+                            ?>
+                        </div>
+                    </li>
+                <?php } ?>
+                <?php if(!$user->isPhoneNumberValidate()) { ?>
+                    <li<?= isset($_GET['post']) && $_GET['post'] === 'phoneNumberValidation' ? ' class="active"' : ''; ?>>
+                        <div class="collapsible-header">Valider son numéro de téléphone</div>
+                        <div class="collapsible-body white">
+                            <p>Votre numéro de téléphone, une fois validé, pourra servir lors de la récupération du compte en cas de perte du mot de passe.</p>
+                            <?php
+                            $formValidatePhoneNumber = new \App\Views\Form($errors, $router->getFullUrl('pPhoneNumberValidation') . '?post=phoneNumberValidation#parameters', 'POST');
+                            $formValidatePhoneNumber->addField('phoneNumberValidationKey', 'Clé d\'activation (Envoyée par SMS)', 'col s12', 'text', '[a-zA-Z0-9]{5}');
+                            $formValidatePhoneNumber->addHTML('<p><a href="' . $router->getFullUrl('phoneNumberKeyGenValidation') . '">Vous n\'avez pas reçu de clé? ( Limité à 1 fois par heure )</a></p>');
+                            $formValidatePhoneNumber->addSubmit();
+                            $formValidatePhoneNumber->parse();
+                            ?>
+                        </div>
+                    </li>
                 <?php } ?>
             </ul>
         </div>
