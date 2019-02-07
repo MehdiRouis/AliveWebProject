@@ -13,6 +13,8 @@
 namespace Controllers;
 
 use App\Validators\Validator;
+use App\Validators\Verifications;
+use Models\Globals\Files;
 use Models\Globals\Post;
 use Models\Users\User;
 
@@ -33,11 +35,18 @@ class UserController extends Controller {
         }
     }
 
+    public function getEmailValidationKey() {
+        $this->security->restrict();
+        if(!$this->user->isEmailValidate()) {
+
+        }
+    }
+
     public function postEmailChange() {
         $this->security->restrict();
         $email = 'email';
         $reMail = 'reEmail';
-        $password = 'password';
+        $password = 'emailFormPassword';
         $token = 'CSRFToken';
         $validator = new Validator([
             'email' => [$email]
@@ -81,15 +90,37 @@ class UserController extends Controller {
     public function postPhoneNumberChange() {
         $this->security->restrict();
         $phoneNumber = 'phoneNumber';
-        $password = 'password';
+        $password = 'phoneFormPassword';
         $validator = new Validator(['phoneNumber' => [$phoneNumber]]);
         $validator->validate();
         $post = new Post();
+        if(!$this->user->matchPassword($post->getValue($password))) {
+            $validator->addError($password, 'Mot de passe incorrect.');
+        }
         if(!$validator->isThereErrors()) {
             $this->user->setPhoneNumber($post->getValue($phoneNumber));
             $this->security->safeLocalRedirect('profile', ['id' => $this->user->getId()]);
         }
         $this->render('user/profile', ['pageName' => $this->user->getUserName(), 'userProfile' => $this->user, 'scripts' => ['js/userProfile.js'], 'errors' => $validator->getErrors()]);
+    }
+
+    public function postBannerChange() {
+        $this->security->restrict();
+        $file = 'file';
+        $files = new Files();
+        if($files->getValue($file)) {
+            $verifications = new Verifications();
+            $verifications->isValidPicture($file, $files->getValue($file));
+        }
+        $this->render('user/profile', ['pageName' => $this->user->getUserName(), 'userProfile' => $this->user, 'scripts' => ['js/userProfile.js']]);
+    }
+
+    public function postValidateEmail() {
+        $this->security->restrict();
+        $key = 'emailValidationKey';
+        $post = new Post();
+        var_dump($post->getValue($key));
+        $this->render('user/profile', ['pageName' => $this->user->getUserName(), 'userProfile' => $this->user, 'scripts' => ['js/userProfile.js']]);
     }
 
 }

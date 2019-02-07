@@ -23,9 +23,7 @@
 </head>
 <body class="grey lighten-2">
 <div id="home">
-    <div class="parallax-container hoverable">
-        <div class="parallax"><img src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/bureau.jpg" alt="Background parallax 2" /></div>
-    </div>
+    <div class="parallax" data-img="<?= PROJECT_LINK; ?>/public/assets/img/parallax/bureau.jpg"></div>
 </div>
 <header>
     <nav id="navbar">
@@ -46,6 +44,7 @@
         } else {
             $navbar->addUserView($user);
             $navbar->add('dashboard', 'DASHBOARD', 'fas fa-home');
+            $navbar->add('profile', 'PROFIL', 'fas fa-home', false, ['id' => $user->getId()]);
             $navbar->add('createProject', 'CRÉER UN PROJET', 'fas fa-project-diagram');
             $navbar->add('logout', 'SE DÉCONNECTER', 'fas fa-sign-out-alt', 'logout');
         }

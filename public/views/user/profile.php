@@ -5,11 +5,36 @@
  * @var array $errors
  */
 ?>
+<?php if($userProfile->getId() === $user->getId()) { ?>
+    <div id="updateImage" class="modal">
+        <form action="<?= $router->getFullUrl('pBannerChange'); ?>" method="POST" enctype="multipart/form-data">
+            <div class="modal-content">
+                <p class="rem13">Modifier sa bannière</p>
+                <div class="divider"></div>
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Fichier</span>
+                        <input name="file" type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input id="uploader" class="file-path validate" type="text">
+                        <label for="uploader">Choisissez une image</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="modal-close waves-effect waves-green btn-flat">Annuler</a>
+                <button type="submit" class="waves-effect waves-green btn-flat">Envoyer</button>
+            </div>
+        </form>
+    </div>
+
+<?php } ?>
 <main class="container">
     <div id="profile-page-header" class="card">
         <div class="card-image waves-effect waves-block waves-light">
             <img class="activator" src="<?= PROJECT_LINK; ?>/public/assets/img/carousel/sky.jpg" alt="user background">
-            <a class="btn-floating halfway-fab2 waves-effect waves-teal white"><i class="fas fa-camera-retro black-text"></i></a>
+            <?php if($userProfile->getId() === $user->getId()) { ?><a href="#updateImage" class="btn-floating halfway-fab2 waves-effect waves-teal white modal-trigger"><i class="fas fa-camera-retro black-text"></i></a><?php } ?>
         </div>
         <div class="card-content card-avatar center-align">
             <div class="row">
@@ -51,10 +76,10 @@
                     <div class="collapsible-header">Modifier votre adresse email</div>
                     <div class="collapsible-body white">
                         <?php
-                        $formEmail = new \App\Views\Form($errors, $router->getFullUrl('pEmailChange') . '?post=emailChange#parameters', 'POST', true);
+                        $formEmail = new \App\Views\Form($errors, $router->getFullUrl('pEmailChange') . '?post=emailChange#parameters', 'POST');
                         $formEmail->addField('email', 'Nouvelle adresse email', 'col s12 m6', 'email');
                         $formEmail->addField('reEmail', 'Retapez votre adresse email', 'col s12 m6', 'email');
-                        $formEmail->addField('password', 'Tapez votre mot de passe', 'col s12', 'password');
+                        $formEmail->addField('emailFormPassword', 'Tapez votre mot de passe', 'col s12', 'password');
                         $formEmail->addSubmit();
                         $formEmail->parse();
                         ?>
@@ -64,7 +89,7 @@
                     <div class="collapsible-header">Modifier son mot de passe</div>
                     <div class="collapsible-body white">
                         <?php
-                        $formEmail = new \App\Views\Form($errors, $router->getFullUrl('pPasswordChange') . '?post=passwordChange#parameters', 'POST', true);
+                        $formEmail = new \App\Views\Form($errors, $router->getFullUrl('pPasswordChange') . '?post=passwordChange#parameters', 'POST');
                         $formEmail->addField('oldPassword', 'Ancien mot de passe', 'col s12', 'password');
                         $formEmail->addField('newPassword', 'Choisissez un nouveau mot de passe', 'col s12 m6', 'password');
                         $formEmail->addField('reNewPassword', 'Retapez votre nouveau mot de passe', 'col s12 m6', 'password');
@@ -77,14 +102,28 @@
                     <div class="collapsible-header">Modifier son numéro de téléphone</div>
                     <div class="collapsible-body white">
                         <?php
-                        $formPhoneNumber = new \App\Views\Form($errors, $router->getFullUrl('pPhoneNumberChange') . '?post=phoneNumberChange#parameters', 'POST', true);
+                        $formPhoneNumber = new \App\Views\Form($errors, $router->getFullUrl('pPhoneNumberChange') . '?post=phoneNumberChange#parameters', 'POST');
                         $formPhoneNumber->addField('phoneNumber', 'Nouveau numéro de téléphone (+33601010101)', 'col s12 m6', 'text', '(\+33)[1-9]([0-9]{2}){4}');
-                        $formPhoneNumber->addField('password', 'Entrez votre mot de passe', 'col s12 m6', 'password');
+                        $formPhoneNumber->addField('phoneFormPassword', 'Entrez votre mot de passe', 'col s12 m6', 'password');
                         $formPhoneNumber->addSubmit();
                         $formPhoneNumber->parse();
                         ?>
                     </div>
                 </li>
+                <?php if(!$user->isEmailValidate()) { ?>
+                <li<?= isset($_GET['post']) && $_GET['post'] === 'emailValidation' ? ' class="active"' : ''; ?>>
+                    <div class="collapsible-header">Valider son adresse email</div>
+                    <div class="collapsible-body white">
+                        <?php
+                        $formValidateEmail = new \App\Views\Form($errors, $router->getFullUrl('pEmailValidation') . '?post=emailValidation#parameters', 'POST');
+                        $formValidateEmail->addField('emailValidationKey', 'Clé d\'activation (Envoyée par mail)', 'col s12', 'text', '[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}');
+                        $formValidateEmail->addHTML('<p><a href="' . $router->getFullUrl('emailKeyGenValidation') . '">Vous n\'avez pas reçu de clé?</a></p>');
+                        $formValidateEmail->addSubmit();
+                        $formValidateEmail->parse();
+                        ?>
+                    </div>
+                </li>
+                <?php } ?>
             </ul>
         </div>
     <?php } ?>

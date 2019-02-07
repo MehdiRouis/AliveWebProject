@@ -37,12 +37,12 @@ class ProjectsController extends Controller {
     public function postCreateProject() {
         $this->security->restrict();
         $project = new Project();
-        $errors = $project->add('projectTitle', 'projectDescription', 'projectCaptcha', 'CSRFToken', $this->user->getId());
-        $captcha = $this->security->generateCaptcha(154, 34, 179,229,252);
+        $errors = $project->add('projectTitle', 'projectDescription', $this->user->getId());
+        var_dump($errors);
         if(count($errors) === 0) {
             $this->security->safeLocalRedirect('dashboard');
         }
-        $this->render('projects/create', ['pageName' => 'Créer un projet', 'captcha' => $captcha, 'errors' => $errors]);
+        $this->render('projects/create', ['pageName' => 'Créer un projet', 'errors' => $errors]);
     }
 
 }

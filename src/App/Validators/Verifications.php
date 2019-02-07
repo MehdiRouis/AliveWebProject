@@ -54,6 +54,7 @@ class Verifications {
             'phoneNumber' => 'isValidPhoneNumber',
             'title' => 'isValidTitle',
             'description' => 'isValidDescription',
+            'image' => 'isValidPicture',
             'password' => 'isValidPassword',
             'captcha' => 'isValidCaptcha'
         ];
@@ -260,7 +261,7 @@ class Verifications {
                 $this->addError($inputName, 'La valeur doit contenir entre 5 et 30 caractères.');
             }
         } else {
-            $this->addError($inputName, 'Ce champ contient des caractères spéciaux non prit en charge.');
+            $this->addError($inputName, 'Ce champ contient des caractères spéciaux non pris en charge.');
         }
         return false;
     }
@@ -278,9 +279,15 @@ class Verifications {
                 $this->addError($inputName, 'Le champ doit contenir entre 50 et 1000 caractères.');
             }
         } else {
-            $this->addError($inputName, 'Ce champ contient des caractères spéciaux non prit en charge.');
+            $this->addError($inputName, 'Ce champ contient des caractères spéciaux non pris en charge.');
         }
         return false;
+    }
+
+    public function isValidPicture($inputName, $inputValue) {
+        var_dump($inputName);
+        var_dump($inputValue);
+        var_dump(pathinfo($inputValue['name']));
     }
 
     /**

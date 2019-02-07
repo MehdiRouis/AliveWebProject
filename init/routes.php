@@ -14,6 +14,7 @@ $router->get('/account/logout', 'Authentication#getLogout', 'logout');
 // USER \\
 $router->get('/account/dashboard', 'User#getDashboard', 'dashboard');
 $router->get('/user/:id/profile', 'User#getProfile', 'profile');
+$router->get('/user/validate/email/generation', 'User#getEmailValidationKey', 'emailKeyGenValidation');
 
 // PROJECTS \\
 $router->get('/project/create', 'Projects#getCreateProject', 'createProject');
@@ -29,7 +30,8 @@ $router->post('/account/register', 'Authentication#postRegister', 'pregister');
 $router->post('/user/edit/email', 'User#postEmailChange', 'pEmailChange');
 $router->post('/user/edit/password', 'User#postPasswordChange', 'pPasswordChange');
 $router->post('/user/edit/phonenumber', 'User#postPhoneNumberChange', 'pPhoneNumberChange');
-
+$router->post('/user/validate/email', 'User#postValidateEmail', 'pEmailValidation');
+$router->post('/user/edit/banner', 'User#postBannerChange', 'pBannerChange');
 // PROJECTS \\
 $router->post('/project/create', 'Projects#postCreateProject', 'pcreateproject');
 

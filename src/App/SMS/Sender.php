@@ -76,8 +76,11 @@ class Sender {
             curl_setopt($ch, CURLOPT_LOW_SPEED_LIMIT, 1024); // limite de detection des connexions lentes, en octets/sec (ici : 1 ko) - optionnel
             curl_setopt($ch, CURLOPT_LOW_SPEED_TIME, 1);     // coupe la connexion si en dessous de CURLOPT_LOW_SPEED_LIMIT pendant plus de CURLOPT_LOW_SPEED_TIME - optionnel
 
-            curl_exec($ch);
+            $result = curl_exec($ch);
+
+            echo $result;
             curl_close($ch);
+
 
         } catch (\Exception $e) {
             echo 'Le message n\'a pas pu être envoyé. Merci de réessayer...';

@@ -91,7 +91,7 @@ class Form {
     /**
      * @param string $html
      */
-    private function addHTML($html) {
+    public function addHTML($html) {
         $this->html .= "{$html}\n";
     }
 

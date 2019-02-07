@@ -91,17 +91,15 @@ class Project {
      * @param int $userId
      * @return array|bool
      */
-    public function add($title, $description, $captcha, $token, $userId): array {
+    public function add($title, $description, $userId): array {
         $validator = new Validator([
             'title' => [$title],
-            'description' => [$description],
-            'captcha' => [$captcha],
-            'token' => [$token]
+            'description' => [$description]
         ], 'alive_projects');
-        $req = $this->db->query('SELECT id FROM alive_projects WHERE createdBy = ? AND statusId = ?', [$userId, 3]);
         $validator->validate();
+        $req = $this->db->query('SELECT id FROM alive_projects WHERE createdBy = ? AND statusId = ?', [$userId, 3]);
         if($req->rowCount() > 0) {
-            $validator->addError($token, 'Vous avez déjà un projet en attente de modération.');
+            $validator->addError('global', 'Vous avez déjà un projet en attente de modération.');
         }
         $security = new Security();
         $post = new Post();

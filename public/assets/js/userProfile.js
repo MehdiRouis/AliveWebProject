@@ -4,3 +4,4 @@
 
 $('.tabs').tabs();
 $('.collapsible').collapsible();
+$('.modal').modal();

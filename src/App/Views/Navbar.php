@@ -61,18 +61,25 @@ class Navbar
      * @param bool $icon
      * @throws \Exception \App\Routes\RouterExceptions
      */
-    public function add($routeName, $label, $icon = false, $classLi = false) {
+    public function add($routeName, $label, $icon = false, $classLi = false, $linkParams = []) {
+        $extension = explode('#', $routeName);
+        $routeExtension = '';
+        if(count($extension) === 2) {
+            $routeName = $extension[0];
+            $routeExtension = '#' . $extension[1];
+        }
         $icon = $icon ? '<i class="' . $icon . '"></i> ' : '';
         $classActiveLi = $classLi ? 'active ' . $classLi : 'active';
         $classLi = $classLi ? ' class="' . $classLi . '"' : '';
         $active = $this->getRouter()->getActualRoute() === $routeName ? ' class="' . $classActiveLi . '"' : $classLi;
-        $this->addHTML('<li' . $active . '><a href="' . $this->getRouter()->getFullUrl($routeName) . '">' . $icon . $label . '</a></li>');
+        $this->addHTML('<li' . $active . '><a href="' . $this->getRouter()->getFullUrl($routeName, $linkParams) . $routeExtension . '">' . $icon . $label . '</a></li>');
     }
 
     /**
      * @param string $link
      * @param string $label
-     * @param bool $icon
+     * @param bool|string $icon
+     * @param bool|string $classLi
      */
     public function addWithLink($link, $label, $icon = false, $classLi = false) {
         $icon = $icon ? '<i class="' . $icon . '"></i> ' : '';

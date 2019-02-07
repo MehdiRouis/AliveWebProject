@@ -17,10 +17,9 @@
                 Lorsque votre projet sera validé, nos gestionnaires s'occuperont de vous assigner des développeurs.<br />
                 Afin d'assurer la réalisation de votre projet, les développeurs sélectionnés sont testés et mit à l'épreuve.</p>
             <?php
-            $form = new \App\Views\Form($errors, 'pcreateproject', 'POST', true);
+            $form = new \App\Views\Form($errors, 'pcreateproject', 'POST');
             $form->addField('projectTitle', 'Titre du projet', 'col s12', 'text', '[a-zA-ZÂ-ÿ \-\!\:\.\'\"0-9]+');
-            $form->addTextarea('projectDescription', 'Description du projet', false, '[a-zA-ZÂ-ÿ \-\!\$\€\:\(\)\.\'\"\,\*\+\=0-9]+');
-            $form->addCaptcha($captcha, 'projectCaptcha', 'Recopiez le texte de l\'image.');
+            $form->addTextarea('projectDescription', 'Description du projet', false, '[a-zA-ZÂ-ÿ \-\!\$\€\:\(\)\.\'\"\,\*\+\=\@\=\+\?\;0-9]+');
             $form->addSubmit();
             $form->parse();
             ?>

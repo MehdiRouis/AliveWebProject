@@ -118,13 +118,25 @@ class Security extends Session {
      * @return string
      */
     public function generateCaptchaCode(): string {
-        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
+        $captchaString = $this->generateRandomString(7, '0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ');
+        $this->setValue('captcha', $captchaString);
+        return $captchaString;
+    }
+
+    public function generateRandomKey() {
+        return $this->generateRandomString(4) . '-' . $this->generateRandomString(4) . '-' . $this->generateRandomString(4) . '-' . $this->generateRandomString(4);
+    }
+
+    /**
+     * @param int $length
+     * @param string $characters
+     * @return string
+     */
+    public function generateRandomString($length, $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ') {
         $randomString = '';
-        for ($i = 0; $i < 7; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        for($i = 0;$i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
         }
-        $this->setValue('captcha', $randomString);
         return $randomString;
     }
 

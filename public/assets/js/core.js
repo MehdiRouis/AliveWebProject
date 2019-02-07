@@ -1,10 +1,14 @@
 $(function() {
     /** INITIALISATIONS OBJETS MATERIALIZE **/
-    $('.parallax').parallax();
     $('.sidenav').sidenav({edge: 'right'});
     /** FIN INITIALISATIONS OBJETS MATERIALIZE **/
-    
-    
+    var parallax = document.querySelectorAll('.parallax');
+    for(var i = 0; i < parallax.length; i++) {
+        parallax[i].style.background = 'url(' + parallax[i].dataset.img + ') no-repeat top fixed';
+    }
+    //console.log($('.parallax').dataset.data.dataImg);
+    //$('.parallax').css('background', 'url('+$(this).dataset.dataImg+') no-repeat top fixed');
+
     /** FONCTIONS PERSONNALISÉES **/
     /**
      * @type {{create: Window.form.create}}
@@ -31,8 +35,8 @@ $(function() {
             });
         }
         /** FIN FONCTIONS PERSONNALISÉES **/
-        
-        
+
+
     };
 
 });
