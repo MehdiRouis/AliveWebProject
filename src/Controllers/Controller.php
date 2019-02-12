@@ -64,7 +64,6 @@ class Controller {
         if($this->user->getId()) {
             $this->user->updateSession();
         }
-        $this->user->updateSession();
         //$transport = (new \Swift_SendmailTransport('/usr/sbin/sendmail -bs'));
         $transport = (new \Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))->setUsername('email@host.domain')->setPassword('password');
         $this->mail = new \Swift_Mailer($transport);
