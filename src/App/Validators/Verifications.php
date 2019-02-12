@@ -9,6 +9,7 @@
 namespace App\Validators;
 
 use Models\Database\PDOConnect;
+use Models\Globals\Session;
 
 /**
  * Class Verifications
@@ -45,12 +46,17 @@ class Verifications {
         $this->verification_table = $table;
         $this->errorList = [];
         $this->inputTypes = [
+            'username' => 'isValidUsername',
             'name' => 'isValidName',
             'birthDay' => 'isValidBirthDay',
+            'adultBirthDay' => 'isAdult',
             'email' => 'isValidEmail',
-            'editEmail' => 'isBaseEmailValid',
             'phoneNumber' => 'isValidPhoneNumber',
-            'password' => 'isValidPassword'
+            'title' => 'isValidTitle',
+            'description' => 'isValidDescription',
+            'image' => 'isValidPicture',
+            'password' => 'isValidPassword',
+            'captcha' => 'isValidCaptcha'
         ];
     }
 
@@ -58,7 +64,7 @@ class Verifications {
      * Récupérer la table où auront lieu les vérifications si elle existe.
      * @return bool|string
      */
-    public function getVerificationTable() {
+    public function getVerificationTable(): string {
         return $this->verification_table;
     }
 
@@ -76,11 +82,41 @@ class Verifications {
         }
         foreach($content as $key => $value) {
             if($found) {
-                $this->$found(key($value), $value[key($value)]);
+                if(isset($value[key($value)]) && !empty($value[key($value)])) {
+                    $this->$found(key($value), $value[key($value)]);
+                } else {
+                    $this->addError(key($value),'Champ vide.');
+                }
             } else {
                 $this->addError(key($value), 'La clé "' . $valueType . '" de vérification est introuvable.');
             }
         }
+    }
+
+    /**
+     * @param $inputName
+     * @param $inputValue
+     * @return bool
+     */
+    public function isValidUsername($inputName, $inputValue): bool {
+        if(preg_match('/^[A-Za-zÂ-ÿ0-9-]+$/', $inputValue)) {
+            if(strlen($inputName) > 3 && strlen($inputName) <= 15) {
+                if($this->getVerificationTable()) {
+                    if(!$this->db->existContent($this->getVerificationTable(), 'userName', $inputValue)) {
+                        return true;
+                    } else {
+                        $this->addError($inputName, 'Le nom d\'utilisateur est déjà prit.');
+                    }
+                } else {
+                    return true;
+                }
+            } else {
+                $this->addError($inputName, 'Le champ doit contenir entre 3 et 15 caractères.');
+            }
+        } else {
+            $this->addError($inputName, 'Caractères spéciaux non-autorisés.');
+        }
+        return false;
     }
 
     /**
@@ -89,19 +125,15 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidName($inputName, $inputValue) {
-        if(!empty($inputValue)) {
-            if(preg_match('/^[A-Za-zÂ-ÿ -]+$/i', $inputValue)) {
-                if(strlen($inputName) > 3 && strlen($inputName) <= 25) {
-                    return true;
-                } else {
-                    $this->addError($inputName, 'Le champs doit contenir entre 3 et 25 caractères.');
-                }
+    public function isValidName($inputName, $inputValue): bool {
+        if(preg_match('/^[A-Za-zÂ-ÿ -]+$/', $inputValue)) {
+            if(strlen($inputName) > 3 && strlen($inputName) <= 25) {
+                return true;
             } else {
-                $this->addError($inputName, 'Caractères spéciaux non-autorisés.');
+                $this->addError($inputName, 'Le champ doit contenir entre 3 et 25 caractères.');
             }
         } else {
-            $this->addError($inputName, 'Champs vide.');
+            $this->addError($inputName, 'Caractères spéciaux non-autorisés.');
         }
         return false;
     }
@@ -112,23 +144,19 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidDate($inputName, $inputValue) {
-        if(!empty($inputValue)) {
-            if(preg_match('/^[\d]{1,2}\/[\d]{1,2}\/[\d]{4}$/i', $inputValue)) {
-                $date = explode('/', $inputValue);
-                $day = (int)$date[0];
-                $month = (int)$date[1];
-                $year = (int)$date[2];
-                if (checkdate($month, $day, $year)) {
-                    return true;
-                } else {
-                    $this->addError($inputName, 'Date invalide.');
-                }
+    public function isValidDate($inputName, $inputValue): bool {
+        if(preg_match('/^[\d]{4}\-[\d]{1,2}\-[\d]{1,2}$/', $inputValue)) {
+            $date = explode('-', $inputValue);
+            $day = (int)$date[2];
+            $month = (int)$date[1];
+            $year = (int)$date[0];
+            if (checkdate($month, $day, $year)) {
+                return true;
             } else {
-                $this->addError($inputName, 'Date demandée sous la forme : DD/MM/YYYY');
+                $this->addError($inputName, 'Date invalide.');
             }
         } else {
-            $this->addError($inputName, 'Champs vide.');
+            $this->addError($inputName, 'Date demandée sous la forme : YYYY-MM-DD');
         }
         return false;
     }
@@ -139,12 +167,23 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidBirthDay($inputName, $inputValue) {
+    public function isValidBirthDay($inputName, $inputValue): bool {
         if($this->isValidDate($inputName, $inputValue)) {
-            if($inputValue <= date('d/m/Y')) {
+            if($inputValue <= date('Y-m-d')) {
                 return true;
             } else {
                 $this->addError($inputName, 'Date de naissance invalide.');
+            }
+        }
+        return false;
+    }
+
+    public function isAdult($inputName, $inputValue): bool {
+        if($this->isValidDate($inputName, $inputValue)) {
+            if($inputValue <= date('Y-m-d', strtotime('-18 years'))) {
+                return true;
+            } else {
+                $this->addError($inputName, 'Vous devez avoir la majorité.');
             }
         }
         return false;
@@ -156,15 +195,11 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    private function isBaseEmailValid($inputName, $inputValue) {
-        if(!empty($inputValue)) {
-            if(filter_var($inputValue, FILTER_VALIDATE_EMAIL)) {
-                return true;
-            } else {
-                $this->addError($inputName, 'Adresse email invalide.');
-            }
+    private function isBaseEmailValid($inputName, $inputValue): bool {
+        if(filter_var($inputValue, FILTER_VALIDATE_EMAIL)) {
+            return true;
         } else {
-            $this->addError($inputName, 'Champs vide.');
+            $this->addError($inputName, 'Adresse email invalide.');
         }
         return false;
     }
@@ -175,10 +210,10 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidEmail($inputName, $inputValue) {
+    public function isValidEmail($inputName, $inputValue): bool {
         if($this->isBaseEmailValid($inputName, $inputValue)) {
-            if($this->verification_table) {
-                if(!$this->db->existContent($this->verification_table, 'mail', $inputValue)) {
+            if($this->getVerificationTable()) {
+                if(!$this->db->existContent($this->getVerificationTable(), 'email', $inputValue)) {
                     return true;
                 } else {
                     $this->addError($inputName, 'Adresse mail déjà utilisée.');
@@ -196,17 +231,63 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidPhoneNumber($inputName, $inputValue) {
-        if(!empty($inputValue)) {
-            if(preg_match('/^(\+33)[1-9]([0-9]{2}){4}$/i', $inputValue)) {
-                return true;
+    public function isValidPhoneNumber($inputName, $inputValue): bool {
+        if(preg_match('/^(\+33)[1-9]([0-9]{2}){4}$/i', $inputValue)) {
+            if($this->getVerificationTable()) {
+                if(!$this->db->existContent($this->getVerificationTable(), 'phoneNumber', $inputValue)) {
+                    return true;
+                } else {
+                    $this->addError($inputName, 'Numéro de téléphone déjà utilisé.');
+                }
             } else {
-                $this->addError($inputName, 'Numéro demandé sous la forme +331 00 00 00 00');
+                return true;
             }
         } else {
-            $this->addError($inputName, 'Champs vide.');
+            $this->addError($inputName, 'Numéro demandé sous la forme +33101010101');
         }
         return false;
+    }
+
+    /**
+     * @param string $inputName
+     * @param string $inputValue
+     * @return bool
+     */
+    public function isValidTitle($inputName, $inputValue): bool {
+        if(preg_match('/^[a-zA-ZÂ-ÿ -!:.,+=\'"*0-9]+$/', $inputValue)) {
+            if(strlen($inputValue) > 5 && strlen($inputValue) < 30) {
+                return true;
+            } else {
+                $this->addError($inputName, 'La valeur doit contenir entre 5 et 30 caractères.');
+            }
+        } else {
+            $this->addError($inputName, 'Ce champ contient des caractères spéciaux non pris en charge.');
+        }
+        return false;
+    }
+
+    /**
+     * @param string $inputName
+     * @param string $inputValue
+     * @return bool
+     */
+    public function isValidDescription($inputName, $inputValue): bool {
+        if(preg_match('/^[a-zA-ZÂ-ÿ -!$€:().\'",*+=0-9 \n \r]+$/', $inputValue)) {
+            if(strlen($inputValue) > 50 && strlen($inputValue) < 1000) {
+                return true;
+            } else {
+                $this->addError($inputName, 'Le champ doit contenir entre 50 et 1000 caractères.');
+            }
+        } else {
+            $this->addError($inputName, 'Ce champ contient des caractères spéciaux non pris en charge.');
+        }
+        return false;
+    }
+
+    public function isValidPicture($inputName, $inputValue) {
+        var_dump($inputName);
+        var_dump($inputValue);
+        var_dump(pathinfo($inputValue['name']));
     }
 
     /**
@@ -215,7 +296,7 @@ class Verifications {
      * @param string $inputValue
      * @return bool
      */
-    public function isValidPassword($inputName, $inputValue) {
+    public function isValidPassword($inputName, $inputValue): bool {
         if(strlen($inputValue) > 6) {
             return true;
         } else {
@@ -225,9 +306,23 @@ class Verifications {
     }
 
     /**
+     * @param string $inputName
+     * @param string $inputValue
+     * @return bool
+     */
+    public function isValidCaptcha($inputName, $inputValue): bool {
+        $session = new Session();
+        if($inputValue === $session->getValue('captcha')) {
+            return true;
+        }
+        $this->addError($inputName, 'Captcha invalide.');
+        return false;
+    }
+
+    /**
      * Ajouter une erreur.
      * @param string $inputName
-     * @param string$message
+     * @param string $message
      */
     public function addError($inputName, $message) {
         $this->errorList[$inputName] = $message;
@@ -237,7 +332,7 @@ class Verifications {
      * Récupérer les erreurs.
      * @return array
      */
-    public function getErrors() {
+    public function getErrors(): array {
         return $this->errorList;
     }
 

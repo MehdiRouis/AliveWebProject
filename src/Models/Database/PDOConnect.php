@@ -53,7 +53,7 @@ class PDOConnect {
      * @param string $db_user
      * @param string $db_pass
      */
-    public function __construct($db_name = 'hospitalE2N', $db_host = 'localdev', $db_user = 'admin', $db_pass = 'root') {
+    public function __construct($db_name = 'alivewebproject', $db_host = 'localhost', $db_user = 'root', $db_pass = '') {
         $this->db_host = $db_host;
         $this->db_user = $db_user;
         $this->db_pass = $db_pass;
@@ -64,10 +64,10 @@ class PDOConnect {
      * Récupérer l'instance de PDO
      * @return PDO
      */
-    public function getPDO() {
+    public function getPDO(): PDO {
         if($this->pdo === null) {
             try {
-                $pdo = new PDO('mysql:dbname=' . $this->db_name . ';host=' . $this->db_host, $this->db_user, $this->db_pass);
+                $pdo = new PDO('mysql:dbname=' . $this->db_name . ';host=' . $this->db_host . ';charset=utf8', $this->db_user, $this->db_pass);
                 $this->pdo = $pdo;
                 $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
@@ -84,7 +84,7 @@ class PDOConnect {
      * @param bool|array $parameters
      * @return \PDOStatement
      */
-    public function query($statement, $parameters = false) {
+    public function query($statement, $parameters = false): \PDOStatement {
         if($parameters) {
             $req = $this->getPDO()->prepare($statement);
             $req->execute($parameters);
@@ -97,12 +97,12 @@ class PDOConnect {
     /**
      * @param string $table
      * @param string $column
-     * @param mixed $value
-     * @return bool|mixed
+     * @param string $value
+     * @return bool
      */
-    public function fetch($table, $column, $value) {
-        $req = $this->query("SELECT * FROM {$table} WHERE {$column} = ?", [$value]);
-        return ($req->rowCount() > 0) ?  : false;
+    public function existContent($table, $column, $value): bool {
+        $req = $this->query("SELECT id FROM {$table} WHERE {$column} = ?", [$value]);
+        return $req->rowCount() > 0 ? true : false;
     }
 
     public function __destruct() {

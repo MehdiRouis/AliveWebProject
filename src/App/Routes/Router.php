@@ -40,7 +40,6 @@ class Router {
      */
     public function __construct($url) {
         $this->url = isset($_GET[$url]) ? $_GET[$url] : '/';
-        //$this->add('/404', 'Errors#getNotFound', null, 'GET');
     }
 
     /**
@@ -50,7 +49,7 @@ class Router {
      * @param null|string $name
      * @return Route
      */
-    public function get($path, $callable, $name = null) {
+    public function get($path, $callable, $name = null): Route {
         return $this->add($path, $callable, $name, 'GET');
     }
 
@@ -61,7 +60,7 @@ class Router {
      * @param null|string $name
      * @return Route
      */
-    public function post($path, $callable, $name = null) {
+    public function post($path, $callable, $name = null): Route {
         return $this->add($path, $callable, $name, 'POST');
     }
 
@@ -73,7 +72,7 @@ class Router {
      * @param string $method
      * @return Route
      */
-    private function add($path, $callable, $name, $method) {
+    private function add($path, $callable, $name, $method): Route {
         $route = new Route($path, $callable);
         $this->routes[$method][] = $route;
         if (is_string($callable) && $name === null) {
@@ -95,6 +94,7 @@ class Router {
         }
         $match = false;
         foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
+            /** @var Route $route */
             if ($route->match($this->url)) {
                 $route->call();
                 $match = true;
@@ -127,11 +127,21 @@ class Router {
      * @return string
      * @throws \Exception RouterExceptions
      */
-    public function getUrl($name, $params = []) {
+    public function getUrl($name, $params = []): string {
         if (!isset($this->namedRoutes[$name])) {
             throw new RouterExceptions('No route found with this name.');
         }
         return $this->namedRoutes[$name]->getUrl($params);
+    }
+
+    public function getActualRoute(): string {
+        $actualRoute = false;
+        foreach($this->namedRoutes as $name => $route) {
+            if($route->isActualRoute()) {
+                $actualRoute = $name;
+            }
+        }
+        return $actualRoute;
     }
 
     /**
@@ -141,7 +151,7 @@ class Router {
      * @return string
      * @throws \Exception RouterExceptions
      */
-    public function getFullUrl($name, $params = []) {
+    public function getFullUrl($name, $params = []): string {
         return PROJECT_LINK . '/' . $this->getUrl($name, $params);
     }
 

@@ -8,23 +8,33 @@
 
 namespace Controllers;
 
+use Models\Articles\Article;
+use Models\Users\Rank;
+use Models\Users\User;
+
 /**
  * Class IndexController
  * @package Controllers
  */
 class IndexController extends Controller {
-    /**
-     * @throws \Exception \App\Views\ViewsExceptions
-     */
+
     public function getHomepage() {
-        $this->render('index', ['scripts' => ['js/index.js']]);
+        $this->security->restrict(false);
+        $news = new Article();
+        $staffs = new Rank();
+        $this->render('index', ['pageName' => 'Accueil', 'scripts' => ['js/index.js'], 'news' => $news->getAllNews(5), 'staffs' => $staffs->getRankedUsers('ORDER BY `rank` DESC', 3)]);
     }
 
-    /**
-     * @throws \Exception \App\Views\ViewsExceptions
-     */
+    public function getNotice() {
+        $this->render('terms/service', ['pageName' => 'Mentions légales']);
+    }
+
+    public function getPrivacyPolicy() {
+        $this->render('terms/privacy-policy', ['pageName' => 'Politiques de confidentialités.']);
+    }
+
     public function getNotFound() {
-        $this->render('errors/404');
+        $this->render('errors/404', ['pageName' => 'Page introuvable.']);
     }
 
 }
