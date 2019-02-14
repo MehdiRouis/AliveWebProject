@@ -56,7 +56,7 @@ class Form {
      * @param bool $csrf
      * @throws \Exception \App\Routes\RouterExceptions
      */
-    public function __construct($errors, $routeName, $method = 'POST', $csrf = true) {
+    public function __construct($errors, $routeName, $method = 'POST', $csrf = true, $extra = false) {
         $this->errors = $errors;
         $this->post = new Post();
         $this->router = $GLOBALS['router'];
@@ -66,7 +66,8 @@ class Form {
         } else {
             $this->route = $this->getRouter()->getFullUrl($routeName);
         }
-        $this->html = '<form class="row" method="' . $method . '" action="' . $this->route . '">';
+        $extra = $extra ? ' ' . $extra : '';
+        $this->html = '<form class="row" method="' . $method . '" action="' . $this->route . '"' . $extra . '>';
         $user = new User();
         $this->addGlobalMessage();
         if($csrf) {
@@ -98,6 +99,14 @@ class Form {
     private function addGlobalMessage() {
         $error = isset($this->errors['global']) ? $this->errors['global'] : '';
         $this->addHTML('<p class="helper-text red-text center-align">' . $error . '</p>');
+    }
+
+    public function addLeftText($content) {
+        $this->addHTML('<p class="left">' . $content . '</p>');
+    }
+
+    public function addRightText($content) {
+        $this->addHTML('<p class="right">' . $content . '</p>');
     }
 
     /**
@@ -149,23 +158,28 @@ class Form {
      * @param string $id
      * @param string $label
      */
-    public function addCaptcha($captcha, $id, $label) {
+    public function addCaptcha($captcha, $id, $label = 'Recopiez le texte de l\'image.') {
         $value = $this->getPost()->getValue($id) ? $this->getPost()->getValue($id) : '';
         $error = isset($this->errors[$id]) ? $this->errors[$id] : '';
-        $this->addHTML('<div class="input-field col s4">');
+        $this->addHTML('<div class="input-field col s12 m4">');
         $this->addHTML($captcha);
         $this->addHTML('</div>');
-        $this->addHTML('<div class="input-field col s8">');
+        $this->addHTML('<div class="input-field col s12 m8">');
         $this->addHTML('<input id="' . $id . '" name="' . $id . '" type="text" value="' . $value . '" class="validate" />');
         $this->addHTML('<label for="' . $id . '">' . $label . '</label>');
         $this->addHTML('<span class="helper-text red-text">' . $error . '</span>');
         $this->addHTML('</div>');
     }
 
+    public function addHiddenValue($id, $value) {
+        $this->addHTML('<input id="' . $id . '" name="' . $id . '" type="hidden" value="' . $value . '" />');
+    }
+
     /**
      * @param string $id
      * @param string $label
      * @param bool $class
+     * @param bool|string $pattern
      */
     public function addTextarea($id, $label, $class = false, $pattern = false) {
         $value = $this->getPost()->getValue($id) ? $this->getPost()->getValue($id) : $label;

@@ -94,6 +94,13 @@ class User extends Session {
     private $createdAt;
 
     /**
+     * @var string
+     */
+    private $profileType;
+
+    private $profileBanner;
+
+    /**
      * User constructor.
      * @param false|string $value
      * @param string $searchType
@@ -124,7 +131,9 @@ class User extends Session {
             $this->rank = $user->rank;
             $this->email = $user->email;
             $this->shopPoints = $user->shopPoints;
-            $this->createdAt = $user->createdAt;
+            $this->createdAt = $user->createdAt;;
+            $this->profileType = $user->profile_type;
+            $this->profileBanner = $user->profile_banner;
         }
     }
 
@@ -153,6 +162,9 @@ class User extends Session {
             $this->rank = $user->rank;
             $this->email = $user->email;
             $this->shopPoints = $user->shopPoints;
+            $this->createdAt = $user->createdAt;;
+            $this->profileType = $user->profile_type;
+            $this->profileBanner = $user->profile_banner;
         }
     }
 
@@ -405,6 +417,58 @@ class User extends Session {
     }
 
     /**
+     * @param bool $toText
+     * @return string
+     */
+    public function getProfileType($toText = false) {
+        if($toText) {
+            $profileType = $this->profileType === 'public' ? 'Publique' : 'Privé';
+        } else {
+            $profileType = $this->profileType;
+        }
+        return $profileType;
+    }
+
+    /**
+     * @param string $profileType
+     * @return \PDOStatement
+     */
+    public function setProfileType($profileType) {
+        $req = $this->db->query('UPDATE alive_users SET profile_type = ? WHERE id = ?', [$profileType, $this->getId()]);
+        return $req;
+    }
+
+    public function isProfilePublic() {
+        return $this->getProfileType() === 'public' ? true : false;
+    }
+
+    /**
+     * @param bool $court
+     * @return string
+     */
+    public function getProfileBanner($court = false) {
+        if($court) {
+            $banner = $this->profileBanner;
+        } else {
+            $banner = !is_null($this->profileBanner) ? PROJECT_LINK . '/public/assets/img/profile/banners/' . $this->profileBanner : PROJECT_LINK . '/public/assets/img/carousel/sky.jpg';
+        }
+        return $banner;
+    }
+
+    /**
+     * @param string $newBanner
+     * @return \PDOStatement
+     */
+    public function setProfileBanner($newBanner) {
+        $req = $this->db->query('UPDATE alive_users SET profile_banner = ? WHERE id = ?', [$newBanner, $this->getId()]);
+        return $req;
+    }
+
+    public function isProfileBannerNull() {
+        return is_null($this->profileBanner);
+    }
+
+    /**
      * @return int
      */
     public function countCreatedProjects(): ?int {
@@ -444,14 +508,14 @@ class User extends Session {
         return isset($token) ? $token : false;
     }
 
-    public function generateKey($type, $status, $value = null) {
+    public function generateKey($type, $status, $value = false) {
         $keys = new Keys($this->getId());
         return $keys->addKey($type, $status, $value);
     }
 
-    public function generateSMSKey($status, $value = null) {
+    public function generateSMSKey($type, $status, $value = null) {
         $keys = new Keys($this->getId());
-        return $keys->generateSMSKey($status, $value);
+        return $keys->generateSMSKey($type, $status, $value);
     }
 
     public function validateEmail($inputKey) {
@@ -491,5 +555,4 @@ class User extends Session {
         }
         return $errors->getErrors();
     }
-
 }

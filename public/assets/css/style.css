@@ -16,12 +16,24 @@ body {
 }
 
 .bold {
-    font-weight : bold;
+    font-weight: bold;
+}
+
+.mt-10 {
+    margin-top : 10px;
+}
+
+.w-70 {
+    width : 70%;
 }
 
 .border-bottom {
     border-bottom : solid 1px grey;
     text-align : center;
+}
+
+.page-footer {
+    padding-bottom : 21px;
 }
 
 .parallax {

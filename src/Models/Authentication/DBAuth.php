@@ -18,6 +18,7 @@ use App\Validators\Validator;
 use Models\Database\PDOConnect;
 use Models\Globals\Post;
 use Models\Globals\Session;
+use Models\Users\Keys;
 use Models\Users\User;
 
 class DBAuth {
@@ -133,8 +134,12 @@ class DBAuth {
         if($pPassword !== $pConfirmPassword) {
             $validator->addError($confirmPassword, 'Ce champs ne correspond pas avec le mot de passe.');
         }
-        if((int) $pAccountType > 3 || (int) $pAccountType <= 0) {
+        if($pAccountType && (int) $pAccountType > 3 || (int) $pAccountType <= 0) {
             $validator->addError($accountType, 'Erreur interne...');
+        }
+
+        if(!$pAccountType) {
+            $validator->addError($accountType, 'Champ vide.');
         }
         
         if(!$validator->isThereErrors()) {
@@ -152,6 +157,9 @@ class DBAuth {
         return $this->security->existValue('auth');
     }
 
+    /**
+     * Logout
+     */
     public function logOut() {
         if($this->isLogged()) {
             $this->security->deleteValue('auth');

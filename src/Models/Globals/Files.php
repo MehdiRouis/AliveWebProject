@@ -12,6 +12,8 @@
 
 namespace Models\Globals;
 
+use Models\Database\PDOConnect;
+
 /**
  * Class Post
  * @package Models\Globals
@@ -52,6 +54,45 @@ class Files {
         } else {
             unset($_FILES);
         }
+    }
+
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public function getPathInfo($key) {
+        return pathinfo($this->getValue($key)['name']);
+    }
+
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public function getExtension($key) {
+        return pathinfo($this->getValue($key)['name'], PATHINFO_EXTENSION);
+    }
+
+    /**
+     * @param string $key
+     * @return string
+     */
+    public function getMimeType($key) {
+        return mime_content_type($this->getValue($key)['tmp_name']);
+    }
+
+    /**
+     * @param string $key
+     * @param string $path
+     * @param bool|string $name
+     * @return bool|string
+     * @throws \Exception
+     */
+    public function secureUploadFile($key, $path, $name = false) {
+        if(!$name) {
+            $name = bin2hex(random_bytes(16)).'.'.$this->getExtension($key);
+        }
+        move_uploaded_file($this->getValue($key)['tmp_name'], $path . '/' . $name);
+        return $name;
     }
 
     public function __destruct() {

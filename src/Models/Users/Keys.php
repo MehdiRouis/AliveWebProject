@@ -44,16 +44,16 @@ class Keys {
         }
     }
 
-    public function addKey($type, $status, $value = null) {
+    public function addKey($type, $status, $value = false) {
         $key = new Key();
         return $key->generate($type, $this->userId, $status, $value);
     }
 
-    public function generateSMSKey($status, $value = null) {
+    public function generateSMSKey($type, $status, $value = null) {
         $security = new Security();
         $keygen = $security->generateRandomString(5, '0123456789');
         $key = new Key();
-        return $key->generate(2, $this->userId, $status, $value, $keygen);
+        return $key->generate($type, $this->userId, $status, $value, $keygen);
     }
 
 }

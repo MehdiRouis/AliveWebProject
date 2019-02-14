@@ -9,6 +9,7 @@
 namespace App\Validators;
 
 use Models\Database\PDOConnect;
+use Models\Globals\Files;
 use Models\Globals\Session;
 
 /**
@@ -284,10 +285,25 @@ class Verifications {
         return false;
     }
 
-    public function isValidPicture($inputName, $inputValue) {
-        var_dump($inputName);
-        var_dump($inputValue);
-        var_dump(pathinfo($inputValue['name']));
+    public function isValidPicture($inputName) {
+        $SIZE_MAX = 2000000;
+        $files = new Files();
+        $validExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+        if(in_array($files->getExtension($inputName), $validExtensions)) {
+            $validMimeTypes = ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/png'];
+            if(in_array($files->getMimeType($inputName), $validMimeTypes)) {
+                if($files->getValue($inputName)['size'] <= $SIZE_MAX) {
+                    return $this->getErrors();
+                } else {
+                    $this->addError($inputName, 'La taille du fichier ne doit pas dépasser 2Mo.');
+                }
+            } else {
+                $this->addError($inputName, 'Seul les images sont acceptées (jpg / png / gif).');
+            }
+        } else {
+            $this->addError($inputName, 'Seul les images sont acceptées (jpg / png / gif).');
+        }
+        return $this->getErrors();
     }
 
     /**
@@ -297,14 +313,10 @@ class Verifications {
      * @return bool
      */
     public function isValidPassword($inputName, $inputValue): bool {
-        if(preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).+$/', $inputValue)) {
-            if(strlen($inputValue) > 6) {
-                return true;
-            } else {
-                $this->addError($inputName, 'Le mot de passe doit contenir plus de 6 caractères.');
-            }
+        if(strlen($inputValue) > 6) {
+            return true;
         } else {
-            $this->addError($inputName, 'Une lettre minuscule, majuscule, un chiffre et un caractère spécial minimum.');
+            $this->addError($inputName, 'Le mot de passe doit contenir plus de 6 caractères.');
         }
         return false;
     }

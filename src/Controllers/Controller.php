@@ -8,7 +8,6 @@
 
 namespace Controllers;
 
-use App\Cache\Cache;
 use App\Routes\Router;
 use App\Views\EmailTemplating;
 use App\Views\Navbar;
@@ -62,7 +61,10 @@ class Controller {
         $this->security = new Security();
         $this->dbauth = new DBAuth();
         $this->user = new User();
-        $this->user->updateSession();
+        if($this->user->getId()) {
+            $this->user->updateSession();
+        }
+        //$transport = (new \Swift_SendmailTransport('/usr/sbin/sendmail -bs'));
         $transport = (new \Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))->setUsername('email@host.domain')->setPassword('password');
         $this->mail = new \Swift_Mailer($transport);
         $this->sms = new \App\SMS\Sender('esskafr', 'apiKey :3');

@@ -27,11 +27,19 @@ class UserController extends Controller {
 
     public function getProfile($id) {
         $this->security->restrict();
+        $redirect = false;
         if($this->security->idVerification($id, 'alive_users')) {
             $user = new User($id);
-            $this->render('user/profile', ['pageName' => $user->getUserName(), 'userProfile' => $user, 'scripts' => ['js/userProfile.js']]);
+            if($user->getId() === $this->user->getId() || $user->isProfilePublic()) {
+                $this->render('user/profile', ['pageName' => $user->getUserName(), 'userProfile' => $user, 'scripts' => ['js/userProfile.js']]);
+            } else {
+                $redirect = 'default';
+            }
         } else {
-            $this->security->safeLocalRedirect('default');
+            $redirect = 'default';
+        }
+        if($redirect) {
+            $this->security->safeLocalRedirect($redirect);
         }
     }
 
@@ -39,7 +47,8 @@ class UserController extends Controller {
         $this->security->restrict();
         if(!$this->user->isEmailValidate()) {
             $key = $this->user->generateKey(1, 1, $this->user->getEmail());
-            $this->sendMail('AliveWebProject - Service de validation', [$this->user->getEmail() => $this->user->getFullName()], "
+            if($key) {
+                $this->sendMail('AliveWebProject - Service de validation', [$this->user->getEmail() => $this->user->getFullName()], "
             <p>Bonjour {$this->user->getFullName()},</p>
             <p>Nous avons remarqué que vous vouliez confirmer votre adresse email ( {$this->user->getEmail()} ).</p>
             <p>Pour ce faire, il faut entrer la clé qui suit dans vos paramètres de comptes.</p>
@@ -61,6 +70,10 @@ class UserController extends Controller {
                           </tbody>
 </table>
             <p>Lien d'accès : <a href=\"{$this->getRouter()->getFullUrl('profile', ['id' => $this->user->getId()])}#parameters\">{$this->getRouter()->getFullUrl('profile', ['id' => $this->user->getId()])}#parameters</a></p>");
+                $this->security->safeExternalRedirect($this->security->safeExternalRedirect($this->getRouter()->getFullUrl('profile', ['id' => $this->user->getId()]) . '?success=generationEmail#parameters'));
+            } else {
+                $this->security->safeExternalRedirect($this->security->safeExternalRedirect($this->getRouter()->getFullUrl('profile', ['id' => $this->user->getId()]) . '?error=generationEmail#parameters'));
+            }
         }
         $this->security->safeLocalRedirect('default');
     }
@@ -68,7 +81,7 @@ class UserController extends Controller {
     public function getPhoneNumberValidationKey() {
         $this->security->restrict();
         if(!$this->user->isPhoneNumberValidate()) {
-            $key = $this->user->generateSMSKey(1, $this->user->getPhoneNumber());
+            $key = $this->user->generateSMSKey(2, 1, $this->user->getPhoneNumber());
             if($key) {
                 $this->sms->definePhoneNumber($this->user->getPhoneNumber());
                 $this->sms->defineMessage('Validation de compte AliveWebProject -> CODE : ' . $key);
@@ -79,6 +92,26 @@ class UserController extends Controller {
             }
         }
         $this->security->safeLocalRedirect('default');
+    }
+
+    public function postConfidentialityChange() {
+        $this->security->restrict();
+        $privateProfile = 'privateProfile';
+        $post = new Post();
+        $validator = new Validator();
+        $validator->validate();
+        $postPrivateProfile = $post->getvalue($privateProfile);
+        if(isset($postPrivateProfile)) {
+            if($postPrivateProfile === 'public' || $postPrivateProfile === 'private') {
+                $this->user->setProfileType($postPrivateProfile);
+                $this->security->safeExternalRedirect($this->getRouter()->getFullUrl('profile', ['id' => $this->user->getId()]) . '?success=confidentialityChange');
+            } else {
+                $validator->addError($privateProfile, 'Champs incorrect.');
+            }
+        } else {
+            $validator->addError($privateProfile, 'Champs incorrect.');
+        }
+        $this->render('user/profile', ['pageName' => $this->user->getUserName(), 'userProfile' => $this->user, 'scripts' => ['js/userProfile.js'], 'errors' => $validator->getErrors()]);
     }
 
     public function postEmailChange() {
@@ -145,12 +178,30 @@ class UserController extends Controller {
     public function postBannerChange() {
         $this->security->restrict();
         $file = 'file';
+        $validator = new Validator();
+        $validator->validate();
         $files = new Files();
         if($files->getValue($file)) {
             $verifications = new Verifications();
-            $verifications->isValidPicture($file, $files->getValue($file));
+            $verifs = $verifications->isValidPicture($file);
+            if(count($verifications->isValidPicture($file)) === 0) {
+                if(!$validator->isThereErrors()) {
+                    if(!$this->user->isProfileBannerNull()) {
+                        $banner = $this->user->getProfileBanner(true);
+                        $files->secureUploadFile($file, PROJECT_LIBS . '/public/assets/img/profile/banners', $banner);
+                    } else {
+                        $banner = $files->secureUploadFile($file, PROJECT_LIBS . '/public/assets/img/profile/banners');
+                        $this->user->setProfileBanner($banner);
+                    }
+                    $this->security->safeLocalRedirect('profile', ['id' => $this->user->getId()]);
+                }
+            } else {
+                $validator->addError($file, $verifs[$file]);
+            }
+        } else {
+            $validator->addError($file, 'Merci de choisir une image valide.');
         }
-        $this->render('user/profile', ['pageName' => $this->user->getUserName(), 'userProfile' => $this->user, 'scripts' => ['js/userProfile.js']]);
+        $this->render('user/profile', ['pageName' => $this->user->getUserName(), 'userProfile' => $this->user, 'scripts' => ['js/userProfile.js'], 'errors' => $validator->getErrors()]);
     }
 
     public function postValidateEmail() {

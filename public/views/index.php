@@ -15,20 +15,20 @@
                         <div class="row center-align">
                             <div class="col s12 m6 l4">
                                 <i class="large material-icons hoverscale">flash_on</i>
-                                <p class="rem12 bold soft-blue-text">Efficacité</p>
-                                <div class="divider"></div>
+                                <p class="rem12 soft-blue-text">Efficacité</p>
+                                <div class="divider mb-10 w-70 center-block"></div>
                                 <p class="soft-white">Notre équipe ainsi reste efficace en modérant de façon optimale le contenu présent sur le site.</p>
                             </div>
                             <div class="col s12 m6 l4">
                                 <i class="large material-icons hoverscale">people</i>
-                                <p class="rem12 bold soft-blue-text">Collaboration</p>
-                                <div class="divider"></div>
+                                <p class="rem12 soft-blue-text">Collaboration</p>
+                                <div class="divider mb-10 w-70 center-block"></div>
                                 <p class="soft-white">Nous facturons avec transparence<br/>et livrons vos projets en un temps optimal.</p>
                             </div>
                             <div class="col s12 l4">
                                 <i class="large material-icons hoverscale">phonelink_ring</i>
-                                <p class="rem12 bold soft-blue-text">Qualitatif</p>
-                                <div class="divider"></div>
+                                <p class="rem12 soft-blue-text">Qualitatif</p>
+                                <div class="divider mb-10 w-70 center-block"></div>
                                 <p class="soft-white">Notre équipe s'occupe de mettre en avant les ressources qualitatifs pour une meilleur visibilité des meilleurs projets.</p>
                             </div>
                         </div>
@@ -68,6 +68,7 @@
             </div>
         </div>
     <?php } ?>
+    <!--
     <div class="parallax" data-img="<?= PROJECT_LINK; ?>/public/assets/img/parallax/ordi.jpg"></div>
     <div class="container mt-10">
         <div id="sources" class="row">
@@ -233,6 +234,7 @@
             </div>
         </div>
     </div>
+    -->
     <div class="parallax" data-img="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg"></div>
     <div class="container">
         <div id="team" class="row">
@@ -245,7 +247,7 @@
                             <div class="col s12 m4">
                                 <div class="card">
                                     <div class="card-image">
-                                        <img class="responsive-img-perso himg" src="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg" alt="poing-bureau.jpg" />
+                                        <img class="responsive-img-perso himg" src="<?= $staff->getProfileBanner(); ?>" alt="<?= $staff->getProfileBanner(true); ?>" />
                                     </div>
                                     <span class="card-title mt-10 truncate"><?= $staff->getUserName(); ?> ( <?= $staff->getFullName(); ?> )</span>
                                     <div class="divider mb-10"></div>

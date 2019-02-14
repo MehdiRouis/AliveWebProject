@@ -10,6 +10,8 @@ $router->get('/terms/privacy-policy', 'Index#getPrivacyPolicy', 'privacyPolicy')
 $router->get('/account/login', 'Authentication#getLogin', 'login');
 $router->get('/account/register', 'Authentication#getRegister', 'register');
 $router->get('/account/logout', 'Authentication#getLogout', 'logout');
+$router->get('/account/forgot/password', 'Authentication#getForgotPassword', 'forgotPassword');
+$router->get('/account/forgot/password/:id/validation', 'Authentication#getValidationChangePassword', 'lostPasswordValidation')->with('id', '[\d]+');
 
 // USER \\
 $router->get('/account/dashboard', 'User#getDashboard', 'dashboard');
@@ -26,6 +28,8 @@ $router->get('/project/profile/:id', 'Projects#getProfile', 'profileProject')->w
 // AUTH \\
 $router->post('/account/login', 'Authentication#postLogin', 'plogin');
 $router->post('/account/register', 'Authentication#postRegister', 'pregister');
+$router->post('/account/forgot/password', 'Authentication#postForgotPassword', 'pForgotPassword');
+$router->post('/account/validate/passwordchange', 'Authentication#postValidateNewPassword', 'pValidationLostPassword');
 
 // USER \\
 $router->post('/user/edit/email', 'User#postEmailChange', 'pEmailChange');
@@ -34,14 +38,6 @@ $router->post('/user/edit/phonenumber', 'User#postPhoneNumberChange', 'pPhoneNum
 $router->post('/user/validate/email', 'User#postValidateEmail', 'pEmailValidation');
 $router->post('/user/validate/phonenumber', 'User#postValidatePhoneNumber', 'pPhoneNumberValidation');
 $router->post('/user/edit/banner', 'User#postBannerChange', 'pBannerChange');
+$router->post('/user/edit/confidentiality', 'User#postConfidentialityChange', 'pConfidentialityChange');
 // PROJECTS \\
 $router->post('/project/create', 'Projects#postCreateProject', 'pcreateproject');
-
-
-
-
-// ----- ADMINISTRATION  ----- \\
-/* -[{GET}]- */
-$router->get('/administration/dashboard', 'Administration#getDashboard', 'padmindashboard');
-
-/* -[{POST}]- */

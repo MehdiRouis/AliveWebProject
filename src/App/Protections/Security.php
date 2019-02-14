@@ -111,7 +111,7 @@ class Security extends Session {
         $imagedata = ob_get_contents();
         ob_end_clean();
         $imagedata = base64_encode($imagedata);
-        return "<img src='data:image/png;base64,{$imagedata}' alt='Image'/>";
+        return "<img src='data:image/png;base64,{$imagedata}' width='100%' height='auto' alt='Image'/>";
     }
 
     /**

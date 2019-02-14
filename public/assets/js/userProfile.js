@@ -2,6 +2,8 @@
  * Copyright (c) 2019. Tous droit réservé.
  */
 
-$('.tabs').tabs();
-$('.collapsible').collapsible();
-$('.modal').modal();
+$(function() {
+    $('.tabs').tabs();
+    $('.collapsible').collapsible();
+    $('.modal').modal();$('select').formSelect();
+});

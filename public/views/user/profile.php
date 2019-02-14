@@ -8,17 +8,20 @@
 <?php if($userProfile->getId() === $user->getId()) { ?>
     <div id="updateImage" class="modal">
         <form action="<?= $router->getFullUrl('pBannerChange'); ?>" method="POST" enctype="multipart/form-data">
-            <div class="modal-content">
+            <div class="modal-content center-align">
                 <p class="rem13">Modifier sa bannière</p>
                 <div class="divider"></div>
+                <input name="CSRFToken" type="hidden" value="<?= $user->getCSRFToken(); ?>" />
+                <?php if(isset($errors['global'])) { ?><span class="helper-text red-text"><?= $errors['global']; ?></span><?php } ?>
                 <div class="file-field input-field">
                     <div class="btn">
                         <span>Fichier</span>
                         <input name="file" type="file">
                     </div>
                     <div class="file-path-wrapper">
-                        <input id="uploader" class="file-path validate" type="text">
+                        <input id="uploader" class="file-path validate" type="text" />
                         <label for="uploader">Choisissez une image</label>
+                        <?php if(isset($errors['file'])) { ?><span class="helper-text red-text"><?= $errors['file']; ?></span><?php } ?>
                     </div>
                 </div>
             </div>
@@ -33,7 +36,7 @@
 <main class="container">
     <div id="profile-page-header" class="card">
         <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="<?= PROJECT_LINK; ?>/public/assets/img/carousel/sky.jpg" alt="user background">
+            <img class="activator" src="<?= $userProfile->getProfileBanner(); ?>" alt="user background">
             <?php if($userProfile->getId() === $user->getId()) { ?><a href="#updateImage" class="btn-floating halfway-fab2 waves-effect waves-teal white modal-trigger"><i class="fas fa-camera-retro black-text"></i></a><?php } ?>
         </div>
         <div class="card-content card-avatar center-align">
@@ -68,9 +71,18 @@
                 <p>Date de naissance : <?= $userProfile->getBirthDay(); ?></p>
                 <p>Numéro de téléphone : <?= $userProfile->getPhoneNumber(); ?></p>
                 <p>Inscription : <?= $userProfile->getCreatedAt(); ?></p>
+                <p>Type de profil : <?= $userProfile->getProfileType(true); ?></p>
             </div>
         </div>
         <div id="parameters">
+            <?php if(isset($_GET['success']) && $_GET['success'] === 'confidentialityChange') { ?>
+                <div class="card gradient-45deg-green-teal">
+                    <div class="card-content white-text">
+                        <span class="card-title">Mise à jour réussie.</span>
+                        <p>Vos paramètres de confidentialités ont été mit à jour.</p>
+                    </div>
+                </div>
+            <?php } ?>
             <?php if(isset($_GET['success']) && $_GET['success'] === 'emailValidated') { ?>
                 <div class="card gradient-45deg-green-teal">
                     <div class="card-content white-text">
@@ -95,6 +107,14 @@
                     </div>
                 </div>
             <?php } ?>
+            <?php if(isset($_GET['success']) && $_GET['success'] === 'generationEmail') { ?>
+                <div class="card gradient-45deg-green-teal">
+                    <div class="card-content white-text">
+                        <span class="card-title">Email envoyé!</span>
+                        <p>Vérifiez votre adresse email afin de recevoir votre code de validation.</p>
+                    </div>
+                </div>
+            <?php } ?>
             <?php if(isset($_GET['error']) && $_GET['error'] === 'generationSMS') { ?>
                 <div class="card gradient-45deg-red-pink">
                     <div class="card-content white-text">
@@ -103,12 +123,31 @@
                     </div>
                 </div>
             <?php } ?>
+            <?php if(isset($_GET['error']) && $_GET['error'] === 'generationEmail') { ?>
+                <div class="card gradient-45deg-red-pink">
+                    <div class="card-content white-text">
+                        <span class="card-title">Erreur...</span>
+                        <p>Pour recevoir de nouveau un email de validation, il faut attendre 15 minutes.</p>
+                    </div>
+                </div>
+            <?php } ?>
             <ul class="collapsible popout">
+                <li<?= isset($_GET['post']) && $_GET['post'] === 'confidentialityChange' ? ' class="active"' : ''; ?>>
+                    <div class="collapsible-header">Modifier vos paramètres de confidentiatlités</div>
+                    <div class="collapsible-body white">
+                        <?php
+                        $formConfidentiality = new \App\Views\Form($errors, $router->getFullUrl('pConfidentialityChange') . '?post=confidentialityChange#parameters');
+                        $formConfidentiality->addSelect('privateProfile', 'Profil', ['public' => 'Publique', 'private' => 'Privé']);
+                        $formConfidentiality->addSubmit();
+                        $formConfidentiality->parse();
+                        ?>
+                    </div>
+                </li>
                 <li<?= isset($_GET['post']) && $_GET['post'] === 'emailChange' ? ' class="active"' : ''; ?>>
                     <div class="collapsible-header">Modifier votre adresse email</div>
                     <div class="collapsible-body white">
                         <?php
-                        $formEmail = new \App\Views\Form($errors, $router->getFullUrl('pEmailChange') . '?post=emailChange#parameters', 'POST');
+                        $formEmail = new \App\Views\Form($errors, $router->getFullUrl('pEmailChange') . '?post=emailChange#parameters');
                         $formEmail->addField('email', 'Nouvelle adresse email', 'col s12 m6', 'email');
                         $formEmail->addField('reEmail', 'Retapez votre adresse email', 'col s12 m6', 'email');
                         $formEmail->addField('emailFormPassword', 'Tapez votre mot de passe', 'col s12', 'password');
@@ -121,7 +160,7 @@
                     <div class="collapsible-header">Modifier son mot de passe</div>
                     <div class="collapsible-body white">
                         <?php
-                        $formEmail = new \App\Views\Form($errors, $router->getFullUrl('pPasswordChange') . '?post=passwordChange#parameters', 'POST');
+                        $formEmail = new \App\Views\Form($errors, $router->getFullUrl('pPasswordChange') . '?post=passwordChange#parameters');
                         $formEmail->addField('oldPassword', 'Ancien mot de passe', 'col s12', 'password');
                         $formEmail->addField('newPassword', 'Choisissez un nouveau mot de passe', 'col s12 m6', 'password');
                         $formEmail->addField('reNewPassword', 'Retapez votre nouveau mot de passe', 'col s12 m6', 'password');
@@ -134,7 +173,7 @@
                     <div class="collapsible-header">Modifier son numéro de téléphone</div>
                     <div class="collapsible-body white">
                         <?php
-                        $formPhoneNumber = new \App\Views\Form($errors, $router->getFullUrl('pPhoneNumberChange') . '?post=phoneNumberChange#parameters', 'POST');
+                        $formPhoneNumber = new \App\Views\Form($errors, $router->getFullUrl('pPhoneNumberChange') . '?post=phoneNumberChange#parameters');
                         $formPhoneNumber->addField('phoneNumber', 'Nouveau numéro de téléphone (+33601010101)', 'col s12 m6', 'text', '(\+33)[1-9]([0-9]{2}){4}');
                         $formPhoneNumber->addField('phoneFormPassword', 'Entrez votre mot de passe', 'col s12 m6', 'password');
                         $formPhoneNumber->addSubmit();
@@ -147,7 +186,7 @@
                         <div class="collapsible-header">Valider son adresse email</div>
                         <div class="collapsible-body white">
                             <?php
-                            $formValidateEmail = new \App\Views\Form($errors, $router->getFullUrl('pEmailValidation') . '?post=emailValidation#parameters', 'POST');
+                            $formValidateEmail = new \App\Views\Form($errors, $router->getFullUrl('pEmailValidation') . '?post=emailValidation#parameters');
                             $formValidateEmail->addField('emailValidationKey', 'Clé d\'activation (Envoyée par mail)', 'col s12', 'text', '[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}');
                             $formValidateEmail->addHTML('<p><a href="' . $router->getFullUrl('emailKeyGenValidation') . '">Vous n\'avez pas reçu de clé?</a></p>');
                             $formValidateEmail->addSubmit();
@@ -162,7 +201,7 @@
                         <div class="collapsible-body white">
                             <p>Votre numéro de téléphone, une fois validé, pourra servir lors de la récupération du compte en cas de perte du mot de passe.</p>
                             <?php
-                            $formValidatePhoneNumber = new \App\Views\Form($errors, $router->getFullUrl('pPhoneNumberValidation') . '?post=phoneNumberValidation#parameters', 'POST');
+                            $formValidatePhoneNumber = new \App\Views\Form($errors, $router->getFullUrl('pPhoneNumberValidation') . '?post=phoneNumberValidation#parameters');
                             $formValidatePhoneNumber->addField('phoneNumberValidationKey', 'Clé d\'activation (Envoyée par SMS)', 'col s12', 'text', '[a-zA-Z0-9]{5}');
                             $formValidatePhoneNumber->addHTML('<p><a href="' . $router->getFullUrl('phoneNumberKeyGenValidation') . '">Vous n\'avez pas reçu de clé? ( Limité à 1 fois par heure )</a></p>');
                             $formValidatePhoneNumber->addSubmit();

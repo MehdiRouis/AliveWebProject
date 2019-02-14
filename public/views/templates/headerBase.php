@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,300,600,800,900" rel="stylesheet" type="text/css" />
-    <link rel="icon" type="image/ico" href="<?= PROJECT_LINK; ?>/public/assets/img/cloud-2.png" />
+    <link rel="icon" type="image/ico" href="<?= PROJECT_LINK; ?>/public/assets/img/favicon.png" />
     <link type="text/css" rel="stylesheet" href="<?= PROJECT_LINK; ?>/public/assets/import/Materialize/css/materialize.min.css"  media="screen" />
     <link type="text/css" rel="stylesheet" href="<?= PROJECT_LINK; ?>/public/assets/css/style.css" />
 </head>
@@ -28,7 +28,7 @@
 <header>
     <nav id="navbar">
         <div class="nav-wrapper dark-blue">
-            <i class="fas fa-cloud"></i>
+            <a href="<?= $auth->isLogged() ? $router->getFullUrl('dashboard') : $router->getFullUrl('home'); ?>"><i class="fas fa-cloud"></i></a>
             <a href="<?= $auth->isLogged() ? $router->getFullUrl('dashboard') : $router->getFullUrl('home'); ?>" class="brand-logo"><?= PROJECT_INITIALS; ?></a>
             <ul class="right center-align">
                 <li><a id="menuSideNav" data-target="slide-out" class="right sidenav-trigger"><i class="material-icons">menu</i></a></li>
@@ -44,7 +44,7 @@
         } else {
             $navbar->addUserView($user);
             $navbar->add('dashboard', 'DASHBOARD', 'fas fa-home');
-            $navbar->add('profile', 'PROFIL', 'fas fa-home', false, ['id' => $user->getId()]);
+            $navbar->add('profile', 'PROFIL', 'fas fa-user-circle', false, ['id' => $user->getId()]);
             $navbar->add('createProject', 'CRÉER UN PROJET', 'fas fa-project-diagram');
             $navbar->add('logout', 'SE DÉCONNECTER', 'fas fa-sign-out-alt', 'logout');
         }
@@ -54,7 +54,7 @@
         if(count($news) > 0) {
             $navbar->addWithLink('#news', 'ARTICLES', 'fas fa-newspaper');
         }
-        $navbar->addWithLink('#sources', 'RESSOURCES', 'fas fa-search-plus');
+        //$navbar->addWithLink('#sources', 'RESSOURCES', 'fas fa-search-plus');
         $navbar->addWithLink('#team', 'NOTRE ÉQUIPE', 'fas fa-users');
         $navbar->add('login', 'CONNEXION', 'fas fa-sign-in-alt');
         $navbar->add('register', 'INSCRIPTION', 'far fa-plus-square');
