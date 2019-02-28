@@ -57,7 +57,8 @@ class Verifications {
             'description' => 'isValidDescription',
             'image' => 'isValidPicture',
             'password' => 'isValidPassword',
-            'captcha' => 'isValidCaptcha'
+            'captcha' => 'isValidCaptcha',
+            'id_project' => 'isValidProjectId'
         ];
     }
 
@@ -332,6 +333,24 @@ class Verifications {
             return true;
         }
         $this->addError($inputName, 'Captcha invalide.');
+        return false;
+    }
+
+    /**
+     * @param string $inputName
+     * @param string $inputValue
+     * @return bool
+     */
+    public function isValidProjectId($inputName, $inputValue): bool {
+        if($this->getVerificationTable()) {
+            if($this->db->existContent($this->getVerificationTable(), 'id', $inputValue)) {
+                return true;
+            } else {
+                $this->addError('global', 'Une erreur est survenue... Merci de réessayer plus tard.');
+            }
+        } else {
+            $this->addError('global', 'Aucune table n\'a été renseignée pour la vérification de l\'id du projet.');
+        }
         return false;
     }
 

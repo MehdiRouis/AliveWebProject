@@ -22,7 +22,9 @@ $router->get('/user/validate/phonenumber/generation', 'User#getPhoneNumberValida
 // PROJECTS \\
 $router->get('/project/create', 'Projects#getCreateProject', 'createProject');
 $router->get('/project/profile/:id', 'Projects#getProfile', 'profileProject')->with('id', '[\d]+');
-
+$router->get('/project/edit/:id', 'Projects#getEditProfile', 'editProject')->with('id', '[\d]+');
+$router->get('/project/delete/:id', 'Projects#deleteProject', 'deleteProject')->with('id', '[\d]+');
+$router->get('/project/undodelete/:id', 'Projects#undoDeleteProject', 'undoDeleteProject')->with('id', '[\d]+');
 /* -[{POST}]- */
 
 // AUTH \\
@@ -41,3 +43,4 @@ $router->post('/user/edit/banner', 'User#postBannerChange', 'pBannerChange');
 $router->post('/user/edit/confidentiality', 'User#postConfidentialityChange', 'pConfidentialityChange');
 // PROJECTS \\
 $router->post('/project/create', 'Projects#postCreateProject', 'pcreateproject');
+$router->post('/project/edit', 'Projects#postEditProject', 'peditproject');

@@ -46,8 +46,14 @@ class Security extends Session {
      * @param bool $exit
      */
     public function safeLocalRedirect($routeName, $params = [], $exit = true) {
+        $extra = '';
+        if(strpos($routeName, '|')) {
+            $route = explode('|', $routeName);
+            $routeName = $route[0];
+            $extra = $route[1];
+        }
         $updatedLink = $GLOBALS['router']->getFullUrl($routeName, $params);
-        $this->safeExternalRedirect($updatedLink, $exit);
+        $this->safeExternalRedirect($updatedLink . $extra, $exit);
     }
 
     /**

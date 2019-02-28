@@ -72,23 +72,26 @@ class DBAuth {
     public function logIn($username, $password):array {
         $valueUsername = $this->security->secureValue($this->getPost()->getValue($username));
         $valuePassword = $this->getPost()->getValue($password);
-        if($valueUsername && $valuePassword) {
-            $req = $this->db->query('SELECT id FROM alive_users WHERE userName = ? OR email = ?', [$valueUsername, $valueUsername]);
-            if($req->rowCount() > 0) {
-                $user = $req->fetch();
-                $user = new User($user->id);
-                if($user->matchPassword($valuePassword)) {
-                    $user->createSession();
-                    $this->security->safeLocalRedirect('dashboard');
+        if($valueUsername) {
+            if($valuePassword) {
+                $req = $this->db->query('SELECT id FROM alive_users WHERE userName = ? OR email = ?', [$valueUsername, $valueUsername]);
+                if($req->rowCount() > 0) {
+                    $user = $req->fetch();
+                    $user = new User($user->id);
+                    if($user->matchPassword($valuePassword)) {
+                        $user->createSession();
+                        $this->security->safeLocalRedirect('dashboard');
+                    } else {
+                        $this->getErrors()->setError($password, 'Mot de passe incorrect.');
+                    }
                 } else {
-                    $this->getErrors()->setError($password, 'Mot de passe incorrect.');
+                    $this->getErrors()->setError($username, 'Compte introuvable.');
                 }
             } else {
-                $this->getErrors()->setError($username, 'Compte introuvable.');
+                $this->getErrors()->setError($password, 'Champ non remplit.');
             }
         } else {
-            $this->getErrors()->setError($password, 'Champs non remplit.');
-            $this->getErrors()->setError($username, 'Champs non remplit.');
+            $this->getErrors()->setError($username, 'Champ non remplit.');
         }
         return $this->getErrors()->getErrors();
     }
@@ -141,11 +144,10 @@ class DBAuth {
         if(!$pAccountType) {
             $validator->addError($accountType, 'Champ vide.');
         }
-        
+
         if(!$validator->isThereErrors()) {
             $user = new User();
             $user->add($this->security->secureValue($pUserName), $this->security->secureValue($pAccountType), $this->security->secureValue($pLastName), $this->security->secureValue($pFirstName), $this->security->secureValue($pEmail), $this->security->secureValue($pPhoneNumber), $this->security->secureValue($pBirthDay), $pPassword, true);
-
         }
         return $validator->getErrors();
     }

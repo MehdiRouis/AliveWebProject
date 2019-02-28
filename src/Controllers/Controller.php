@@ -15,6 +15,7 @@ use App\Views\View;
 use App\Protections\Security;
 use Models\Authentication\DBAuth;
 use Models\Globals\Session;
+use Models\Projects\Project;
 use Models\Users\User;
 
 /**
@@ -61,6 +62,8 @@ class Controller {
         $this->security = new Security();
         $this->dbauth = new DBAuth();
         $this->user = new User();
+        $project = new Project();
+        $project->deleteRequestedProjects();
         if($this->user->getId()) {
             $this->user->updateSession();
         }

@@ -186,8 +186,11 @@ class Form {
         $error = isset($this->errors[$id]) ? $this->errors[$id] : '';
         $pattern = $pattern ? 'pattern="' . $pattern . '"' : '';
         $class = $class ? 'materialize-textarea validate ' . $class : 'materialize-textarea validate';
-        $this->addHTML('<textarea id="' . $id . '" name="' . $id . '" class="' . $class . '" ' . $pattern . '>' . $value . '</textarea>');
+        $this->addHTML('<div class="input-field col s12">');
+        $this->addHTML('<textarea id="' . $id . '" name="' . $id . '" class="' . $class . '" ' . $pattern . ' placeholder="' . $value . '"></textarea>');
+        $this->addHTML('<label for="' . $id . '">' . $value . '</label>');
         $this->addHTML('<p class="helper-text red-text">' . $error . '</p>');
+        $this->addHTML('</div>');
     }
 
     /**

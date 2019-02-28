@@ -21,6 +21,10 @@ use Models\Users\User;
 class AuthenticationController extends Controller
 {
 
+
+    /**
+     * @route('/
+     */
     public function getLogin()
     {
         $this->security->restrict(false);

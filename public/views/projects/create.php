@@ -6,16 +6,13 @@
  */
 ?>
 <main class="container">
-    <div class="card gradient-45deg-light-blue-indigo">
+    <div class="card">
         <div class="card-content center-align">
             <p class="card-title">Créer un projet</p>
-
-            <?php
-            ?>
             <div class="divider"></div>
-            <p>Vous pouvez proposer votre projet en remplissant ce formulaire. Le projet sera modéré par notre équipe.<br />
-                Lorsque votre projet sera validé, nos gestionnaires s'occuperont de vous assigner des développeurs.<br />
-                Afin d'assurer la réalisation de votre projet, les développeurs sélectionnés sont testés et mit à l'épreuve.</p>
+            <p>Vous pouvez proposer votre projet en remplissant ce formulaire.</p>
+            <p>Le projet sera validé par notre équipe de modération une fois vérifié.</p>
+            <p>Une fois le projet validé, les développeurs intéressés vous seront listés.</p>
             <?php
             $form = new \App\Views\Form($errors, 'pcreateproject', 'POST');
             $form->addField('projectTitle', 'Titre du projet', 'col s12', 'text', '[a-zA-ZÂ-ÿ \-\!\:\.\'\"0-9]+');

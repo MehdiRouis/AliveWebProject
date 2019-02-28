@@ -76,7 +76,7 @@ class Project {
                 $this->name = $project->name;
                 $this->description = $project->description;
                 $this->status = new Status($project->statusId);
-                $this->createdBy = new User($project->id);
+                $this->createdBy = new User($project->createdBy);
                 $this->createdAt = $project->createdAt;
                 $this->editedAt = $project->editedAt;
             }
@@ -86,8 +86,6 @@ class Project {
     /**
      * @param string $title
      * @param string $description
-     * @param string $captcha
-     * @param string $token
      * @param int $userId
      * @return array|bool
      */
@@ -121,11 +119,40 @@ class Project {
         return $validator->getErrors();
     }
 
+    public function editAll($title, $description) {
+        $req = $this->db->query('UPDATE alive_projects SET name = ?, `description` = ?, editedAt = ? WHERE id = ?', [$title, $description, time(), $this->getId()]);
+        return $req;
+    }
+
+    /**
+     * @return \PDOStatement
+     */
+    public function deleteRequestedProjects() {
+        $req = $this->db->query('DELETE FROM alive_projects WHERE editedAt < ? AND statusId = ?', [strtotime('- 1 week'), 5]);
+        return $req;
+    }
+
+    /**
+     * @param bool|string $order
+     * @param bool|string $limit
+     * @return array
+     */
+    public function getProjects($order = false, $limit = false) {
+        $order = $order ? ' ' . $order : '';
+        $limit = $limit ? ' LIMIT ' . $limit : '';
+        $req = $this->db->query('SELECT id FROM alive_projects' . $order . $limit);
+        $projects = [];
+        while($project = $req->fetch()) {
+            $projects[] = new Project($project->id);
+        }
+        return $projects;
+    }
+
     /**
      * @return int
      */
-    public function getId(): int {
-        return $this->id;
+    public function getId(): ?int {
+        return (int) $this->id;
     }
 
     /**
@@ -150,6 +177,15 @@ class Project {
     }
 
     /**
+     * @param int $statusId
+     * @return \PDOStatement
+     */
+    public function setStatus($statusId): \PDOStatement {
+        $req = $this->db->query('UPDATE alive_projects SET statusId = ?, editedAt = ? WHERE id = ?', [$statusId, time(), $this->getId()]);
+        return $req;
+    }
+
+    /**
      * @return User
      */
     public function getCreatedBy(): User {
@@ -168,8 +204,11 @@ class Project {
      * @return string
      */
     public function getEditedAt(): string {
-        $date = new Parser($this->editedAt);
-        return $date->format();
+        if($this->editedAt) {
+            $date = new Parser($this->editedAt);
+            return $date->format();
+        }
+        return '';
     }
 
 }

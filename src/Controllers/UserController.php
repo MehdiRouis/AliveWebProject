@@ -20,9 +20,13 @@ use Models\Users\User;
 
 class UserController extends Controller {
 
+
+    /**
+     * @route('/account/dashboard', name="dashboard)
+     */
     public function getDashboard() {
         $this->security->restrict();
-        $this->render('user/dashboard', ['pageName' => 'Dashboard']);
+        $this->render('user/dashboard', ['pageName' => 'Dashboard', 'scripts' => ['js/dashboard.js']]);
     }
 
     public function getProfile($id) {

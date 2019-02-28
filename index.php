@@ -1,4 +1,6 @@
 <?php
+
+
 /**
  * AlivePHP - Simple micro-framework in PHP.
  * Je vous propose ce micro-framework pour les projets de petites tailles.
@@ -12,7 +14,7 @@ setlocale(LC_TIME, 'fr_FR.utf8'); // Heure traduite en français
 define('PROJECT_ROOT', $_SERVER['DOCUMENT_ROOT']); // Dossier local du VHOST
 define('PROJECT_SOURCE', ''); // Dossier dans lequel le projet est ( à partir du PROJECT_ROOT )
 define('PROJECT_LIBS', PROJECT_ROOT . PROJECT_SOURCE); // Dossier local + Dossier contenant le projet
-define('PROJECT_LINK', 'https://alivewebproject' . PROJECT_SOURCE); // Lien externe du projet + Dossier contenant le projet
+define('PROJECT_LINK', 'http://alivewebproject' . PROJECT_SOURCE); // Lien externe du projet + Dossier contenant le projet
 define('PROJECT_NAME', 'AliveWebProject');
 define('PROJECT_INITIALS', 'AWP');
 /* [Appel des classes] */
