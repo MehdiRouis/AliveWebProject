@@ -14,7 +14,7 @@ setlocale(LC_TIME, 'fr_FR.utf8'); // Heure traduite en français
 define('PROJECT_ROOT', $_SERVER['DOCUMENT_ROOT']); // Dossier local du VHOST
 define('PROJECT_SOURCE', ''); // Dossier dans lequel le projet est ( à partir du PROJECT_ROOT )
 define('PROJECT_LIBS', PROJECT_ROOT . PROJECT_SOURCE); // Dossier local + Dossier contenant le projet
-define('PROJECT_LINK', 'https://alivewebproject.fr' . PROJECT_SOURCE); // Lien externe du projet + Dossier contenant le projet
+define('PROJECT_LINK', 'http://alivewebproject' . PROJECT_SOURCE); // Lien externe du projet + Dossier contenant le projet
 define('PROJECT_NAME', 'AliveWebProject');
 define('PROJECT_INITIALS', 'AWP');
 /* [Appel des classes] */
@@ -25,10 +25,10 @@ $router = new \App\Routes\Router('url');
 $security = new \App\Protections\Security();
 
 /* Redirection vers HTTPS */
-if(empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'off') {
+/* if(empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'off') {
     $location = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     $security->safeExternalRedirect($location);
-}
+} */
 
 /* #Routes# */
 require PROJECT_LIBS . '/init/routes.php';
