@@ -3,7 +3,7 @@
  * @var \Models\Users\User $user
  */
 ?>
-<main class="container">
+<main class="container-fluid">
     <?php if(isset($_GET['action'])) { ?>
         <div class="card gradient-45deg-green-teal">
             <div class="card-content center-align white-text">

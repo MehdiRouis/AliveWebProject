@@ -5,7 +5,7 @@
  * @var string $captcha
  */
 ?>
-<main class="container">
+<main class="container-fluid">
     <div class="card">
         <div class="card-content center-align">
             <p class="card-title">Créer un projet</p>

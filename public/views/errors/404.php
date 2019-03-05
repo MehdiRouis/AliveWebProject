@@ -1,5 +1,5 @@
 <main>
-    <div class="container">
+    <div class="container-fluid">
         <div class="card red">
             <div class="card-content white-text center-align">
                 <p class="card-title">Erreur...</p>

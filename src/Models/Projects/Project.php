@@ -119,8 +119,8 @@ class Project {
         return $validator->getErrors();
     }
 
-    public function editAll($title, $description) {
-        $req = $this->db->query('UPDATE alive_projects SET name = ?, `description` = ?, editedAt = ? WHERE id = ?', [$title, $description, time(), $this->getId()]);
+    public function editAll($title, $description, $status) {
+        $req = $this->db->query('UPDATE alive_projects SET name = ?, `description` = ?, statusId = ?, editedAt = ? WHERE id = ?', [$title, $description, $status, time(), $this->getId()]);
         return $req;
     }
 

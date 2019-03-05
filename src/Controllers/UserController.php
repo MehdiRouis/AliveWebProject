@@ -131,6 +131,12 @@ class UserController extends Controller {
         if($post->getValue($email) !== $post->getValue($reMail)) {
             $validator->addError($email, 'Les 2 adresses email ne correspondent pas.');
         }
+        $user = new User($post->getValue($email), 'email');
+        if($user->getId()) {
+            if($this->user->getPhoneNumber() !== $user->getPhoneNumber()) {
+                $validator->addError($email, 'L\'adresse email est déjà prise.');
+            }
+        }
         if(!$this->user->matchPassword($post->getValue($password))) {
             $validator->addError($password, 'Le mot de passe est incorrect.');
         }
@@ -171,6 +177,12 @@ class UserController extends Controller {
         $post = new Post();
         if(!$this->user->matchPassword($post->getValue($password))) {
             $validator->addError($password, 'Mot de passe incorrect.');
+        }
+        $user = new User($post->getValue($phoneNumber), 'phoneNumber');
+        if($user->getId()) {
+            if($this->user->getPhoneNumber() !== $user->getPhoneNumber()) {
+                $validator->addError($phoneNumber, 'Le numéro de téléphone est déjà pris.');
+            }
         }
         if(!$validator->isThereErrors()) {
             $this->user->setPhoneNumber($post->getValue($phoneNumber));

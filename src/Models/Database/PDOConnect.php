@@ -53,7 +53,7 @@ class PDOConnect {
      * @param string $db_user
      * @param string $db_pass
      */
-    public function __construct($db_name = 'alivewebproject', $db_host = 'localhost', $db_user = 'root', $db_pass = '') {
+    public function __construct($db_name = 'alivewebxtesska', $db_host = 'alivewebxtesska.mysql.db', $db_user = 'alivewebxtesska', $db_pass = '3Q54Mpv8b4KSrp') {
         $this->db_host = $db_host;
         $this->db_user = $db_user;
         $this->db_pass = $db_pass;

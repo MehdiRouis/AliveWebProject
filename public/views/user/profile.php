@@ -33,7 +33,7 @@
     </div>
 
 <?php } ?>
-<main class="container">
+<main class="container-fluid">
     <div id="profile-page-header" class="card">
         <div class="card-image waves-effect waves-block waves-light">
             <img class="activator" src="<?= $userProfile->getProfileBanner(); ?>" alt="user background">
@@ -137,7 +137,7 @@
                     <div class="collapsible-body white">
                         <?php
                         $formConfidentiality = new \App\Views\Form($errors, $router->getFullUrl('pConfidentialityChange') . '?post=confidentialityChange#parameters');
-                        $formConfidentiality->addSelect('privateProfile', 'Profil', ['public' => 'Publique', 'private' => 'Privé']);
+                        $formConfidentiality->addSelect('privateProfile', 'Profil', ['public' => 'Public', 'private' => 'Privé']);
                         $formConfidentiality->addSubmit();
                         $formConfidentiality->parse();
                         ?>

@@ -5,7 +5,7 @@
  */
 ?>
 <main>
-    <div class="container">
+    <div class="container-fluid">
         <div id="infos" class="row">
             <div class="col s12">
                 <div class="card">
@@ -39,7 +39,7 @@
     </div>
     <?php if(count($news) > 0) { ?>
         <div class="parallax" data-img="<?= PROJECT_LINK; ?>/public/assets/img/parallax/ordi-travail.jpg"></div>
-        <div class="container">
+        <div class="container-fluid">
             <div id="news" class="row">
                 <div class="col s12 m4 pos-sticky-top">
                     <div class="card">
@@ -70,7 +70,7 @@
     <?php } ?>
     <!--
     <div class="parallax" data-img="<?= PROJECT_LINK; ?>/public/assets/img/parallax/ordi.jpg"></div>
-    <div class="container mt-10">
+    <div class="container-fluid mt-10">
         <div id="sources" class="row">
             <div class="col s12">
                 <div class="card">
@@ -236,7 +236,7 @@
     </div>
     -->
     <div class="parallax" data-img="<?= PROJECT_LINK; ?>/public/assets/img/parallax/poing-bureau.jpg"></div>
-    <div class="container">
+    <div class="container-fluid">
         <div id="team" class="row">
             <div class="col s12">
                 <div class="card">

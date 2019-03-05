@@ -3,7 +3,7 @@
  * @var \Models\Projects\Project $project
  */
 ?>
-<main class="container">
+<main class="container-fluid">
     <div class="row">
         <div class="col s12 m4">
             <div class="card">

@@ -4,7 +4,7 @@
  */
 ?>
 <footer id="footer" class="page-footer dark-blue">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col l6 s12">
                 <p class="white-text rem20">Nous contacter</p>
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="footer-copyright">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col s12 m6">
                     <p>|2018-2019| - <?= PROJECT_NAME; ?> - Design by Èsska with <i class="fas fa-heart red-text rem10"></i></p>

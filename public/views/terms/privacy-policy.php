@@ -1,4 +1,4 @@
-<main class="container">
+<main class="container-fluid">
     <div class="card">
         <div class="card-content justify-align dividmb">
             <p class="card-title">Politique de confidentialité.</p>

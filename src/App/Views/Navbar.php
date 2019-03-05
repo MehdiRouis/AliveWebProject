@@ -28,7 +28,7 @@ class Navbar
 
     public function __construct() {
         $this->router = $GLOBALS['router'];
-        $this->html = '<ul id="slide-out" class="sidenav">';
+        $this->html = '<ul id="slide-out" class="sidenav sidenav-fixed">';
     }
 
     public function getRouter(): Router {

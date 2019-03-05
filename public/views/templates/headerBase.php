@@ -31,7 +31,7 @@
             <a href="<?= $auth->isLogged() ? $router->getFullUrl('dashboard') : $router->getFullUrl('home'); ?>"><i class="fas fa-cloud"></i></a>
             <a href="<?= $auth->isLogged() ? $router->getFullUrl('dashboard') : $router->getFullUrl('home'); ?>" class="brand-logo"><?= PROJECT_INITIALS; ?></a>
             <ul class="right center-align">
-                <li><a id="menuSideNav" data-target="slide-out" class="right sidenav-trigger"><i class="material-icons">menu</i></a></li>
+                <li><a data-target="slide-out" class="right sidenav-trigger"><i class="material-icons">menu</i></a></li>
             </ul>
         </div>
     </nav>

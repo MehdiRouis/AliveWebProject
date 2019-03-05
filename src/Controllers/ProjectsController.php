@@ -14,7 +14,6 @@ namespace Controllers;
 
 
 use App\Validators\Validator;
-use Models\Database\PDOConnect;
 use Models\Globals\Post;
 use Models\Projects\Project;
 
@@ -28,13 +27,18 @@ class ProjectsController extends Controller {
 
     public function getProfile($id) {
         $this->security->restrict();
-        $db = new PDOConnect();
-        if($db->existContent('alive_projects', 'id', $id)) {
-            $project = new Project($id);
-            $this->render('projects/profile', ['pageName' => $project->getTitle(), 'project' => $project]);
-        } else {
+        $project = new Project($id);
+        $redirect = true;
+        if($project->getId()) {
+            if($project->getCreatedBy()->getId() === $this->user->getId()) {
+                $redirect = false;
+            }
+        }
+        if($redirect) {
             $this->security->safeLocalRedirect('default');
         }
+        $project = new Project($id);
+        $this->render('projects/profile', ['pageName' => $project->getTitle(), 'project' => $project]);
     }
 
     public function getEditProfile($id) {
@@ -44,7 +48,7 @@ class ProjectsController extends Controller {
         if($project->getId() && $project->getStatus()->getId() !== 3 ||$project->getStatus()->getId() !== 5) {
             if($project->getCreatedBy()->getId() === $this->user->getId()) {
                 $return = true;
-                $this->render('projects/edit', ['pagename' => 'Édition', 'project' => $project]);
+                $this->render('projects/edit', ['pagename' => 'Édition', 'project' => $project, 'scripts' => ['js/editProject.js']]);
             }
         }
         if(!$return) {
@@ -93,7 +97,7 @@ class ProjectsController extends Controller {
         $project = new Project();
         $errors = $project->add('projectTitle', 'projectDescription', $this->user->getId());
         if(count($errors) === 0) {
-            $this->security->safeLocalRedirect('dashboard');
+            $this->security->safeLocalRedirect('dashboard|?action=success');
         }
         $this->render('projects/create', ['pageName' => 'Créer un projet', 'errors' => $errors]);
     }
@@ -103,21 +107,31 @@ class ProjectsController extends Controller {
         $return = false;
         $this->security->restrict();
         $validator = new Validator([
-            'id_project' => ['projectId'],
             'title' => ['projectTitle'],
             'description' => ['projectDescription']
         ], 'alive_projects');
         $validator->validate();
+        $project = new Project($post->getValue('projectId'));
+        if(!$project->getId()) {
+            $validator->addError('global', 'Erreur interne... Merci de réessayer plus tard.');
+        }
+        if($project->getCreatedBy()->getId() !== $this->user->getId()) {
+            $this->security->safeLocalRedirect('default');
+        }
+        $validStatus = [1, 2, 4];
+        if(!in_array($post->getValue('projectStatus'), $validStatus)) {
+            $validator->addError('projectStatus', 'Statut incorrect.');
+        }
         if (!$validator->isThereErrors()) {
             $project = new Project($post->getValue('projectId'));
-            $project->editAll($post->getValue('projectTitle'), $post->getValue('projectDescription'));
+            $project->editAll($post->getValue('projectTitle'), $post->getValue('projectDescription'), $post->getValue('projectStatus'));
             $this->security->safeLocalRedirect('dashboard|?action=success');
         }
         if($post->getValue('projectId')) {
             $project = new Project($post->getValue('projectId'));
             if ($project->getId()) {
                 $return = true;
-                $this->render('projects/edit', ['pageName' => 'Édition', 'project' => $project, 'errors' => $validator->getErrors()]);
+                $this->render('projects/edit', ['pageName' => 'Édition', 'project' => $project, 'errors' => $validator->getErrors(), 'scripts' => ['js/editProject.js']]);
             }
         }
         if(!$return) {

@@ -16,7 +16,7 @@
  * @var int $userId
  */
 ?>
-<main class="container">
+<main class="container-fluid">
     <?php if(isset($_GET['success']) && $_GET['success'] === 'generationEmail') { ?>
         <div class="card gradient-45deg-green-teal">
             <div class="card-content white-text center-align">

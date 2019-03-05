@@ -55,10 +55,12 @@ class Verifications {
             'phoneNumber' => 'isValidPhoneNumber',
             'title' => 'isValidTitle',
             'description' => 'isValidDescription',
+            'rankName' => 'isValidRankName',
+            'icon' => 'isValidIcon',
+            'color' => 'isValidColor',
             'image' => 'isValidPicture',
             'password' => 'isValidPassword',
-            'captcha' => 'isValidCaptcha',
-            'id_project' => 'isValidProjectId'
+            'captcha' => 'isValidCaptcha'
         ];
     }
 
@@ -182,10 +184,14 @@ class Verifications {
 
     public function isAdult($inputName, $inputValue): bool {
         if($this->isValidDate($inputName, $inputValue)) {
-            if($inputValue <= date('Y-m-d', strtotime('-18 years'))) {
-                return true;
+            if($inputValue <= date('Y-m-d') && $inputValue >= date('Y-m-d', strtotime('-100 years'))) {
+                if ($inputValue <= date('Y-m-d', strtotime('-18 years'))) {
+                    return true;
+                } else {
+                    $this->addError($inputName, 'Vous devez avoir la majorité.');
+                }
             } else {
-                $this->addError($inputName, 'Vous devez avoir la majorité.');
+                $this->addError($inputName, 'Date invalide.');
             }
         }
         return false;
@@ -256,7 +262,7 @@ class Verifications {
      * @return bool
      */
     public function isValidTitle($inputName, $inputValue): bool {
-        if(preg_match('/^[a-zA-ZÂ-ÿ -!:.,+=\'"*0-9]+$/', $inputValue)) {
+        if(preg_match('/^[a-zA-ZÂ-ÿ \-!?:.,+=\'"*0-9]+$/', $inputValue)) {
             if(strlen($inputValue) > 5 && strlen($inputValue) < 30) {
                 return true;
             } else {
@@ -274,7 +280,7 @@ class Verifications {
      * @return bool
      */
     public function isValidDescription($inputName, $inputValue): bool {
-        if(preg_match('/^[a-zA-ZÂ-ÿ -!$€:().\'",*+=0-9 \n \r]+$/', $inputValue)) {
+        if(preg_match('/^[a-zA-ZÂ-ÿ \-!?$€:().\'",*+=0-9 \n \r]+$/', $inputValue)) {
             if(strlen($inputValue) > 50 && strlen($inputValue) < 1000) {
                 return true;
             } else {
@@ -284,6 +290,49 @@ class Verifications {
             $this->addError($inputName, 'Ce champ contient des caractères spéciaux non pris en charge.');
         }
         return false;
+    }
+
+    /**
+     * @param string $inputName
+     * @param string $inputValue
+     * @return bool
+     */
+    public function isValidRankName($inputName, $inputValue) {
+        if(preg_match('/^[a-zA-ZÂ-ÿ ]+$/', $inputValue)) {
+            if(strlen($inputValue) > 3 && strlen($inputValue) < 50) {
+                return true;
+            } else {
+                $this->addError($inputName, 'Le champ doit contenir entre 3 et 50 caractères.');
+            }
+        } else {
+            $this->addError($inputName, 'Le champ contient des caractères non-autorisés.');
+        }
+        return false;
+    }
+
+    public function isValidIcon($inputName, $inputValue) {
+        if(preg_match('/^[a-zA-Z \-\#\.\_]+$/', $inputValue)) {
+            if(strlen($inputValue) < 50) {
+                return true;
+            } else {
+                $this->addError($inputName, 'Le champ doit contenir moins de 50 caractères.');
+            }
+        } else {
+            $this->addError($inputName, 'Le champ contient des caractères non-autorisés.');
+        }
+        return false;
+    }
+
+    public function isValidColor($inputName, $inputValue) {
+        if(preg_match('/^[a-zA-Z0-9\-\_\.\#]+$/', $inputValue)) {
+            if(strlen($inputValue) < 50) {
+                return true;
+            } else {
+                $this->addError($inputName, 'Le champ doit contenir moins de 50 caractères.');
+            }
+        } else {
+            $this->addError($inputName, 'Le champ contient des caractères non-autorisés.');
+        }
     }
 
     public function isValidPicture($inputName) {
@@ -329,28 +378,10 @@ class Verifications {
      */
     public function isValidCaptcha($inputName, $inputValue): bool {
         $session = new Session();
-        if($inputValue === $session->getValue('captcha')) {
+        if(strtoupper($inputValue) === $session->getValue('captcha')) {
             return true;
         }
         $this->addError($inputName, 'Captcha invalide.');
-        return false;
-    }
-
-    /**
-     * @param string $inputName
-     * @param string $inputValue
-     * @return bool
-     */
-    public function isValidProjectId($inputName, $inputValue): bool {
-        if($this->getVerificationTable()) {
-            if($this->db->existContent($this->getVerificationTable(), 'id', $inputValue)) {
-                return true;
-            } else {
-                $this->addError('global', 'Une erreur est survenue... Merci de réessayer plus tard.');
-            }
-        } else {
-            $this->addError('global', 'Aucune table n\'a été renseignée pour la vérification de l\'id du projet.');
-        }
         return false;
     }
 

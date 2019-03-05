@@ -252,7 +252,7 @@ class User extends Session {
      * @return string
      */
     private function getInitial($value): ?string {
-        return $value[0] === '&' ? substr($value, 0, strpos($value, ';')+strlen(';')) : $value[0];
+        return $value[0] === '&' ? substr($value, 0, strpos($value, ';')+strlen(';')) : strtoupper($value[0]);
     }
 
     /**
@@ -422,7 +422,7 @@ class User extends Session {
      */
     public function getProfileType($toText = false) {
         if($toText) {
-            $profileType = $this->profileType === 'public' ? 'Publique' : 'Privé';
+            $profileType = $this->profileType === 'public' ? 'Public' : 'Privé';
         } else {
             $profileType = $this->profileType;
         }

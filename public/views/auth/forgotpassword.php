@@ -15,7 +15,7 @@
  * @var string $captcha
  */
 ?>
-<main class="container">
+<main class="container-fluid">
     <div class="card">
         <div class="card-content">
             <p class="card-title">Mot de passe oublié</p>

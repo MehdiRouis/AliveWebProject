@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 28 fév. 2019 à 08:33
+-- Généré le :  lun. 04 mars 2019 à 13:44
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.1.26
 
@@ -133,14 +133,7 @@ CREATE TABLE IF NOT EXISTS `alive_projects` (
   PRIMARY KEY (`id`),
   KEY `createdBy` (`createdBy`),
   KEY `statusId` (`statusId`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `alive_projects`
---
-
-INSERT INTO `alive_projects` (`id`, `name`, `description`, `statusId`, `createdBy`, `createdAt`, `editedAt`) VALUES
-(17, '      u      ', 'azazezertzezrzrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', 3, 8, 1551280572, 1551285731);
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -159,14 +152,7 @@ CREATE TABLE IF NOT EXISTS `alive_projects_members` (
   KEY `userId` (`userId`),
   KEY `rank` (`rank`),
   KEY `projectId` (`projectId`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `alive_projects_members`
---
-
-INSERT INTO `alive_projects_members` (`id`, `userId`, `rank`, `projectId`, `joinedAt`) VALUES
-(10, 8, 3, 17, 1551280572);
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -208,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `alive_projects_status` (
 --
 
 INSERT INTO `alive_projects_status` (`id`, `name`) VALUES
-(1, 'Actif'),
+(1, 'En cours'),
 (2, 'Recherche des d&eacute;veloppeurs'),
 (3, 'Mod&eacute;ration'),
 (4, 'Termin&eacute;'),
@@ -259,15 +245,14 @@ CREATE TABLE IF NOT EXISTS `alive_users` (
   `createdAt` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `rank` (`rank`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `alive_users`
 --
 
 INSERT INTO `alive_users` (`id`, `userName`, `lastName`, `firstName`, `phoneNumber`, `birthDay`, `password`, `rank`, `email`, `shopPoints`, `profile_type`, `profile_banner`, `createdAt`) VALUES
-(8, '&Egrave;sska', 'ROUIS', 'Mehdi', '+33652632212', '1999-06-06', '$2y$10$as7mUDMQRfxBBEi/euxOeOtKJTb/jXYRdrHrtI35mQQ5UmlVmrNau', 8, 'mehdi.rouis.1@laposte.net', 0, 'private', '215440af8e0530849e16e03c61fd09b6.png', 1549441876),
-(12, '&Egrave;sska2', 'Rouis', 'qsddsqd', '+33652632222', '1999-06-06', '$2y$10$2oB6XhC73gFs9Wf1w4FkW.ismYwtCKasEKYPmj3G.kIAbxIiICcDC', 2, 'qsd@qsdqsd.fr', 0, 'public', NULL, 1550488231);
+(8, '&Egrave;sska', 'ROUIS', 'Mehdi', '+33652632212', '1999-06-06', '$2y$10$aDo2iy7GIzLuwLhwHMbZx.fEpd2c8/tpjYxS3dRNrqun6nMTl.6rC', 8, 'mehdi.rouis.1@laposte.net', 0, 'private', '215440af8e0530849e16e03c61fd09b6.png', 1549441876);
 
 -- --------------------------------------------------------
 
@@ -415,8 +400,8 @@ ALTER TABLE `alive_news`
 -- Contraintes pour la table `alive_projects`
 --
 ALTER TABLE `alive_projects`
-  ADD CONSTRAINT `alive_projects_ibfk_1` FOREIGN KEY (`statusId`) REFERENCES `alive_projects_status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `alive_projects_ibfk_2` FOREIGN KEY (`createdBy`) REFERENCES `alive_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `alive_projects_ibfk_1` FOREIGN KEY (`createdBy`) REFERENCES `alive_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `alive_projects_ibfk_2` FOREIGN KEY (`statusId`) REFERENCES `alive_projects_status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `alive_projects_members`
